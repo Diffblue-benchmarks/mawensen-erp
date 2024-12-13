@@ -27,8 +27,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+            <!-- updated for MySQL 9 -->
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+            <version>9.1.0</version>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -90,6 +92,44 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M7</version>
+                <configuration>
+                    <!-- run just the original tests -->
+<!--                    <excludes>-->
+<!--                        <exclude>**DiffblueTest.java</exclude>-->
+<!--                    </excludes>-->
+
+                    <!-- run just the diffblue tests -->
+<!--                    <includes>-->
+<!--                        <include>**DiffblueTest.java</include>-->
+<!--                    </includes>-->
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.17.1</version>
+                <configuration>
+                    <failWhenNoMutations>false</failWhenNoMutations>
+                    <targetTests>
+                        <param>**DiffblueTest*</param>
+<!--                            <param>src/test/JxcApplicationTests</param>-->
+                    </targetTests>
+                    <exportLineCoverage>true</exportLineCoverage>
+                    <outputFormats>
+                        <value>XML</value>
+                        <value>HTML</value>
+                    </outputFormats>
+                    <timestampedReports>false</timestampedReports>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>run-mutation-tests</id>
+                        <goals>
+                            <goal>mutationCoverage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
