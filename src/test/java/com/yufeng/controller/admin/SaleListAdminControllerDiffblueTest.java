@@ -118,13 +118,13 @@ public class SaleListAdminControllerDiffblueTest {
   /**
    * Test {@link SaleListAdminController#genBillCode(String)}.
    * <ul>
-   *   <li>Then content string {@code XS202412120001}.</li>
+   *   <li>Then content string {@code XS202412130001}.</li>
    * </ul>
    * <p>
    * Method under test: {@link SaleListAdminController#genBillCode(String)}
    */
   @Test
-  public void testGenBillCode_thenContentStringXs202412120001() throws Exception {
+  public void testGenBillCode_thenContentStringXs202412130001() throws Exception {
     // Arrange
     when(saleListService.getTodayMaxSaleNumber()).thenReturn(null);
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/saleList/getSaleNumber")
@@ -136,19 +136,19 @@ public class SaleListAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("XS202412120001"));
+        .andExpect(MockMvcResultMatchers.content().string("XS202412130001"));
   }
 
   /**
    * Test {@link SaleListAdminController#genBillCode(String)}.
    * <ul>
-   *   <li>Then content string {@code XS202412120100}.</li>
+   *   <li>Then content string {@code XS202412130100}.</li>
    * </ul>
    * <p>
    * Method under test: {@link SaleListAdminController#genBillCode(String)}
    */
   @Test
-  public void testGenBillCode_thenContentStringXs202412120100() throws Exception {
+  public void testGenBillCode_thenContentStringXs202412130100() throws Exception {
     // Arrange
     when(saleListService.getTodayMaxSaleNumber()).thenReturn("admin");
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/saleList/getSaleNumber")
@@ -160,7 +160,7 @@ public class SaleListAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("XS202412120100"));
+        .andExpect(MockMvcResultMatchers.content().string("XS202412130100"));
   }
 
   /**
