@@ -1,13 +1,18 @@
 package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class UserDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link User}
    *   <li>{@link User#setId(Integer)}
@@ -26,6 +31,24 @@ public class UserDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void User.<init>()",
+    "Integer User.getId()",
+    "String User.getPassword()",
+    "String User.getRemarks()",
+    "String User.getRoles()",
+    "String User.getTrueName()",
+    "String User.getUserName()",
+    "void User.setId(Integer)",
+    "void User.setPassword(String)",
+    "void User.setRemarks(String)",
+    "void User.setRoles(String)",
+    "void User.setTrueName(String)",
+    "void User.setUserName(String)",
+    "String User.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     User actualUser = new User();
@@ -42,11 +65,12 @@ public class UserDiffblueTest {
     String actualRoles = actualUser.getRoles();
     String actualTrueName = actualUser.getTrueName();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Remarks", actualRemarks);
     assertEquals("Roles", actualRoles);
     assertEquals("True Name", actualTrueName);
-    assertEquals("[id=1, userName=janedoe, password=iloveyou, trueName=True Name, remarks=Remarks, roles=Roles]",
+    assertEquals(
+        "[id=1, userName=janedoe, password=iloveyou, trueName=True Name, remarks=Remarks, roles=Roles]",
         actualToStringResult);
     assertEquals("iloveyou", actualPassword);
     assertEquals("janedoe", actualUser.getUserName());

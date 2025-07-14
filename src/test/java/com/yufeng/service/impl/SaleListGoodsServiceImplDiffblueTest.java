@@ -7,6 +7,9 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.Customer;
 import com.yufeng.entity.GoodsType;
 import com.yufeng.entity.SaleList;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,21 +34,23 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {SaleListGoodsServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SaleListGoodsServiceImplDiffblueTest {
-  @MockBean
-  private SaleListGoodsRepository saleListGoodsRepository;
+  @MockBean private SaleListGoodsRepository saleListGoodsRepository;
 
-  @Autowired
-  private SaleListGoodsServiceImpl saleListGoodsServiceImpl;
+  @Autowired private SaleListGoodsServiceImpl saleListGoodsServiceImpl;
 
   /**
    * Test {@link SaleListGoodsServiceImpl#listBySaleListId(Integer)}.
-   * <p>
-   * Method under test: {@link SaleListGoodsServiceImpl#listBySaleListId(Integer)}
+   *
+   * <p>Method under test: {@link SaleListGoodsServiceImpl#listBySaleListId(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List SaleListGoodsServiceImpl.listBySaleListId(Integer)"})
   public void testListBySaleListId() {
     // Arrange
-    when(saleListGoodsRepository.listBySaleListId(Mockito.<Integer>any())).thenReturn(new ArrayList<>());
+    when(saleListGoodsRepository.listBySaleListId(Mockito.<Integer>any()))
+        .thenReturn(new ArrayList<>());
 
     // Act
     List<SaleListGoods> actualListBySaleListIdResult = saleListGoodsServiceImpl.listBySaleListId(1);
@@ -56,14 +62,17 @@ public class SaleListGoodsServiceImplDiffblueTest {
 
   /**
    * Test {@link SaleListGoodsServiceImpl#getTotalByGoodsId(Integer)}.
+   *
    * <ul>
-   *   <li>Then return intValue is one.</li>
+   *   <li>Then return intValue is one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link SaleListGoodsServiceImpl#getTotalByGoodsId(Integer)}
+   *
+   * <p>Method under test: {@link SaleListGoodsServiceImpl#getTotalByGoodsId(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer SaleListGoodsServiceImpl.getTotalByGoodsId(Integer)"})
   public void testGetTotalByGoodsId_thenReturnIntValueIsOne() {
     // Arrange
     when(saleListGoodsRepository.getTotalByGoodsId(Mockito.<Integer>any())).thenReturn(1);
@@ -78,14 +87,17 @@ public class SaleListGoodsServiceImplDiffblueTest {
 
   /**
    * Test {@link SaleListGoodsServiceImpl#getTotalByGoodsId(Integer)}.
+   *
    * <ul>
-   *   <li>Then return intValue is zero.</li>
+   *   <li>Then return intValue is zero.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link SaleListGoodsServiceImpl#getTotalByGoodsId(Integer)}
+   *
+   * <p>Method under test: {@link SaleListGoodsServiceImpl#getTotalByGoodsId(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer SaleListGoodsServiceImpl.getTotalByGoodsId(Integer)"})
   public void testGetTotalByGoodsId_thenReturnIntValueIsZero() {
     // Arrange
     when(saleListGoodsRepository.getTotalByGoodsId(Mockito.<Integer>any())).thenReturn(null);
@@ -100,13 +112,17 @@ public class SaleListGoodsServiceImplDiffblueTest {
 
   /**
    * Test {@link SaleListGoodsServiceImpl#list(SaleListGoods)}.
-   * <p>
-   * Method under test: {@link SaleListGoodsServiceImpl#list(SaleListGoods)}
+   *
+   * <p>Method under test: {@link SaleListGoodsServiceImpl#list(SaleListGoods)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List SaleListGoodsServiceImpl.list(SaleListGoods)"})
   public void testList() {
     // Arrange
-    when(saleListGoodsRepository.findAll(Mockito.<Specification<SaleListGoods>>any())).thenReturn(new ArrayList<>());
+    when(saleListGoodsRepository.findAll(Mockito.<Specification<SaleListGoods>>any()))
+        .thenReturn(new ArrayList<>());
 
     Customer customer = new Customer();
     customer.setAddress("42 Main St");
@@ -130,13 +146,16 @@ public class SaleListGoodsServiceImplDiffblueTest {
     saleList.setCustomer(customer);
     saleList.setId(1);
     saleList.setRemarks("Remarks");
-    saleList.setSaleDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    saleList.setSaleDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     saleList.setSaleListGoodsList(new ArrayList<>());
     saleList.setSaleNumber("42");
     saleList.setState(1);
     saleList.setUser(user);
-    saleList.setbSaleDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    saleList.seteSaleDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    saleList.setbSaleDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    saleList.seteSaleDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     GoodsType type = new GoodsType();
     type.setIcon("Icon");

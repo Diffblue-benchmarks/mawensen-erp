@@ -2,13 +2,18 @@ package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class RoleMenuDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link RoleMenu}
    *   <li>{@link RoleMenu#setId(Integer)}
@@ -21,6 +26,18 @@ public class RoleMenuDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void RoleMenu.<init>()",
+    "Integer RoleMenu.getId()",
+    "Menu RoleMenu.getMenu()",
+    "Role RoleMenu.getRole()",
+    "void RoleMenu.setId(Integer)",
+    "void RoleMenu.setMenu(Menu)",
+    "void RoleMenu.setRole(Role)",
+    "String RoleMenu.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     RoleMenu actualRoleMenu = new RoleMenu();
@@ -43,9 +60,11 @@ public class RoleMenuDiffblueTest {
     Menu actualMenu = actualRoleMenu.getMenu();
     Role actualRole = actualRoleMenu.getRole();
 
-    // Assert that nothing has changed
-    assertEquals("RoleMenu [id=1, role=[id=1, name=Name, remarks=Remarks], menu=[id=1, name=Name, url=https://example"
-        + ".org/example, state=1, icon=Icon, pId=1]]", actualToStringResult);
+    // Assert
+    assertEquals(
+        "RoleMenu [id=1, role=[id=1, name=Name, remarks=Remarks], menu=[id=1, name=Name, url=https://example"
+            + ".org/example, state=1, icon=Icon, pId=1]]",
+        actualToStringResult);
     assertEquals(1, actualId.intValue());
     assertSame(menu, actualMenu);
     assertSame(role, actualRole);

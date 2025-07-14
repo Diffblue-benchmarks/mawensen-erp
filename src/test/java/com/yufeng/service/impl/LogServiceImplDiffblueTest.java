@@ -5,6 +5,9 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.Log;
 import com.yufeng.entity.User;
 import com.yufeng.repository.LogRepository;
@@ -15,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -29,25 +34,25 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {LogServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class LogServiceImplDiffblueTest {
-  @MockBean
-  private LogRepository logRepository;
+  @MockBean private LogRepository logRepository;
 
-  @Autowired
-  private LogServiceImpl logServiceImpl;
+  @Autowired private LogServiceImpl logServiceImpl;
 
-  @MockBean
-  private UserRepository userRepository;
+  @MockBean private UserRepository userRepository;
 
   /**
    * Test {@link LogServiceImpl#list(Log, Integer, Integer, Direction, String[])}.
+   *
    * <ul>
-   *   <li>Then return Empty.</li>
+   *   <li>Then return Empty.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link LogServiceImpl#list(Log, Integer, Integer, Sort.Direction, String[])}
+   *
+   * <p>Method under test: {@link LogServiceImpl#list(Log, Integer, Integer, Direction, String[])}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List LogServiceImpl.list(Log, Integer, Integer, Direction, String[])"})
   public void testList_thenReturnEmpty() {
     // Arrange
     when(logRepository.findAll(Mockito.<Specification<Log>>any(), Mockito.<Pageable>any()))
@@ -62,16 +67,19 @@ public class LogServiceImplDiffblueTest {
     user.setUserName("janedoe");
 
     Log log = new Log();
-    log.setBtime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    log.setBtime(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     log.setContent("Not all who wander are lost");
-    log.setEtime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    log.setEtime(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     log.setId(1);
-    log.setTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    log.setTime(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     log.setType("Type");
     log.setUser(user);
 
     // Act
-    List<Log> actualListResult = logServiceImpl.list(log, 1, 3, Sort.Direction.ASC, "Properties");
+    List<Log> actualListResult = logServiceImpl.list(log, 1, 3, Direction.ASC, "Properties");
 
     // Assert
     verify(logRepository).findAll(isA(Specification.class), isA(Pageable.class));
@@ -80,10 +88,13 @@ public class LogServiceImplDiffblueTest {
 
   /**
    * Test {@link LogServiceImpl#getCount(Log)}.
-   * <p>
-   * Method under test: {@link LogServiceImpl#getCount(Log)}
+   *
+   * <p>Method under test: {@link LogServiceImpl#getCount(Log)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Long LogServiceImpl.getCount(Log)"})
   public void testGetCount() {
     // Arrange
     when(logRepository.count(Mockito.<Specification<Log>>any())).thenReturn(3L);
@@ -97,11 +108,14 @@ public class LogServiceImplDiffblueTest {
     user.setUserName("janedoe");
 
     Log log = new Log();
-    log.setBtime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    log.setBtime(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     log.setContent("Not all who wander are lost");
-    log.setEtime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    log.setEtime(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     log.setId(1);
-    log.setTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    log.setTime(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     log.setType("Type");
     log.setUser(user);
 

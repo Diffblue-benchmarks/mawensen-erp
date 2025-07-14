@@ -7,6 +7,9 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.Customer;
 import com.yufeng.entity.CustomerReturnList;
 import com.yufeng.entity.CustomerReturnListGoods;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,28 +34,28 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {CustomerReturnListGoodsServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CustomerReturnListGoodsServiceImplDiffblueTest {
-  @MockBean
-  private CustomerReturnListGoodsRepository customerReturnListGoodsRepository;
+  @MockBean private CustomerReturnListGoodsRepository customerReturnListGoodsRepository;
 
-  @Autowired
-  private CustomerReturnListGoodsServiceImpl customerReturnListGoodsServiceImpl;
+  @Autowired private CustomerReturnListGoodsServiceImpl customerReturnListGoodsServiceImpl;
 
   /**
-   * Test
-   * {@link CustomerReturnListGoodsServiceImpl#listByCustomerReturnListId(Integer)}.
-   * <p>
-   * Method under test:
-   * {@link CustomerReturnListGoodsServiceImpl#listByCustomerReturnListId(Integer)}
+   * Test {@link CustomerReturnListGoodsServiceImpl#listByCustomerReturnListId(Integer)}.
+   *
+   * <p>Method under test: {@link
+   * CustomerReturnListGoodsServiceImpl#listByCustomerReturnListId(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List CustomerReturnListGoodsServiceImpl.listByCustomerReturnListId(Integer)"})
   public void testListByCustomerReturnListId() {
     // Arrange
     when(customerReturnListGoodsRepository.listByCustomerReturnListId(Mockito.<Integer>any()))
         .thenReturn(new ArrayList<>());
 
     // Act
-    List<CustomerReturnListGoods> actualListByCustomerReturnListIdResult = customerReturnListGoodsServiceImpl
-        .listByCustomerReturnListId(1);
+    List<CustomerReturnListGoods> actualListByCustomerReturnListIdResult =
+        customerReturnListGoodsServiceImpl.listByCustomerReturnListId(1);
 
     // Assert
     verify(customerReturnListGoodsRepository).listByCustomerReturnListId(anyInt());
@@ -60,14 +64,17 @@ public class CustomerReturnListGoodsServiceImplDiffblueTest {
 
   /**
    * Test {@link CustomerReturnListGoodsServiceImpl#getTotalByGoodsId(Integer)}.
+   *
    * <ul>
-   *   <li>Then return intValue is one.</li>
+   *   <li>Then return intValue is one.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CustomerReturnListGoodsServiceImpl#getTotalByGoodsId(Integer)}
+   *
+   * <p>Method under test: {@link CustomerReturnListGoodsServiceImpl#getTotalByGoodsId(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer CustomerReturnListGoodsServiceImpl.getTotalByGoodsId(Integer)"})
   public void testGetTotalByGoodsId_thenReturnIntValueIsOne() {
     // Arrange
     when(customerReturnListGoodsRepository.getTotalByGoodsId(Mockito.<Integer>any())).thenReturn(1);
@@ -82,17 +89,21 @@ public class CustomerReturnListGoodsServiceImplDiffblueTest {
 
   /**
    * Test {@link CustomerReturnListGoodsServiceImpl#getTotalByGoodsId(Integer)}.
+   *
    * <ul>
-   *   <li>Then return intValue is zero.</li>
+   *   <li>Then return intValue is zero.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CustomerReturnListGoodsServiceImpl#getTotalByGoodsId(Integer)}
+   *
+   * <p>Method under test: {@link CustomerReturnListGoodsServiceImpl#getTotalByGoodsId(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer CustomerReturnListGoodsServiceImpl.getTotalByGoodsId(Integer)"})
   public void testGetTotalByGoodsId_thenReturnIntValueIsZero() {
     // Arrange
-    when(customerReturnListGoodsRepository.getTotalByGoodsId(Mockito.<Integer>any())).thenReturn(null);
+    when(customerReturnListGoodsRepository.getTotalByGoodsId(Mockito.<Integer>any()))
+        .thenReturn(null);
 
     // Act
     Integer actualTotalByGoodsId = customerReturnListGoodsServiceImpl.getTotalByGoodsId(1);
@@ -103,16 +114,18 @@ public class CustomerReturnListGoodsServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CustomerReturnListGoodsServiceImpl#list(CustomerReturnListGoods)}.
-   * <p>
-   * Method under test:
-   * {@link CustomerReturnListGoodsServiceImpl#list(CustomerReturnListGoods)}
+   * Test {@link CustomerReturnListGoodsServiceImpl#list(CustomerReturnListGoods)}.
+   *
+   * <p>Method under test: {@link CustomerReturnListGoodsServiceImpl#list(CustomerReturnListGoods)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List CustomerReturnListGoodsServiceImpl.list(CustomerReturnListGoods)"})
   public void testList() {
     // Arrange
-    when(customerReturnListGoodsRepository.findAll(Mockito.<Specification<CustomerReturnListGoods>>any()))
+    when(customerReturnListGoodsRepository.findAll(
+            Mockito.<Specification<CustomerReturnListGoods>>any()))
         .thenReturn(new ArrayList<>());
 
     Customer customer = new Customer();
@@ -135,18 +148,18 @@ public class CustomerReturnListGoodsServiceImplDiffblueTest {
     customerReturnList.setAmountPaid(10.0f);
     customerReturnList.setAmountPayable(10.0f);
     customerReturnList.setCustomer(customer);
-    customerReturnList
-        .setCustomerReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    customerReturnList.setCustomerReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     customerReturnList.setCustomerReturnListGoodsList(new ArrayList<>());
     customerReturnList.setCustomerReturnNumber("42");
     customerReturnList.setId(1);
     customerReturnList.setRemarks("Remarks");
     customerReturnList.setState(1);
     customerReturnList.setUser(user);
-    customerReturnList
-        .setbCustomerReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    customerReturnList
-        .seteCustomerReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    customerReturnList.setbCustomerReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    customerReturnList.seteCustomerReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     GoodsType type = new GoodsType();
     type.setIcon("Icon");
@@ -171,7 +184,8 @@ public class CustomerReturnListGoodsServiceImplDiffblueTest {
     customerReturnListGoods.setUnit("Unit");
 
     // Act
-    List<CustomerReturnListGoods> actualListResult = customerReturnListGoodsServiceImpl.list(customerReturnListGoods);
+    List<CustomerReturnListGoods> actualListResult =
+        customerReturnListGoodsServiceImpl.list(customerReturnListGoods);
 
     // Assert
     verify(customerReturnListGoodsRepository).findAll(isA(Specification.class));

@@ -4,40 +4,51 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CustomerReturnListDiffblueTest {
   /**
    * Test {@link CustomerReturnList#getbCustomerReturnDate()}.
-   * <p>
-   * Method under test: {@link CustomerReturnList#getbCustomerReturnDate()}
+   *
+   * <p>Method under test: {@link CustomerReturnList#getbCustomerReturnDate()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Date CustomerReturnList.getbCustomerReturnDate()"})
   public void testGetbCustomerReturnDate() {
     // Arrange, Act and Assert
-    assertNull((new CustomerReturnList()).getbCustomerReturnDate());
+    assertNull(new CustomerReturnList().getbCustomerReturnDate());
   }
 
   /**
    * Test {@link CustomerReturnList#geteCustomerReturnDate()}.
-   * <p>
-   * Method under test: {@link CustomerReturnList#geteCustomerReturnDate()}
+   *
+   * <p>Method under test: {@link CustomerReturnList#geteCustomerReturnDate()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Date CustomerReturnList.geteCustomerReturnDate()"})
   public void testGeteCustomerReturnDate() {
     // Arrange, Act and Assert
-    assertNull((new CustomerReturnList()).geteCustomerReturnDate());
+    assertNull(new CustomerReturnList().geteCustomerReturnDate());
   }
 
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link CustomerReturnList}
    *   <li>{@link CustomerReturnList#setAmountPaid(float)}
@@ -66,6 +77,34 @@ public class CustomerReturnListDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void CustomerReturnList.<init>()",
+    "float CustomerReturnList.getAmountPaid()",
+    "float CustomerReturnList.getAmountPayable()",
+    "Customer CustomerReturnList.getCustomer()",
+    "Date CustomerReturnList.getCustomerReturnDate()",
+    "List CustomerReturnList.getCustomerReturnListGoodsList()",
+    "String CustomerReturnList.getCustomerReturnNumber()",
+    "Integer CustomerReturnList.getId()",
+    "String CustomerReturnList.getRemarks()",
+    "Integer CustomerReturnList.getState()",
+    "User CustomerReturnList.getUser()",
+    "void CustomerReturnList.setAmountPaid(float)",
+    "void CustomerReturnList.setAmountPayable(float)",
+    "void CustomerReturnList.setCustomer(Customer)",
+    "void CustomerReturnList.setCustomerReturnDate(Date)",
+    "void CustomerReturnList.setCustomerReturnListGoodsList(List)",
+    "void CustomerReturnList.setCustomerReturnNumber(String)",
+    "void CustomerReturnList.setId(Integer)",
+    "void CustomerReturnList.setRemarks(String)",
+    "void CustomerReturnList.setState(Integer)",
+    "void CustomerReturnList.setUser(User)",
+    "void CustomerReturnList.setbCustomerReturnDate(Date)",
+    "void CustomerReturnList.seteCustomerReturnDate(Date)",
+    "String CustomerReturnList.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     CustomerReturnList actualCustomerReturnList = new CustomerReturnList();
@@ -79,7 +118,8 @@ public class CustomerReturnListDiffblueTest {
     customer.setNumber("42");
     customer.setRemarks("Remarks");
     actualCustomerReturnList.setCustomer(customer);
-    Date customerReturnDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date customerReturnDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualCustomerReturnList.setCustomerReturnDate(customerReturnDate);
     ArrayList<CustomerReturnListGoods> customerReturnListGoodsList = new ArrayList<>();
     actualCustomerReturnList.setCustomerReturnListGoodsList(customerReturnListGoodsList);
@@ -95,24 +135,24 @@ public class CustomerReturnListDiffblueTest {
     user.setTrueName("True Name");
     user.setUserName("janedoe");
     actualCustomerReturnList.setUser(user);
-    actualCustomerReturnList
-        .setbCustomerReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    actualCustomerReturnList
-        .seteCustomerReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    actualCustomerReturnList.setbCustomerReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    actualCustomerReturnList.seteCustomerReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     actualCustomerReturnList.toString();
     float actualAmountPaid = actualCustomerReturnList.getAmountPaid();
     float actualAmountPayable = actualCustomerReturnList.getAmountPayable();
     Customer actualCustomer = actualCustomerReturnList.getCustomer();
     Date actualCustomerReturnDate = actualCustomerReturnList.getCustomerReturnDate();
-    List<CustomerReturnListGoods> actualCustomerReturnListGoodsList = actualCustomerReturnList
-        .getCustomerReturnListGoodsList();
+    List<CustomerReturnListGoods> actualCustomerReturnListGoodsList =
+        actualCustomerReturnList.getCustomerReturnListGoodsList();
     String actualCustomerReturnNumber = actualCustomerReturnList.getCustomerReturnNumber();
     Integer actualId = actualCustomerReturnList.getId();
     String actualRemarks = actualCustomerReturnList.getRemarks();
     Integer actualState = actualCustomerReturnList.getState();
     User actualUser = actualCustomerReturnList.getUser();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualCustomerReturnNumber);
     assertEquals("Remarks", actualRemarks);
     assertEquals(1, actualId.intValue());

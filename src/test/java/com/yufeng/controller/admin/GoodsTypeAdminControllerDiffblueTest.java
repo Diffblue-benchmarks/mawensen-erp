@@ -8,6 +8,9 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.google.gson.JsonArray;
 import com.yufeng.entity.GoodsType;
 import com.yufeng.entity.Log;
@@ -15,6 +18,7 @@ import com.yufeng.service.GoodsTypeService;
 import com.yufeng.service.LogService;
 import java.util.ArrayList;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,31 +28,37 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.result.StatusResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @ContextConfiguration(classes = {GoodsTypeAdminController.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class GoodsTypeAdminControllerDiffblueTest {
-  @Autowired
-  private GoodsTypeAdminController goodsTypeAdminController;
+  @Autowired private GoodsTypeAdminController goodsTypeAdminController;
 
-  @MockBean
-  private GoodsTypeService goodsTypeService;
+  @MockBean private GoodsTypeService goodsTypeService;
 
-  @MockBean
-  private LogService logService;
+  @MockBean private LogService logService;
 
   /**
    * Test {@link GoodsTypeAdminController#loadTreeInfo()}.
-   * <p>
-   * Method under test: {@link GoodsTypeAdminController#loadTreeInfo()}
+   *
+   * <ul>
+   *   <li>Then status {@link StatusResultMatchers#isOk()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link GoodsTypeAdminController#loadTreeInfo()}
    */
   @Test
-  public void testLoadTreeInfo() throws Exception {
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String GoodsTypeAdminController.loadTreeInfo()"})
+  public void testLoadTreeInfo_thenStatusIsOk() throws Exception {
     // Arrange
     when(goodsTypeService.findByParentId(anyInt())).thenReturn(new ArrayList<>());
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/admin/goodsType/loadTreeInfo");
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.post("/admin/goodsType/loadTreeInfo");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsTypeAdminController)
@@ -61,10 +71,13 @@ public class GoodsTypeAdminControllerDiffblueTest {
 
   /**
    * Test {@link GoodsTypeAdminController#save(String, Integer)}.
-   * <p>
-   * Method under test: {@link GoodsTypeAdminController#save(String, Integer)}
+   *
+   * <p>Method under test: {@link GoodsTypeAdminController#save(String, Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsTypeAdminController.save(String, Integer)"})
   public void testSave() throws Exception {
     // Arrange
     GoodsType goodsType = new GoodsType();
@@ -76,8 +89,8 @@ public class GoodsTypeAdminControllerDiffblueTest {
     when(goodsTypeService.findById(Mockito.<Integer>any())).thenReturn(goodsType);
     doNothing().when(goodsTypeService).save(Mockito.<GoodsType>any());
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.get("/admin/goodsType/save")
-        .param("name", "foo");
+    MockHttpServletRequestBuilder paramResult =
+        MockMvcRequestBuilders.get("/admin/goodsType/save").param("name", "foo");
     MockHttpServletRequestBuilder requestBuilder = paramResult.param("parentId", String.valueOf(1));
 
     // Act and Assert
@@ -91,10 +104,13 @@ public class GoodsTypeAdminControllerDiffblueTest {
 
   /**
    * Test {@link GoodsTypeAdminController#delete(Integer)}.
-   * <p>
-   * Method under test: {@link GoodsTypeAdminController#delete(Integer)}
+   *
+   * <p>Method under test: {@link GoodsTypeAdminController#delete(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsTypeAdminController.delete(Integer)"})
   public void testDelete() throws Exception {
     // Arrange
     GoodsType goodsType = new GoodsType();
@@ -121,13 +137,17 @@ public class GoodsTypeAdminControllerDiffblueTest {
 
   /**
    * Test {@link GoodsTypeAdminController#delete(Integer)}.
+   *
    * <ul>
-   *   <li>Given {@link GoodsType} (default constructor) Icon is {@code admin}.</li>
+   *   <li>Given {@link GoodsType} (default constructor) Icon is {@code admin}.
    * </ul>
-   * <p>
-   * Method under test: {@link GoodsTypeAdminController#delete(Integer)}
+   *
+   * <p>Method under test: {@link GoodsTypeAdminController#delete(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsTypeAdminController.delete(Integer)"})
   public void testDelete_givenGoodsTypeIconIsAdmin() throws Exception {
     // Arrange
     GoodsType goodsType = new GoodsType();
@@ -165,13 +185,17 @@ public class GoodsTypeAdminControllerDiffblueTest {
 
   /**
    * Test {@link GoodsTypeAdminController#getAllByParentId(Integer)}.
+   *
    * <ul>
-   *   <li>Then return size is zero.</li>
+   *   <li>Then return size is zero.
    * </ul>
-   * <p>
-   * Method under test: {@link GoodsTypeAdminController#getAllByParentId(Integer)}
+   *
+   * <p>Method under test: {@link GoodsTypeAdminController#getAllByParentId(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"JsonArray GoodsTypeAdminController.getAllByParentId(Integer)"})
   public void testGetAllByParentId_thenReturnSizeIsZero() {
     // Arrange
     when(goodsTypeService.findByParentId(anyInt())).thenReturn(new ArrayList<>());

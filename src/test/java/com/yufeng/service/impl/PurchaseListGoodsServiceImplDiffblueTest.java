@@ -5,6 +5,9 @@ import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.GoodsType;
 import com.yufeng.entity.PurchaseList;
 import com.yufeng.entity.PurchaseListGoods;
@@ -17,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,25 +32,27 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {PurchaseListGoodsServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PurchaseListGoodsServiceImplDiffblueTest {
-  @MockBean
-  private PurchaseListGoodsRepository purchaseListGoodsRepository;
+  @MockBean private PurchaseListGoodsRepository purchaseListGoodsRepository;
 
-  @Autowired
-  private PurchaseListGoodsServiceImpl purchaseListGoodsServiceImpl;
+  @Autowired private PurchaseListGoodsServiceImpl purchaseListGoodsServiceImpl;
 
   /**
    * Test {@link PurchaseListGoodsServiceImpl#listByPurchaseListId(Integer)}.
-   * <p>
-   * Method under test:
-   * {@link PurchaseListGoodsServiceImpl#listByPurchaseListId(Integer)}
+   *
+   * <p>Method under test: {@link PurchaseListGoodsServiceImpl#listByPurchaseListId(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List PurchaseListGoodsServiceImpl.listByPurchaseListId(Integer)"})
   public void testListByPurchaseListId() {
     // Arrange
-    when(purchaseListGoodsRepository.listByPurchaseListId(Mockito.<Integer>any())).thenReturn(new ArrayList<>());
+    when(purchaseListGoodsRepository.listByPurchaseListId(Mockito.<Integer>any()))
+        .thenReturn(new ArrayList<>());
 
     // Act
-    List<PurchaseListGoods> actualListByPurchaseListIdResult = purchaseListGoodsServiceImpl.listByPurchaseListId(1);
+    List<PurchaseListGoods> actualListByPurchaseListIdResult =
+        purchaseListGoodsServiceImpl.listByPurchaseListId(1);
 
     // Assert
     verify(purchaseListGoodsRepository).listByPurchaseListId(anyInt());
@@ -55,11 +61,13 @@ public class PurchaseListGoodsServiceImplDiffblueTest {
 
   /**
    * Test {@link PurchaseListGoodsServiceImpl#list(PurchaseListGoods)}.
-   * <p>
-   * Method under test:
-   * {@link PurchaseListGoodsServiceImpl#list(PurchaseListGoods)}
+   *
+   * <p>Method under test: {@link PurchaseListGoodsServiceImpl#list(PurchaseListGoods)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List PurchaseListGoodsServiceImpl.list(PurchaseListGoods)"})
   public void testList() {
     // Arrange
     when(purchaseListGoodsRepository.findAll(Mockito.<Specification<PurchaseListGoods>>any()))
@@ -85,17 +93,18 @@ public class PurchaseListGoodsServiceImplDiffblueTest {
     purchaseList.setAmountPaid(10.0f);
     purchaseList.setAmountPayable(10.0f);
     purchaseList.setId(1);
-    purchaseList.setPurchaseDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    purchaseList.setPurchaseDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     purchaseList.setPurchaseListGoodsList(new ArrayList<>());
     purchaseList.setPurchaseNumber("42");
     purchaseList.setRemarks("Remarks");
     purchaseList.setState(1);
     purchaseList.setSupplier(supplier);
     purchaseList.setUser(user);
-    purchaseList
-        .setbPurchaseDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    purchaseList
-        .setePurchaseDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    purchaseList.setbPurchaseDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    purchaseList.setePurchaseDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     GoodsType type = new GoodsType();
     type.setIcon("Icon");

@@ -1,6 +1,10 @@
 package com.yufeng.controller;
 
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,15 +17,17 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @ContextConfiguration(classes = {IndexController.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class IndexControllerDiffblueTest {
-  @Autowired
-  private IndexController indexController;
+  @Autowired private IndexController indexController;
 
   /**
    * Test {@link IndexController#root()}.
-   * <p>
-   * Method under test: {@link IndexController#root()}
+   *
+   * <p>Method under test: {@link IndexController#root()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.lang.String IndexController.root()"})
   public void testRoot() throws Exception {
     // Arrange
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/");

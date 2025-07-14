@@ -2,24 +2,32 @@ package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MenuDiffblueTest {
   /**
    * Test {@link Menu#getpId()}.
-   * <p>
-   * Method under test: {@link Menu#getpId()}
+   *
+   * <p>Method under test: {@link Menu#getpId()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer Menu.getpId()"})
   public void testGetpId() {
     // Arrange, Act and Assert
-    assertNull((new Menu()).getpId());
+    assertNull(new Menu().getpId());
   }
 
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link Menu}
    *   <li>{@link Menu#setIcon(String)}
@@ -37,6 +45,23 @@ public class MenuDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void Menu.<init>()",
+    "String Menu.getIcon()",
+    "Integer Menu.getId()",
+    "String Menu.getName()",
+    "Integer Menu.getState()",
+    "String Menu.getUrl()",
+    "void Menu.setIcon(String)",
+    "void Menu.setId(Integer)",
+    "void Menu.setName(String)",
+    "void Menu.setState(Integer)",
+    "void Menu.setUrl(String)",
+    "void Menu.setpId(Integer)",
+    "String Menu.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     Menu actualMenu = new Menu();
@@ -52,10 +77,12 @@ public class MenuDiffblueTest {
     String actualName = actualMenu.getName();
     Integer actualState = actualMenu.getState();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Icon", actualIcon);
     assertEquals("Name", actualName);
-    assertEquals("[id=1, name=Name, url=https://example.org/example, state=1, icon=Icon, pId=1]", actualToStringResult);
+    assertEquals(
+        "[id=1, name=Name, url=https://example.org/example, state=1, icon=Icon, pId=1]",
+        actualToStringResult);
     assertEquals("https://example.org/example", actualMenu.getUrl());
     assertEquals(1, actualId.intValue());
     assertEquals(1, actualState.intValue());

@@ -5,11 +5,15 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.Menu;
 import com.yufeng.repository.MenuRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +24,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {MenuServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class MenuServiceImplDiffblueTest {
-  @MockBean
-  private MenuRepository menuRepository;
+  @MockBean private MenuRepository menuRepository;
 
-  @Autowired
-  private MenuServiceImpl menuServiceImpl;
+  @Autowired private MenuServiceImpl menuServiceImpl;
 
   /**
    * Test {@link MenuServiceImpl#findByRoleId(int)}.
-   * <p>
-   * Method under test: {@link MenuServiceImpl#findByRoleId(int)}
+   *
+   * <p>Method under test: {@link MenuServiceImpl#findByRoleId(int)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List MenuServiceImpl.findByRoleId(int)"})
   public void testFindByRoleId() {
     // Arrange
     when(menuRepository.findByRoleId(anyInt())).thenReturn(new ArrayList<>());
@@ -46,10 +51,13 @@ public class MenuServiceImplDiffblueTest {
 
   /**
    * Test {@link MenuServiceImpl#findByParentIdAndRoleId(int, int)}.
-   * <p>
-   * Method under test: {@link MenuServiceImpl#findByParentIdAndRoleId(int, int)}
+   *
+   * <p>Method under test: {@link MenuServiceImpl#findByParentIdAndRoleId(int, int)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List MenuServiceImpl.findByParentIdAndRoleId(int, int)"})
   public void testFindByParentIdAndRoleId() {
     // Arrange
     when(menuRepository.findByParentIdAndRoleId(anyInt(), anyInt())).thenReturn(new ArrayList<>());
@@ -64,10 +72,13 @@ public class MenuServiceImplDiffblueTest {
 
   /**
    * Test {@link MenuServiceImpl#findByParentId(int)}.
-   * <p>
-   * Method under test: {@link MenuServiceImpl#findByParentId(int)}
+   *
+   * <p>Method under test: {@link MenuServiceImpl#findByParentId(int)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List MenuServiceImpl.findByParentId(int)"})
   public void testFindByParentId() {
     // Arrange
     when(menuRepository.findByParentId(anyInt())).thenReturn(new ArrayList<>());
@@ -82,10 +93,13 @@ public class MenuServiceImplDiffblueTest {
 
   /**
    * Test {@link MenuServiceImpl#findById(Integer)}.
-   * <p>
-   * Method under test: {@link MenuServiceImpl#findById(Integer)}
+   *
+   * <p>Method under test: {@link MenuServiceImpl#findById(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Menu MenuServiceImpl.findById(Integer)"})
   public void testFindById() {
     // Arrange
     Menu menu = new Menu();

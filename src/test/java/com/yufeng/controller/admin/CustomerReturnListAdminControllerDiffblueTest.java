@@ -1,8 +1,10 @@
 package com.yufeng.controller.admin;
 
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.Customer;
 import com.yufeng.entity.CustomerReturnList;
 import com.yufeng.entity.CustomerReturnListGoods;
@@ -17,11 +19,13 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -32,33 +36,32 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @ContextConfiguration(classes = {CustomerReturnListAdminController.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CustomerReturnListAdminControllerDiffblueTest {
-  @Autowired
-  private CustomerReturnListAdminController customerReturnListAdminController;
+  @Autowired private CustomerReturnListAdminController customerReturnListAdminController;
 
-  @MockBean
-  private CustomerReturnListGoodsService customerReturnListGoodsService;
+  @MockBean private CustomerReturnListGoodsService customerReturnListGoodsService;
 
-  @MockBean
-  private CustomerReturnListService customerReturnListService;
+  @MockBean private CustomerReturnListService customerReturnListService;
 
-  @MockBean
-  private LogService logService;
+  @MockBean private LogService logService;
 
-  @MockBean
-  private UserService userService;
+  @MockBean private UserService userService;
 
   /**
    * Test {@link CustomerReturnListAdminController#list(CustomerReturnList)}.
-   * <p>
-   * Method under test:
-   * {@link CustomerReturnListAdminController#list(CustomerReturnList)}
+   *
+   * <p>Method under test: {@link CustomerReturnListAdminController#list(CustomerReturnList)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map CustomerReturnListAdminController.list(CustomerReturnList)"})
   public void testList() throws Exception {
     // Arrange
-    when(customerReturnListService.list(Mockito.<CustomerReturnList>any(), Mockito.<Sort.Direction>any(),
-        (String[]) any())).thenReturn(new ArrayList<>());
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/customerReturnList/list");
+    when(customerReturnListService.list(
+            Mockito.<CustomerReturnList>any(), Mockito.<Direction>any(), (String[]) Mockito.any()))
+        .thenReturn(new ArrayList<>());
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/customerReturnList/list");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(customerReturnListAdminController)
@@ -71,21 +74,27 @@ public class CustomerReturnListAdminControllerDiffblueTest {
 
   /**
    * Test {@link CustomerReturnListAdminController#listGoods(Integer)}.
+   *
    * <ul>
-   *   <li>When valueOf one.</li>
-   *   <li>Then content contentType {@code application/json;charset=UTF-8}.</li>
+   *   <li>When valueOf one.
+   *   <li>Then content contentType {@code application/json;charset=UTF-8}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CustomerReturnListAdminController#listGoods(Integer)}
+   *
+   * <p>Method under test: {@link CustomerReturnListAdminController#listGoods(Integer)}
    */
   @Test
-  public void testListGoods_whenValueOfOne_thenContentContentTypeApplicationJsonCharsetUtf8() throws Exception {
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map CustomerReturnListAdminController.listGoods(Integer)"})
+  public void testListGoods_whenValueOfOne_thenContentContentTypeApplicationJsonCharsetUtf8()
+      throws Exception {
     // Arrange
     when(customerReturnListGoodsService.listByCustomerReturnListId(Mockito.<Integer>any()))
         .thenReturn(new ArrayList<>());
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/customerReturnList/listGoods");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("customerReturnListId", String.valueOf(1));
+    MockHttpServletRequestBuilder getResult =
+        MockMvcRequestBuilders.get("/admin/customerReturnList/listGoods");
+    MockHttpServletRequestBuilder requestBuilder =
+        getResult.param("customerReturnListId", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(customerReturnListAdminController)
@@ -97,18 +106,25 @@ public class CustomerReturnListAdminControllerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CustomerReturnListAdminController#listCount(CustomerReturnList, CustomerReturnListGoods)}.
-   * <p>
-   * Method under test:
-   * {@link CustomerReturnListAdminController#listCount(CustomerReturnList, CustomerReturnListGoods)}
+   * Test {@link CustomerReturnListAdminController#listCount(CustomerReturnList,
+   * CustomerReturnListGoods)}.
+   *
+   * <p>Method under test: {@link CustomerReturnListAdminController#listCount(CustomerReturnList,
+   * CustomerReturnListGoods)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "java.util.Map CustomerReturnListAdminController.listCount(CustomerReturnList, CustomerReturnListGoods)"
+  })
   public void testListCount() throws Exception {
     // Arrange
-    when(customerReturnListService.list(Mockito.<CustomerReturnList>any(), Mockito.<Sort.Direction>any(),
-        (String[]) any())).thenReturn(new ArrayList<>());
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/customerReturnList/listCount");
+    when(customerReturnListService.list(
+            Mockito.<CustomerReturnList>any(), Mockito.<Direction>any(), (String[]) Mockito.any()))
+        .thenReturn(new ArrayList<>());
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/customerReturnList/listCount");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(customerReturnListAdminController)
@@ -121,20 +137,23 @@ public class CustomerReturnListAdminControllerDiffblueTest {
 
   /**
    * Test {@link CustomerReturnListAdminController#genBillCode(String)}.
+   *
    * <ul>
-   *   <li>Then content string {@code XT202412130001}.</li>
+   *   <li>Then content string {@code XT202507140001}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CustomerReturnListAdminController#genBillCode(String)}
+   *
+   * <p>Method under test: {@link CustomerReturnListAdminController#genBillCode(String)}
    */
   @Test
-  public void testGenBillCode_thenContentStringXt202412130001() throws Exception {
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String CustomerReturnListAdminController.genBillCode(String)"})
+  public void testGenBillCode_thenContentStringXt202507140001() throws Exception {
     // Arrange
     when(customerReturnListService.getTodayMaxCustomerReturnNumber()).thenReturn(null);
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-        .get("/admin/customerReturnList/getCustomerReturnNumber")
-        .param("type", "foo");
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/customerReturnList/getCustomerReturnNumber")
+            .param("type", "foo");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(customerReturnListAdminController)
@@ -142,25 +161,28 @@ public class CustomerReturnListAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("XT202412130001"));
+        .andExpect(MockMvcResultMatchers.content().string("XT202507140001"));
   }
 
   /**
    * Test {@link CustomerReturnListAdminController#genBillCode(String)}.
+   *
    * <ul>
-   *   <li>Then content string {@code XT202412130100}.</li>
+   *   <li>Then content string {@code XT202507140100}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CustomerReturnListAdminController#genBillCode(String)}
+   *
+   * <p>Method under test: {@link CustomerReturnListAdminController#genBillCode(String)}
    */
   @Test
-  public void testGenBillCode_thenContentStringXt202412130100() throws Exception {
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String CustomerReturnListAdminController.genBillCode(String)"})
+  public void testGenBillCode_thenContentStringXt202507140100() throws Exception {
     // Arrange
     when(customerReturnListService.getTodayMaxCustomerReturnNumber()).thenReturn("admin");
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-        .get("/admin/customerReturnList/getCustomerReturnNumber")
-        .param("type", "foo");
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/customerReturnList/getCustomerReturnNumber")
+            .param("type", "foo");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(customerReturnListAdminController)
@@ -168,15 +190,18 @@ public class CustomerReturnListAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("XT202412130100"));
+        .andExpect(MockMvcResultMatchers.content().string("XT202507140100"));
   }
 
   /**
    * Test {@link CustomerReturnListAdminController#update(Integer)}.
-   * <p>
-   * Method under test: {@link CustomerReturnListAdminController#update(Integer)}
+   *
+   * <p>Method under test: {@link CustomerReturnListAdminController#update(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map CustomerReturnListAdminController.update(Integer)"})
   public void testUpdate() throws Exception {
     // Arrange
     Customer customer = new Customer();
@@ -199,21 +224,22 @@ public class CustomerReturnListAdminControllerDiffblueTest {
     customerReturnList.setAmountPaid(10.0f);
     customerReturnList.setAmountPayable(10.0f);
     customerReturnList.setCustomer(customer);
-    customerReturnList
-        .setCustomerReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    customerReturnList.setCustomerReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     customerReturnList.setCustomerReturnListGoodsList(new ArrayList<>());
     customerReturnList.setCustomerReturnNumber("42");
     customerReturnList.setId(1);
     customerReturnList.setRemarks("Remarks");
     customerReturnList.setState(1);
     customerReturnList.setUser(user);
-    customerReturnList
-        .setbCustomerReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    customerReturnList
-        .seteCustomerReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    customerReturnList.setbCustomerReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    customerReturnList.seteCustomerReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     doNothing().when(customerReturnListService).update(Mockito.<CustomerReturnList>any());
     when(customerReturnListService.findById(Mockito.<Integer>any())).thenReturn(customerReturnList);
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/customerReturnList/update");
+    MockHttpServletRequestBuilder getResult =
+        MockMvcRequestBuilders.get("/admin/customerReturnList/update");
     MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
 
     // Act and Assert
@@ -227,10 +253,13 @@ public class CustomerReturnListAdminControllerDiffblueTest {
 
   /**
    * Test {@link CustomerReturnListAdminController#delete(Integer)}.
-   * <p>
-   * Method under test: {@link CustomerReturnListAdminController#delete(Integer)}
+   *
+   * <p>Method under test: {@link CustomerReturnListAdminController#delete(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map CustomerReturnListAdminController.delete(Integer)"})
   public void testDelete() throws Exception {
     // Arrange
     Customer customer = new Customer();
@@ -253,22 +282,23 @@ public class CustomerReturnListAdminControllerDiffblueTest {
     customerReturnList.setAmountPaid(10.0f);
     customerReturnList.setAmountPayable(10.0f);
     customerReturnList.setCustomer(customer);
-    customerReturnList
-        .setCustomerReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    customerReturnList.setCustomerReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     customerReturnList.setCustomerReturnListGoodsList(new ArrayList<>());
     customerReturnList.setCustomerReturnNumber("42");
     customerReturnList.setId(1);
     customerReturnList.setRemarks("Remarks");
     customerReturnList.setState(1);
     customerReturnList.setUser(user);
-    customerReturnList
-        .setbCustomerReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    customerReturnList
-        .seteCustomerReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    customerReturnList.setbCustomerReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    customerReturnList.seteCustomerReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(customerReturnListService.findById(Mockito.<Integer>any())).thenReturn(customerReturnList);
     doNothing().when(customerReturnListService).delete(Mockito.<Integer>any());
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/customerReturnList/delete");
+    MockHttpServletRequestBuilder getResult =
+        MockMvcRequestBuilders.get("/admin/customerReturnList/delete");
     MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
 
     // Act and Assert

@@ -2,16 +2,21 @@ package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DamageListGoodsDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link DamageListGoods}
    *   <li>{@link DamageListGoods#setCode(String)}
@@ -42,6 +47,36 @@ public class DamageListGoodsDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DamageListGoods.<init>()",
+    "String DamageListGoods.getCode()",
+    "DamageList DamageListGoods.getDamageList()",
+    "Integer DamageListGoods.getGoodsId()",
+    "Integer DamageListGoods.getId()",
+    "String DamageListGoods.getModel()",
+    "String DamageListGoods.getName()",
+    "int DamageListGoods.getNum()",
+    "float DamageListGoods.getPrice()",
+    "float DamageListGoods.getTotal()",
+    "GoodsType DamageListGoods.getType()",
+    "Integer DamageListGoods.getTypeId()",
+    "String DamageListGoods.getUnit()",
+    "void DamageListGoods.setCode(String)",
+    "void DamageListGoods.setDamageList(DamageList)",
+    "void DamageListGoods.setGoodsId(Integer)",
+    "void DamageListGoods.setId(Integer)",
+    "void DamageListGoods.setModel(String)",
+    "void DamageListGoods.setName(String)",
+    "void DamageListGoods.setNum(int)",
+    "void DamageListGoods.setPrice(float)",
+    "void DamageListGoods.setTotal(float)",
+    "void DamageListGoods.setType(GoodsType)",
+    "void DamageListGoods.setTypeId(Integer)",
+    "void DamageListGoods.setUnit(String)",
+    "String DamageListGoods.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     DamageListGoods actualDamageListGoods = new DamageListGoods();
@@ -54,13 +89,16 @@ public class DamageListGoodsDiffblueTest {
     user.setTrueName("True Name");
     user.setUserName("janedoe");
     DamageList damageList = new DamageList();
-    damageList.setDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.setDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     damageList.setDamageNumber("42");
     damageList.setId(1);
     damageList.setRemarks("Remarks");
     damageList.setUser(user);
-    damageList.setbDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    damageList.seteDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.setbDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.seteDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     actualDamageListGoods.setDamageList(damageList);
     actualDamageListGoods.setGoodsId(1);
     actualDamageListGoods.setId(1);
@@ -91,10 +129,12 @@ public class DamageListGoodsDiffblueTest {
     GoodsType actualType = actualDamageListGoods.getType();
     Integer actualTypeId = actualDamageListGoods.getTypeId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Code", actualCode);
-    assertEquals("DamageListGoods [id=1, code=Code, name=Name, model=Model, type=[id=1, name=Name, state=1, icon=Icon,"
-        + " pId=1], unit=Unit, price=10.0, num=10, total=10.0]", actualToStringResult);
+    assertEquals(
+        "DamageListGoods [id=1, code=Code, name=Name, model=Model, type=[id=1, name=Name, state=1, icon=Icon,"
+            + " pId=1], unit=Unit, price=10.0, num=10, total=10.0]",
+        actualToStringResult);
     assertEquals("Model", actualModel);
     assertEquals("Name", actualName);
     assertEquals("Unit", actualDamageListGoods.getUnit());

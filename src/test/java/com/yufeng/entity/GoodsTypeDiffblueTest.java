@@ -2,24 +2,32 @@ package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GoodsTypeDiffblueTest {
   /**
    * Test {@link GoodsType#getpId()}.
-   * <p>
-   * Method under test: {@link GoodsType#getpId()}
+   *
+   * <p>Method under test: {@link GoodsType#getpId()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Integer GoodsType.getpId()"})
   public void testGetpId() {
     // Arrange, Act and Assert
-    assertNull((new GoodsType()).getpId());
+    assertNull(new GoodsType().getpId());
   }
 
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link GoodsType}
    *   <li>{@link GoodsType#setIcon(String)}
@@ -35,6 +43,21 @@ public class GoodsTypeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void GoodsType.<init>()",
+    "String GoodsType.getIcon()",
+    "Integer GoodsType.getId()",
+    "String GoodsType.getName()",
+    "Integer GoodsType.getState()",
+    "void GoodsType.setIcon(String)",
+    "void GoodsType.setId(Integer)",
+    "void GoodsType.setName(String)",
+    "void GoodsType.setState(Integer)",
+    "void GoodsType.setpId(Integer)",
+    "String GoodsType.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     GoodsType actualGoodsType = new GoodsType();
@@ -49,7 +72,7 @@ public class GoodsTypeDiffblueTest {
     String actualName = actualGoodsType.getName();
     Integer actualState = actualGoodsType.getState();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Icon", actualIcon);
     assertEquals("Name", actualName);
     assertEquals("[id=1, name=Name, state=1, icon=Icon, pId=1]", actualToStringResult);

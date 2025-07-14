@@ -8,11 +8,15 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.Customer;
 import com.yufeng.repository.CustomerRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -27,18 +32,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {CustomerServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CustomerServiceImplDiffblueTest {
-  @MockBean
-  private CustomerRepository customerRepository;
+  @MockBean private CustomerRepository customerRepository;
 
-  @Autowired
-  private CustomerServiceImpl customerServiceImpl;
+  @Autowired private CustomerServiceImpl customerServiceImpl;
 
   /**
    * Test {@link CustomerServiceImpl#save(Customer)}.
-   * <p>
-   * Method under test: {@link CustomerServiceImpl#save(Customer)}
+   *
+   * <p>Method under test: {@link CustomerServiceImpl#save(Customer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CustomerServiceImpl.save(Customer)"})
   public void testSave() {
     // Arrange
     Customer customer = new Customer();
@@ -66,19 +72,25 @@ public class CustomerServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CustomerServiceImpl#list(Customer, Integer, Integer, Direction, String[])}.
+   * Test {@link CustomerServiceImpl#list(Customer, Integer, Integer, Direction, String[])}.
+   *
    * <ul>
-   *   <li>Then return Empty.</li>
+   *   <li>Then return Empty.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link CustomerServiceImpl#list(Customer, Integer, Integer, Sort.Direction, String[])}
+   *
+   * <p>Method under test: {@link CustomerServiceImpl#list(Customer, Integer, Integer, Direction,
+   * String[])}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "List CustomerServiceImpl.list(Customer, Integer, Integer, Direction, String[])"
+  })
   public void testList_thenReturnEmpty() {
     // Arrange
-    when(customerRepository.findAll(Mockito.<Specification<Customer>>any(), Mockito.<Pageable>any()))
+    when(customerRepository.findAll(
+            Mockito.<Specification<Customer>>any(), Mockito.<Pageable>any()))
         .thenReturn(new PageImpl<>(new ArrayList<>()));
 
     Customer customer = new Customer();
@@ -90,7 +102,8 @@ public class CustomerServiceImplDiffblueTest {
     customer.setRemarks("Remarks");
 
     // Act
-    List<Customer> actualListResult = customerServiceImpl.list(customer, 1, 3, Sort.Direction.ASC, "Properties");
+    List<Customer> actualListResult =
+        customerServiceImpl.list(customer, 1, 3, Direction.ASC, "Properties");
 
     // Assert
     verify(customerRepository).findAll(isA(Specification.class), isA(Pageable.class));
@@ -99,10 +112,13 @@ public class CustomerServiceImplDiffblueTest {
 
   /**
    * Test {@link CustomerServiceImpl#getCount(Customer)}.
-   * <p>
-   * Method under test: {@link CustomerServiceImpl#getCount(Customer)}
+   *
+   * <p>Method under test: {@link CustomerServiceImpl#getCount(Customer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Long CustomerServiceImpl.getCount(Customer)"})
   public void testGetCount() {
     // Arrange
     when(customerRepository.count(Mockito.<Specification<Customer>>any())).thenReturn(3L);
@@ -125,10 +141,13 @@ public class CustomerServiceImplDiffblueTest {
 
   /**
    * Test {@link CustomerServiceImpl#delete(Integer)}.
-   * <p>
-   * Method under test: {@link CustomerServiceImpl#delete(Integer)}
+   *
+   * <p>Method under test: {@link CustomerServiceImpl#delete(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void CustomerServiceImpl.delete(Integer)"})
   public void testDelete() {
     // Arrange
     doNothing().when(customerRepository).delete(Mockito.<Integer>any());
@@ -142,10 +161,13 @@ public class CustomerServiceImplDiffblueTest {
 
   /**
    * Test {@link CustomerServiceImpl#findById(Integer)}.
-   * <p>
-   * Method under test: {@link CustomerServiceImpl#findById(Integer)}
+   *
+   * <p>Method under test: {@link CustomerServiceImpl#findById(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Customer CustomerServiceImpl.findById(Integer)"})
   public void testFindById() {
     // Arrange
     Customer customer = new Customer();
@@ -167,10 +189,13 @@ public class CustomerServiceImplDiffblueTest {
 
   /**
    * Test {@link CustomerServiceImpl#findByName(String)}.
-   * <p>
-   * Method under test: {@link CustomerServiceImpl#findByName(String)}
+   *
+   * <p>Method under test: {@link CustomerServiceImpl#findByName(String)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List CustomerServiceImpl.findByName(String)"})
   public void testFindByName() {
     // Arrange
     when(customerRepository.findByName(Mockito.<String>any())).thenReturn(new ArrayList<>());

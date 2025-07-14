@@ -2,13 +2,18 @@ package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GoodsDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link Goods}
    *   <li>{@link Goods#setCode(String)}
@@ -47,6 +52,44 @@ public class GoodsDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void Goods.<init>()",
+    "String Goods.getCode()",
+    "String Goods.getCodeOrName()",
+    "Integer Goods.getId()",
+    "int Goods.getInventoryQuantity()",
+    "float Goods.getLastPurchasingPrice()",
+    "int Goods.getMinNum()",
+    "String Goods.getModel()",
+    "String Goods.getName()",
+    "String Goods.getProducer()",
+    "float Goods.getPurchasingPrice()",
+    "String Goods.getRemarks()",
+    "int Goods.getSaleTotal()",
+    "float Goods.getSellingPrice()",
+    "int Goods.getState()",
+    "GoodsType Goods.getType()",
+    "String Goods.getUnit()",
+    "void Goods.setCode(String)",
+    "void Goods.setCodeOrName(String)",
+    "void Goods.setId(Integer)",
+    "void Goods.setInventoryQuantity(int)",
+    "void Goods.setLastPurchasingPrice(float)",
+    "void Goods.setMinNum(int)",
+    "void Goods.setModel(String)",
+    "void Goods.setName(String)",
+    "void Goods.setProducer(String)",
+    "void Goods.setPurchasingPrice(float)",
+    "void Goods.setRemarks(String)",
+    "void Goods.setSaleTotal(int)",
+    "void Goods.setSellingPrice(float)",
+    "void Goods.setState(int)",
+    "void Goods.setType(GoodsType)",
+    "void Goods.setUnit(String)",
+    "String Goods.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     Goods actualGoods = new Goods();
@@ -89,7 +132,7 @@ public class GoodsDiffblueTest {
     int actualState = actualGoods.getState();
     GoodsType actualType = actualGoods.getType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Code Or Name", actualCodeOrName);
     assertEquals("Code", actualCode);
     assertEquals("Model", actualModel);
@@ -97,8 +140,10 @@ public class GoodsDiffblueTest {
     assertEquals("Producer", actualProducer);
     assertEquals("Remarks", actualRemarks);
     assertEquals("Unit", actualGoods.getUnit());
-    assertEquals("[id=1, code=Code, name=Name, model=Model, unit=Unit, purchasingPrice=10.0, sellingPrice=10.0,"
-        + " inventoryQuantity=1, minNum=1, producer=Producer, remarks=Remarks]", actualToStringResult);
+    assertEquals(
+        "[id=1, code=Code, name=Name, model=Model, unit=Unit, purchasingPrice=10.0, sellingPrice=10.0,"
+            + " inventoryQuantity=1, minNum=1, producer=Producer, remarks=Remarks]",
+        actualToStringResult);
     assertEquals(1, actualInventoryQuantity);
     assertEquals(1, actualMinNum);
     assertEquals(1, actualSaleTotal);

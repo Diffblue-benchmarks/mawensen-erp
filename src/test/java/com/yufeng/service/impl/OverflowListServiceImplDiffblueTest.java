@@ -8,6 +8,9 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.Goods;
 import com.yufeng.entity.GoodsType;
 import com.yufeng.entity.OverflowList;
@@ -23,41 +26,39 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @ContextConfiguration(classes = {OverflowListServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class OverflowListServiceImplDiffblueTest {
-  @MockBean
-  private GoodsRepository goodsRepository;
+  @MockBean private GoodsRepository goodsRepository;
 
-  @MockBean
-  private GoodsTypeRepository goodsTypeRepository;
+  @MockBean private GoodsTypeRepository goodsTypeRepository;
 
-  @MockBean
-  private OverflowListGoodsRepository overflowListGoodsRepository;
+  @MockBean private OverflowListGoodsRepository overflowListGoodsRepository;
 
-  @MockBean
-  private OverflowListRepository overflowListRepository;
+  @MockBean private OverflowListRepository overflowListRepository;
 
-  @Autowired
-  private OverflowListServiceImpl overflowListServiceImpl;
+  @Autowired private OverflowListServiceImpl overflowListServiceImpl;
 
   /**
    * Test {@link OverflowListServiceImpl#getTodayMaxOverflowNumber()}.
-   * <p>
-   * Method under test:
-   * {@link OverflowListServiceImpl#getTodayMaxOverflowNumber()}
+   *
+   * <p>Method under test: {@link OverflowListServiceImpl#getTodayMaxOverflowNumber()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String OverflowListServiceImpl.getTodayMaxOverflowNumber()"})
   public void testGetTodayMaxOverflowNumber() {
     // Arrange
     when(overflowListRepository.getTodayMaxOverflowNumber()).thenReturn("42");
@@ -72,14 +73,18 @@ public class OverflowListServiceImplDiffblueTest {
 
   /**
    * Test {@link OverflowListServiceImpl#save(OverflowList, List)}.
+   *
    * <ul>
-   *   <li>Given {@link GoodsRepository}.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link GoodsRepository}.
+   *   <li>When {@link ArrayList#ArrayList()}.
    * </ul>
-   * <p>
-   * Method under test: {@link OverflowListServiceImpl#save(OverflowList, List)}
+   *
+   * <p>Method under test: {@link OverflowListServiceImpl#save(OverflowList, List)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void OverflowListServiceImpl.save(OverflowList, List)"})
   public void testSave_givenGoodsRepository_whenArrayList() {
     // Arrange
     User user = new User();
@@ -92,14 +97,15 @@ public class OverflowListServiceImplDiffblueTest {
 
     OverflowList overflowList = new OverflowList();
     overflowList.setId(1);
-    overflowList.setOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.setOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     overflowList.setOverflowNumber("42");
     overflowList.setRemarks("Remarks");
     overflowList.setUser(user);
-    overflowList
-        .setbOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    overflowList
-        .seteOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.setbOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.seteOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(overflowListRepository.save(Mockito.<OverflowList>any())).thenReturn(overflowList);
 
     User user2 = new User();
@@ -112,15 +118,15 @@ public class OverflowListServiceImplDiffblueTest {
 
     OverflowList overflowList2 = new OverflowList();
     overflowList2.setId(1);
-    overflowList2
-        .setOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList2.setOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     overflowList2.setOverflowNumber("42");
     overflowList2.setRemarks("Remarks");
     overflowList2.setUser(user2);
-    overflowList2
-        .setbOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    overflowList2
-        .seteOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList2.setbOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList2.seteOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Act
     overflowListServiceImpl.save(overflowList2, new ArrayList<>());
@@ -131,14 +137,18 @@ public class OverflowListServiceImplDiffblueTest {
 
   /**
    * Test {@link OverflowListServiceImpl#save(OverflowList, List)}.
+   *
    * <ul>
-   *   <li>Given {@link GoodsType} (default constructor) Icon is {@code Icon}.</li>
-   *   <li>Then calls {@link CrudRepository#findOne(Serializable)}.</li>
+   *   <li>Given {@link GoodsType} (default constructor) Icon is {@code Icon}.
+   *   <li>Then calls {@link GoodsRepository#findOne(Serializable)}.
    * </ul>
-   * <p>
-   * Method under test: {@link OverflowListServiceImpl#save(OverflowList, List)}
+   *
+   * <p>Method under test: {@link OverflowListServiceImpl#save(OverflowList, List)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void OverflowListServiceImpl.save(OverflowList, List)"})
   public void testSave_givenGoodsTypeIconIsIcon_thenCallsFindOne() {
     // Arrange
     GoodsType type = new GoodsType();
@@ -211,14 +221,15 @@ public class OverflowListServiceImplDiffblueTest {
 
     OverflowList overflowList = new OverflowList();
     overflowList.setId(1);
-    overflowList.setOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.setOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     overflowList.setOverflowNumber("42");
     overflowList.setRemarks("Remarks");
     overflowList.setUser(user);
-    overflowList
-        .setbOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    overflowList
-        .seteOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.setbOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.seteOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     GoodsType type3 = new GoodsType();
     type3.setIcon("Icon");
@@ -240,7 +251,8 @@ public class OverflowListServiceImplDiffblueTest {
     overflowListGoods.setType(type3);
     overflowListGoods.setTypeId(1);
     overflowListGoods.setUnit("Unit");
-    when(overflowListGoodsRepository.save(Mockito.<OverflowListGoods>any())).thenReturn(overflowListGoods);
+    when(overflowListGoodsRepository.save(Mockito.<OverflowListGoods>any()))
+        .thenReturn(overflowListGoods);
 
     User user2 = new User();
     user2.setId(1);
@@ -252,15 +264,15 @@ public class OverflowListServiceImplDiffblueTest {
 
     OverflowList overflowList2 = new OverflowList();
     overflowList2.setId(1);
-    overflowList2
-        .setOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList2.setOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     overflowList2.setOverflowNumber("42");
     overflowList2.setRemarks("Remarks");
     overflowList2.setUser(user2);
-    overflowList2
-        .setbOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    overflowList2
-        .seteOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList2.setbOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList2.seteOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(overflowListRepository.save(Mockito.<OverflowList>any())).thenReturn(overflowList2);
 
     User user3 = new User();
@@ -273,15 +285,15 @@ public class OverflowListServiceImplDiffblueTest {
 
     OverflowList overflowList3 = new OverflowList();
     overflowList3.setId(1);
-    overflowList3
-        .setOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList3.setOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     overflowList3.setOverflowNumber("42");
     overflowList3.setRemarks("Remarks");
     overflowList3.setUser(user3);
-    overflowList3
-        .setbOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    overflowList3
-        .seteOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList3.setbOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList3.seteOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     User user4 = new User();
     user4.setId(1);
@@ -293,15 +305,15 @@ public class OverflowListServiceImplDiffblueTest {
 
     OverflowList overflowList4 = new OverflowList();
     overflowList4.setId(1);
-    overflowList4
-        .setOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList4.setOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     overflowList4.setOverflowNumber("42");
     overflowList4.setRemarks("Remarks");
     overflowList4.setUser(user4);
-    overflowList4
-        .setbOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    overflowList4
-        .seteOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList4.setbOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList4.seteOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     GoodsType type4 = new GoodsType();
     type4.setIcon("Icon");
@@ -340,18 +352,23 @@ public class OverflowListServiceImplDiffblueTest {
 
   /**
    * Test {@link OverflowListServiceImpl#list(OverflowList, Direction, String[])}.
+   *
    * <ul>
-   *   <li>When {@code Properties}.</li>
-   *   <li>Then return Empty.</li>
+   *   <li>Given {@link OverflowListRepository} {@link OverflowListRepository#findAll(Specification,
+   *       Sort)} return {@link ArrayList#ArrayList()}.
+   *   <li>Then return Empty.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link OverflowListServiceImpl#list(OverflowList, Sort.Direction, String[])}
+   *
+   * <p>Method under test: {@link OverflowListServiceImpl#list(OverflowList, Direction, String[])}
    */
   @Test
-  public void testList_whenProperties_thenReturnEmpty() {
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List OverflowListServiceImpl.list(OverflowList, Direction, String[])"})
+  public void testList_givenOverflowListRepositoryFindAllReturnArrayList_thenReturnEmpty() {
     // Arrange
-    when(overflowListRepository.findAll(Mockito.<Specification<OverflowList>>any(), Mockito.<Sort>any()))
+    when(overflowListRepository.findAll(
+            Mockito.<Specification<OverflowList>>any(), Mockito.<Sort>any()))
         .thenReturn(new ArrayList<>());
 
     User user = new User();
@@ -364,17 +381,19 @@ public class OverflowListServiceImplDiffblueTest {
 
     OverflowList overflowList = new OverflowList();
     overflowList.setId(1);
-    overflowList.setOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.setOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     overflowList.setOverflowNumber("42");
     overflowList.setRemarks("Remarks");
     overflowList.setUser(user);
-    overflowList
-        .setbOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    overflowList
-        .seteOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.setbOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.seteOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Act
-    List<OverflowList> actualListResult = overflowListServiceImpl.list(overflowList, Sort.Direction.ASC, "Properties");
+    List<OverflowList> actualListResult =
+        overflowListServiceImpl.list(overflowList, Direction.ASC, "Properties");
 
     // Assert
     verify(overflowListRepository).findAll(isA(Specification.class), isA(Sort.class));
@@ -383,10 +402,13 @@ public class OverflowListServiceImplDiffblueTest {
 
   /**
    * Test {@link OverflowListServiceImpl#delete(Integer)}.
-   * <p>
-   * Method under test: {@link OverflowListServiceImpl#delete(Integer)}
+   *
+   * <p>Method under test: {@link OverflowListServiceImpl#delete(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void OverflowListServiceImpl.delete(Integer)"})
   public void testDelete() {
     // Arrange
     doNothing().when(overflowListGoodsRepository).deleteByOverflowListId(Mockito.<Integer>any());
@@ -402,10 +424,13 @@ public class OverflowListServiceImplDiffblueTest {
 
   /**
    * Test {@link OverflowListServiceImpl#findById(Integer)}.
-   * <p>
-   * Method under test: {@link OverflowListServiceImpl#findById(Integer)}
+   *
+   * <p>Method under test: {@link OverflowListServiceImpl#findById(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"OverflowList OverflowListServiceImpl.findById(Integer)"})
   public void testFindById() {
     // Arrange
     User user = new User();
@@ -418,14 +443,15 @@ public class OverflowListServiceImplDiffblueTest {
 
     OverflowList overflowList = new OverflowList();
     overflowList.setId(1);
-    overflowList.setOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.setOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     overflowList.setOverflowNumber("42");
     overflowList.setRemarks("Remarks");
     overflowList.setUser(user);
-    overflowList
-        .setbOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    overflowList
-        .seteOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.setbOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.seteOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(overflowListRepository.findOne(Mockito.<Integer>any())).thenReturn(overflowList);
 
     // Act

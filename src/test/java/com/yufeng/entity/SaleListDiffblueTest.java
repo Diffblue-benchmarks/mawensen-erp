@@ -4,40 +4,51 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SaleListDiffblueTest {
   /**
    * Test {@link SaleList#getbSaleDate()}.
-   * <p>
-   * Method under test: {@link SaleList#getbSaleDate()}
+   *
+   * <p>Method under test: {@link SaleList#getbSaleDate()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Date SaleList.getbSaleDate()"})
   public void testGetbSaleDate() {
     // Arrange, Act and Assert
-    assertNull((new SaleList()).getbSaleDate());
+    assertNull(new SaleList().getbSaleDate());
   }
 
   /**
    * Test {@link SaleList#geteSaleDate()}.
-   * <p>
-   * Method under test: {@link SaleList#geteSaleDate()}
+   *
+   * <p>Method under test: {@link SaleList#geteSaleDate()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Date SaleList.geteSaleDate()"})
   public void testGeteSaleDate() {
     // Arrange, Act and Assert
-    assertNull((new SaleList()).geteSaleDate());
+    assertNull(new SaleList().geteSaleDate());
   }
 
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link SaleList}
    *   <li>{@link SaleList#setAmountPaid(float)}
@@ -66,6 +77,34 @@ public class SaleListDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void SaleList.<init>()",
+    "float SaleList.getAmountPaid()",
+    "float SaleList.getAmountPayable()",
+    "Customer SaleList.getCustomer()",
+    "Integer SaleList.getId()",
+    "String SaleList.getRemarks()",
+    "Date SaleList.getSaleDate()",
+    "List SaleList.getSaleListGoodsList()",
+    "String SaleList.getSaleNumber()",
+    "Integer SaleList.getState()",
+    "User SaleList.getUser()",
+    "void SaleList.setAmountPaid(float)",
+    "void SaleList.setAmountPayable(float)",
+    "void SaleList.setCustomer(Customer)",
+    "void SaleList.setId(Integer)",
+    "void SaleList.setRemarks(String)",
+    "void SaleList.setSaleDate(Date)",
+    "void SaleList.setSaleListGoodsList(List)",
+    "void SaleList.setSaleNumber(String)",
+    "void SaleList.setState(Integer)",
+    "void SaleList.setUser(User)",
+    "void SaleList.setbSaleDate(Date)",
+    "void SaleList.seteSaleDate(Date)",
+    "String SaleList.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     SaleList actualSaleList = new SaleList();
@@ -81,7 +120,8 @@ public class SaleListDiffblueTest {
     actualSaleList.setCustomer(customer);
     actualSaleList.setId(1);
     actualSaleList.setRemarks("Remarks");
-    Date saleDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date saleDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualSaleList.setSaleDate(saleDate);
     ArrayList<SaleListGoods> saleListGoodsList = new ArrayList<>();
     actualSaleList.setSaleListGoodsList(saleListGoodsList);
@@ -95,8 +135,10 @@ public class SaleListDiffblueTest {
     user.setTrueName("True Name");
     user.setUserName("janedoe");
     actualSaleList.setUser(user);
-    actualSaleList.setbSaleDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    actualSaleList.seteSaleDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    actualSaleList.setbSaleDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    actualSaleList.seteSaleDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     actualSaleList.toString();
     float actualAmountPaid = actualSaleList.getAmountPaid();
     float actualAmountPayable = actualSaleList.getAmountPayable();
@@ -109,7 +151,7 @@ public class SaleListDiffblueTest {
     Integer actualState = actualSaleList.getState();
     User actualUser = actualSaleList.getUser();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualSaleNumber);
     assertEquals("Remarks", actualRemarks);
     assertEquals(1, actualId.intValue());

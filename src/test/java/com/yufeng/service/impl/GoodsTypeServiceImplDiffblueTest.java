@@ -7,11 +7,15 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.GoodsType;
 import com.yufeng.repository.GoodsTypeRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +26,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {GoodsTypeServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class GoodsTypeServiceImplDiffblueTest {
-  @MockBean
-  private GoodsTypeRepository goodsTypeRepository;
+  @MockBean private GoodsTypeRepository goodsTypeRepository;
 
-  @Autowired
-  private GoodsTypeServiceImpl goodsTypeServiceImpl;
+  @Autowired private GoodsTypeServiceImpl goodsTypeServiceImpl;
 
   /**
    * Test {@link GoodsTypeServiceImpl#save(GoodsType)}.
-   * <p>
-   * Method under test: {@link GoodsTypeServiceImpl#save(GoodsType)}
+   *
+   * <p>Method under test: {@link GoodsTypeServiceImpl#save(GoodsType)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void GoodsTypeServiceImpl.save(GoodsType)"})
   public void testSave() {
     // Arrange
     GoodsType goodsType = new GoodsType();
@@ -60,10 +65,13 @@ public class GoodsTypeServiceImplDiffblueTest {
 
   /**
    * Test {@link GoodsTypeServiceImpl#delete(Integer)}.
-   * <p>
-   * Method under test: {@link GoodsTypeServiceImpl#delete(Integer)}
+   *
+   * <p>Method under test: {@link GoodsTypeServiceImpl#delete(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void GoodsTypeServiceImpl.delete(Integer)"})
   public void testDelete() {
     // Arrange
     doNothing().when(goodsTypeRepository).delete(Mockito.<Integer>any());
@@ -77,10 +85,13 @@ public class GoodsTypeServiceImplDiffblueTest {
 
   /**
    * Test {@link GoodsTypeServiceImpl#findByParentId(int)}.
-   * <p>
-   * Method under test: {@link GoodsTypeServiceImpl#findByParentId(int)}
+   *
+   * <p>Method under test: {@link GoodsTypeServiceImpl#findByParentId(int)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List GoodsTypeServiceImpl.findByParentId(int)"})
   public void testFindByParentId() {
     // Arrange
     when(goodsTypeRepository.findByParentId(anyInt())).thenReturn(new ArrayList<>());
@@ -95,10 +106,13 @@ public class GoodsTypeServiceImplDiffblueTest {
 
   /**
    * Test {@link GoodsTypeServiceImpl#findById(Integer)}.
-   * <p>
-   * Method under test: {@link GoodsTypeServiceImpl#findById(Integer)}
+   *
+   * <p>Method under test: {@link GoodsTypeServiceImpl#findById(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GoodsType GoodsTypeServiceImpl.findById(Integer)"})
   public void testFindById() {
     // Arrange
     GoodsType goodsType = new GoodsType();

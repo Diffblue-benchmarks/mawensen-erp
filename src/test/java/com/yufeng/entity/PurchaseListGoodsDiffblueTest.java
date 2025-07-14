@@ -2,17 +2,22 @@ package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class PurchaseListGoodsDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link PurchaseListGoods}
    *   <li>{@link PurchaseListGoods#setCode(String)}
@@ -45,6 +50,38 @@ public class PurchaseListGoodsDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void PurchaseListGoods.<init>()",
+    "String PurchaseListGoods.getCode()",
+    "String PurchaseListGoods.getCodeOrName()",
+    "Integer PurchaseListGoods.getGoodsId()",
+    "Integer PurchaseListGoods.getId()",
+    "String PurchaseListGoods.getModel()",
+    "String PurchaseListGoods.getName()",
+    "int PurchaseListGoods.getNum()",
+    "float PurchaseListGoods.getPrice()",
+    "PurchaseList PurchaseListGoods.getPurchaseList()",
+    "float PurchaseListGoods.getTotal()",
+    "GoodsType PurchaseListGoods.getType()",
+    "Integer PurchaseListGoods.getTypeId()",
+    "String PurchaseListGoods.getUnit()",
+    "void PurchaseListGoods.setCode(String)",
+    "void PurchaseListGoods.setCodeOrName(String)",
+    "void PurchaseListGoods.setGoodsId(Integer)",
+    "void PurchaseListGoods.setId(Integer)",
+    "void PurchaseListGoods.setModel(String)",
+    "void PurchaseListGoods.setName(String)",
+    "void PurchaseListGoods.setNum(int)",
+    "void PurchaseListGoods.setPrice(float)",
+    "void PurchaseListGoods.setPurchaseList(PurchaseList)",
+    "void PurchaseListGoods.setTotal(float)",
+    "void PurchaseListGoods.setType(GoodsType)",
+    "void PurchaseListGoods.setTypeId(Integer)",
+    "void PurchaseListGoods.setUnit(String)",
+    "String PurchaseListGoods.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     PurchaseListGoods actualPurchaseListGoods = new PurchaseListGoods();
@@ -74,17 +111,18 @@ public class PurchaseListGoodsDiffblueTest {
     purchaseList.setAmountPaid(10.0f);
     purchaseList.setAmountPayable(10.0f);
     purchaseList.setId(1);
-    purchaseList.setPurchaseDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    purchaseList.setPurchaseDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     purchaseList.setPurchaseListGoodsList(new ArrayList<>());
     purchaseList.setPurchaseNumber("42");
     purchaseList.setRemarks("Remarks");
     purchaseList.setState(1);
     purchaseList.setSupplier(supplier);
     purchaseList.setUser(user);
-    purchaseList
-        .setbPurchaseDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    purchaseList
-        .setePurchaseDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    purchaseList.setbPurchaseDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    purchaseList.setePurchaseDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     actualPurchaseListGoods.setPurchaseList(purchaseList);
     actualPurchaseListGoods.setTotal(10.0f);
     GoodsType type = new GoodsType();
@@ -110,7 +148,7 @@ public class PurchaseListGoodsDiffblueTest {
     GoodsType actualType = actualPurchaseListGoods.getType();
     Integer actualTypeId = actualPurchaseListGoods.getTypeId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Code Or Name", actualCodeOrName);
     assertEquals("Code", actualCode);
     assertEquals("Model", actualModel);

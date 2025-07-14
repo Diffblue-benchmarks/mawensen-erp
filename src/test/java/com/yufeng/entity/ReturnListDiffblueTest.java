@@ -4,40 +4,51 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ReturnListDiffblueTest {
   /**
    * Test {@link ReturnList#getbReturnDate()}.
-   * <p>
-   * Method under test: {@link ReturnList#getbReturnDate()}
+   *
+   * <p>Method under test: {@link ReturnList#getbReturnDate()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Date ReturnList.getbReturnDate()"})
   public void testGetbReturnDate() {
     // Arrange, Act and Assert
-    assertNull((new ReturnList()).getbReturnDate());
+    assertNull(new ReturnList().getbReturnDate());
   }
 
   /**
    * Test {@link ReturnList#geteReturnDate()}.
-   * <p>
-   * Method under test: {@link ReturnList#geteReturnDate()}
+   *
+   * <p>Method under test: {@link ReturnList#geteReturnDate()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Date ReturnList.geteReturnDate()"})
   public void testGeteReturnDate() {
     // Arrange, Act and Assert
-    assertNull((new ReturnList()).geteReturnDate());
+    assertNull(new ReturnList().geteReturnDate());
   }
 
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link ReturnList}
    *   <li>{@link ReturnList#setAmountPaid(float)}
@@ -66,6 +77,34 @@ public class ReturnListDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ReturnList.<init>()",
+    "float ReturnList.getAmountPaid()",
+    "float ReturnList.getAmountPayable()",
+    "Integer ReturnList.getId()",
+    "String ReturnList.getRemarks()",
+    "Date ReturnList.getReturnDate()",
+    "List ReturnList.getReturnListGoodsList()",
+    "String ReturnList.getReturnNumber()",
+    "Integer ReturnList.getState()",
+    "Supplier ReturnList.getSupplier()",
+    "User ReturnList.getUser()",
+    "void ReturnList.setAmountPaid(float)",
+    "void ReturnList.setAmountPayable(float)",
+    "void ReturnList.setId(Integer)",
+    "void ReturnList.setRemarks(String)",
+    "void ReturnList.setReturnDate(Date)",
+    "void ReturnList.setReturnListGoodsList(List)",
+    "void ReturnList.setReturnNumber(String)",
+    "void ReturnList.setState(Integer)",
+    "void ReturnList.setSupplier(Supplier)",
+    "void ReturnList.setUser(User)",
+    "void ReturnList.setbReturnDate(Date)",
+    "void ReturnList.seteReturnDate(Date)",
+    "String ReturnList.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     ReturnList actualReturnList = new ReturnList();
@@ -73,7 +112,8 @@ public class ReturnListDiffblueTest {
     actualReturnList.setAmountPayable(10.0f);
     actualReturnList.setId(1);
     actualReturnList.setRemarks("Remarks");
-    Date returnDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date returnDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualReturnList.setReturnDate(returnDate);
     ArrayList<ReturnListGoods> returnListGoodsList = new ArrayList<>();
     actualReturnList.setReturnListGoodsList(returnListGoodsList);
@@ -95,10 +135,10 @@ public class ReturnListDiffblueTest {
     user.setTrueName("True Name");
     user.setUserName("janedoe");
     actualReturnList.setUser(user);
-    actualReturnList
-        .setbReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    actualReturnList
-        .seteReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    actualReturnList.setbReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    actualReturnList.seteReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     actualReturnList.toString();
     float actualAmountPaid = actualReturnList.getAmountPaid();
     float actualAmountPayable = actualReturnList.getAmountPayable();
@@ -111,7 +151,7 @@ public class ReturnListDiffblueTest {
     Supplier actualSupplier = actualReturnList.getSupplier();
     User actualUser = actualReturnList.getUser();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualReturnNumber);
     assertEquals("Remarks", actualRemarks);
     assertEquals(1, actualId.intValue());

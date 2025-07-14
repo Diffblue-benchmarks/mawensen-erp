@@ -1,8 +1,10 @@
 package com.yufeng.controller.admin;
 
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.Log;
 import com.yufeng.entity.Role;
 import com.yufeng.entity.User;
@@ -13,11 +15,13 @@ import com.yufeng.service.UserRoleService;
 import com.yufeng.service.UserService;
 import java.util.ArrayList;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -28,33 +32,36 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @ContextConfiguration(classes = {UserAdminController.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserAdminControllerDiffblueTest {
-  @MockBean
-  private LogService logService;
+  @MockBean private LogService logService;
 
-  @MockBean
-  private RoleService roleService;
+  @MockBean private RoleService roleService;
 
-  @Autowired
-  private UserAdminController userAdminController;
+  @Autowired private UserAdminController userAdminController;
 
-  @MockBean
-  private UserRoleService userRoleService;
+  @MockBean private UserRoleService userRoleService;
 
-  @MockBean
-  private UserService userService;
+  @MockBean private UserService userService;
 
   /**
    * Test {@link UserAdminController#list(User, Integer, Integer)}.
-   * <p>
-   * Method under test: {@link UserAdminController#list(User, Integer, Integer)}
+   *
+   * <p>Method under test: {@link UserAdminController#list(User, Integer, Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map UserAdminController.list(User, Integer, Integer)"})
   public void testList() throws Exception {
     // Arrange
     doNothing().when(logService).save(Mockito.<Log>any());
     when(userService.getCount(Mockito.<User>any())).thenReturn(3L);
-    when(userService.list(Mockito.<User>any(), Mockito.<Integer>any(), Mockito.<Integer>any(),
-        Mockito.<Sort.Direction>any(), (String[]) any())).thenReturn(new ArrayList<>());
+    when(userService.list(
+            Mockito.<User>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Direction>any(),
+            (String[]) Mockito.any()))
+        .thenReturn(new ArrayList<>());
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/user/list");
 
     // Act and Assert
@@ -68,13 +75,17 @@ public class UserAdminControllerDiffblueTest {
 
   /**
    * Test {@link UserAdminController#saveRoleSet(String, Integer)}.
+   *
    * <ul>
-   *   <li>When {@code 42}.</li>
+   *   <li>When {@code 42}.
    * </ul>
-   * <p>
-   * Method under test: {@link UserAdminController#saveRoleSet(String, Integer)}
+   *
+   * <p>Method under test: {@link UserAdminController#saveRoleSet(String, Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map UserAdminController.saveRoleSet(String, Integer)"})
   public void testSaveRoleSet_when42() throws Exception {
     // Arrange
     doNothing().when(logService).save(Mockito.<Log>any());
@@ -95,8 +106,8 @@ public class UserAdminControllerDiffblueTest {
     user.setTrueName("True Name");
     user.setUserName("janedoe");
     when(userService.findById(Mockito.<Integer>any())).thenReturn(user);
-    MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.get("/admin/user/saveRoleSet")
-        .param("roleIds", "42");
+    MockHttpServletRequestBuilder paramResult =
+        MockMvcRequestBuilders.get("/admin/user/saveRoleSet").param("roleIds", "42");
     MockHttpServletRequestBuilder requestBuilder = paramResult.param("userId", String.valueOf(1));
 
     // Act and Assert
@@ -110,13 +121,17 @@ public class UserAdminControllerDiffblueTest {
 
   /**
    * Test {@link UserAdminController#saveRoleSet(String, Integer)}.
+   *
    * <ul>
-   *   <li>When empty string.</li>
+   *   <li>When empty string.
    * </ul>
-   * <p>
-   * Method under test: {@link UserAdminController#saveRoleSet(String, Integer)}
+   *
+   * <p>Method under test: {@link UserAdminController#saveRoleSet(String, Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map UserAdminController.saveRoleSet(String, Integer)"})
   public void testSaveRoleSet_whenEmptyString() throws Exception {
     // Arrange
     doNothing().when(logService).save(Mockito.<Log>any());
@@ -137,8 +152,8 @@ public class UserAdminControllerDiffblueTest {
     user.setTrueName("True Name");
     user.setUserName("janedoe");
     when(userService.findById(Mockito.<Integer>any())).thenReturn(user);
-    MockHttpServletRequestBuilder paramResult = MockMvcRequestBuilders.get("/admin/user/saveRoleSet")
-        .param("roleIds", "");
+    MockHttpServletRequestBuilder paramResult =
+        MockMvcRequestBuilders.get("/admin/user/saveRoleSet").param("roleIds", "");
     MockHttpServletRequestBuilder requestBuilder = paramResult.param("userId", String.valueOf(1));
 
     // Act and Assert
@@ -152,10 +167,13 @@ public class UserAdminControllerDiffblueTest {
 
   /**
    * Test {@link UserAdminController#save(User)}.
-   * <p>
-   * Method under test: {@link UserAdminController#save(User)}
+   *
+   * <p>Method under test: {@link UserAdminController#save(User)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map UserAdminController.save(User)"})
   public void testSave() throws Exception {
     // Arrange
     doNothing().when(logService).save(Mockito.<Log>any());
@@ -177,15 +195,20 @@ public class UserAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":false,\"errorInfo\":\"用户名已经存在!\"}"));
+        .andExpect(
+            MockMvcResultMatchers.content()
+                .string("{\"success\":false,\"errorInfo\":\"用户名已经存在!\"}"));
   }
 
   /**
    * Test {@link UserAdminController#delete(Integer)}.
-   * <p>
-   * Method under test: {@link UserAdminController#delete(Integer)}
+   *
+   * <p>Method under test: {@link UserAdminController#delete(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map UserAdminController.delete(Integer)"})
   public void testDelete() throws Exception {
     // Arrange
     doNothing().when(logService).save(Mockito.<Log>any());

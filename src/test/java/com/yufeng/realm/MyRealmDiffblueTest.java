@@ -6,6 +6,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.User;
 import com.yufeng.repository.MenuRepository;
 import com.yufeng.repository.RoleRepository;
@@ -20,7 +23,10 @@ import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.authz.permission.WildcardPermissionResolver;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,29 +37,30 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {MyRealm.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class MyRealmDiffblueTest {
-  @MockBean
-  private MenuRepository menuRepository;
+  @MockBean private MenuRepository menuRepository;
 
-  @Autowired
-  private MyRealm myRealm;
+  @Autowired private MyRealm myRealm;
 
-  @MockBean
-  private RoleRepository roleRepository;
+  @MockBean private RoleRepository roleRepository;
 
-  @MockBean
-  private UserRepository userRepository;
+  @Rule public ExpectedException thrown = ExpectedException.none();
+
+  @MockBean private UserRepository userRepository;
 
   /**
    * Test {@link MyRealm#doGetAuthenticationInfo(AuthenticationToken)}.
+   *
    * <ul>
-   *   <li>Given {@link User} (default constructor) Id is one.</li>
-   *   <li>Then return {@link SimpleAuthenticationInfo}.</li>
+   *   <li>Given {@link User} (default constructor) Id is one.
+   *   <li>Then return {@link SimpleAuthenticationInfo}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link MyRealm#doGetAuthenticationInfo(AuthenticationToken)}
+   *
+   * <p>Method under test: {@link MyRealm#doGetAuthenticationInfo(AuthenticationToken)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"AuthenticationInfo MyRealm.doGetAuthenticationInfo(AuthenticationToken)"})
   public void testDoGetAuthenticationInfo_givenUserIdIsOne_thenReturnSimpleAuthenticationInfo()
       throws AuthenticationException {
     // Arrange
@@ -67,8 +74,8 @@ public class MyRealmDiffblueTest {
     when(userRepository.findByUserName(Mockito.<String>any())).thenReturn(user);
 
     // Act
-    AuthenticationInfo actualDoGetAuthenticationInfoResult = myRealm
-        .doGetAuthenticationInfo(new UsernamePasswordToken("janedoe", "iloveyou"));
+    AuthenticationInfo actualDoGetAuthenticationInfoResult =
+        myRealm.doGetAuthenticationInfo(new UsernamePasswordToken("janedoe", "iloveyou"));
 
     // Assert
     verify(userRepository).findByUserName(Mockito.<String>any());
@@ -77,7 +84,8 @@ public class MyRealmDiffblueTest {
     assertTrue(principals instanceof SimplePrincipalCollection);
     assertEquals("iloveyou", actualDoGetAuthenticationInfoResult.getCredentials());
     assertEquals("janedoe", principals.getPrimaryPrincipal());
-    assertNull(((SimpleAuthenticationInfo) actualDoGetAuthenticationInfoResult).getCredentialsSalt());
+    assertNull(
+        ((SimpleAuthenticationInfo) actualDoGetAuthenticationInfoResult).getCredentialsSalt());
     Set<String> realmNames = principals.getRealmNames();
     assertEquals(1, realmNames.size());
     assertFalse(principals.isEmpty());
@@ -85,11 +93,39 @@ public class MyRealmDiffblueTest {
   }
 
   /**
-   * Test new {@link MyRealm} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link MyRealm}
+   * Test {@link MyRealm#doGetAuthenticationInfo(AuthenticationToken)}.
+   *
+   * <ul>
+   *   <li>Then throw {@link AuthenticationException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link MyRealm#doGetAuthenticationInfo(AuthenticationToken)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"AuthenticationInfo MyRealm.doGetAuthenticationInfo(AuthenticationToken)"})
+  public void testDoGetAuthenticationInfo_thenThrowAuthenticationException()
+      throws AuthenticationException {
+    // Arrange
+    when(userRepository.findByUserName(Mockito.<String>any()))
+        .thenThrow(new AuthenticationException("An error occurred"));
+
+    // Act and Assert
+    thrown.expect(AuthenticationException.class);
+    myRealm.doGetAuthenticationInfo(new UsernamePasswordToken("janedoe", "iloveyou"));
+    verify(userRepository).findByUserName(Mockito.<String>any());
+  }
+
+  /**
+   * Test new {@link MyRealm} (default constructor).
+   *
+   * <p>Method under test: default or parameterless constructor of {@link MyRealm}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void MyRealm.<init>()"})
   public void testNewMyRealm() {
     // Arrange and Act
     MyRealm actualMyRealm = new MyRealm();

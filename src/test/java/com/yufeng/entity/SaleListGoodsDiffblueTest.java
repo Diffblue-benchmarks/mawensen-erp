@@ -2,17 +2,22 @@ package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SaleListGoodsDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link SaleListGoods}
    *   <li>{@link SaleListGoods#setCode(String)}
@@ -45,6 +50,38 @@ public class SaleListGoodsDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void SaleListGoods.<init>()",
+    "String SaleListGoods.getCode()",
+    "String SaleListGoods.getCodeOrName()",
+    "Integer SaleListGoods.getGoodsId()",
+    "Integer SaleListGoods.getId()",
+    "String SaleListGoods.getModel()",
+    "String SaleListGoods.getName()",
+    "int SaleListGoods.getNum()",
+    "float SaleListGoods.getPrice()",
+    "SaleList SaleListGoods.getSaleList()",
+    "float SaleListGoods.getTotal()",
+    "GoodsType SaleListGoods.getType()",
+    "Integer SaleListGoods.getTypeId()",
+    "String SaleListGoods.getUnit()",
+    "void SaleListGoods.setCode(String)",
+    "void SaleListGoods.setCodeOrName(String)",
+    "void SaleListGoods.setGoodsId(Integer)",
+    "void SaleListGoods.setId(Integer)",
+    "void SaleListGoods.setModel(String)",
+    "void SaleListGoods.setName(String)",
+    "void SaleListGoods.setNum(int)",
+    "void SaleListGoods.setPrice(float)",
+    "void SaleListGoods.setSaleList(SaleList)",
+    "void SaleListGoods.setTotal(float)",
+    "void SaleListGoods.setType(GoodsType)",
+    "void SaleListGoods.setTypeId(Integer)",
+    "void SaleListGoods.setUnit(String)",
+    "String SaleListGoods.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     SaleListGoods actualSaleListGoods = new SaleListGoods();
@@ -76,13 +113,16 @@ public class SaleListGoodsDiffblueTest {
     saleList.setCustomer(customer);
     saleList.setId(1);
     saleList.setRemarks("Remarks");
-    saleList.setSaleDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    saleList.setSaleDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     saleList.setSaleListGoodsList(new ArrayList<>());
     saleList.setSaleNumber("42");
     saleList.setState(1);
     saleList.setUser(user);
-    saleList.setbSaleDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    saleList.seteSaleDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    saleList.setbSaleDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    saleList.seteSaleDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     actualSaleListGoods.setSaleList(saleList);
     actualSaleListGoods.setTotal(10.0f);
     GoodsType type = new GoodsType();
@@ -108,13 +148,15 @@ public class SaleListGoodsDiffblueTest {
     GoodsType actualType = actualSaleListGoods.getType();
     Integer actualTypeId = actualSaleListGoods.getTypeId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Code Or Name", actualCodeOrName);
     assertEquals("Code", actualCode);
     assertEquals("Model", actualModel);
     assertEquals("Name", actualName);
-    assertEquals("SaleListGoods [id=1, code=Code, name=Name, model=Model, type=[id=1, name=Name, state=1, icon=Icon,"
-        + " pId=1], unit=Unit, price=10.0, num=10, total=10.0]", actualToStringResult);
+    assertEquals(
+        "SaleListGoods [id=1, code=Code, name=Name, model=Model, type=[id=1, name=Name, state=1, icon=Icon,"
+            + " pId=1], unit=Unit, price=10.0, num=10, total=10.0]",
+        actualToStringResult);
     assertEquals("Unit", actualSaleListGoods.getUnit());
     assertEquals(1, actualGoodsId.intValue());
     assertEquals(1, actualId.intValue());

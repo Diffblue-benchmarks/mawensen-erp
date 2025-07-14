@@ -8,6 +8,9 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.DamageList;
 import com.yufeng.entity.DamageListGoods;
 import com.yufeng.entity.Goods;
@@ -23,40 +26,39 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @ContextConfiguration(classes = {DamageListServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class DamageListServiceImplDiffblueTest {
-  @MockBean
-  private DamageListGoodsRepository damageListGoodsRepository;
+  @MockBean private DamageListGoodsRepository damageListGoodsRepository;
 
-  @MockBean
-  private DamageListRepository damageListRepository;
+  @MockBean private DamageListRepository damageListRepository;
 
-  @Autowired
-  private DamageListServiceImpl damageListServiceImpl;
+  @Autowired private DamageListServiceImpl damageListServiceImpl;
 
-  @MockBean
-  private GoodsRepository goodsRepository;
+  @MockBean private GoodsRepository goodsRepository;
 
-  @MockBean
-  private GoodsTypeRepository goodsTypeRepository;
+  @MockBean private GoodsTypeRepository goodsTypeRepository;
 
   /**
    * Test {@link DamageListServiceImpl#getTodayMaxDamageNumber()}.
-   * <p>
-   * Method under test: {@link DamageListServiceImpl#getTodayMaxDamageNumber()}
+   *
+   * <p>Method under test: {@link DamageListServiceImpl#getTodayMaxDamageNumber()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String DamageListServiceImpl.getTodayMaxDamageNumber()"})
   public void testGetTodayMaxDamageNumber() {
     // Arrange
     when(damageListRepository.getTodayMaxDamageNumber()).thenReturn("42");
@@ -71,14 +73,18 @@ public class DamageListServiceImplDiffblueTest {
 
   /**
    * Test {@link DamageListServiceImpl#save(DamageList, List)}.
+   *
    * <ul>
-   *   <li>Given {@link DamageListGoodsRepository}.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link DamageListGoodsRepository}.
+   *   <li>When {@link ArrayList#ArrayList()}.
    * </ul>
-   * <p>
-   * Method under test: {@link DamageListServiceImpl#save(DamageList, List)}
+   *
+   * <p>Method under test: {@link DamageListServiceImpl#save(DamageList, List)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DamageListServiceImpl.save(DamageList, List)"})
   public void testSave_givenDamageListGoodsRepository_whenArrayList() {
     // Arrange
     User user = new User();
@@ -90,13 +96,16 @@ public class DamageListServiceImplDiffblueTest {
     user.setUserName("janedoe");
 
     DamageList damageList = new DamageList();
-    damageList.setDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.setDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     damageList.setDamageNumber("42");
     damageList.setId(1);
     damageList.setRemarks("Remarks");
     damageList.setUser(user);
-    damageList.setbDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    damageList.seteDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.setbDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.seteDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(damageListRepository.save(Mockito.<DamageList>any())).thenReturn(damageList);
 
     User user2 = new User();
@@ -108,13 +117,16 @@ public class DamageListServiceImplDiffblueTest {
     user2.setUserName("janedoe");
 
     DamageList damageList2 = new DamageList();
-    damageList2.setDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList2.setDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     damageList2.setDamageNumber("42");
     damageList2.setId(1);
     damageList2.setRemarks("Remarks");
     damageList2.setUser(user2);
-    damageList2.setbDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    damageList2.seteDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList2.setbDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList2.seteDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Act
     damageListServiceImpl.save(damageList2, new ArrayList<>());
@@ -125,14 +137,18 @@ public class DamageListServiceImplDiffblueTest {
 
   /**
    * Test {@link DamageListServiceImpl#save(DamageList, List)}.
+   *
    * <ul>
-   *   <li>Given {@link GoodsType} (default constructor) Icon is {@code Icon}.</li>
-   *   <li>Then calls {@link CrudRepository#findOne(Serializable)}.</li>
+   *   <li>Given {@link GoodsType} (default constructor) Icon is {@code Icon}.
+   *   <li>Then calls {@link GoodsRepository#findOne(Serializable)}.
    * </ul>
-   * <p>
-   * Method under test: {@link DamageListServiceImpl#save(DamageList, List)}
+   *
+   * <p>Method under test: {@link DamageListServiceImpl#save(DamageList, List)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DamageListServiceImpl.save(DamageList, List)"})
   public void testSave_givenGoodsTypeIconIsIcon_thenCallsFindOne() {
     // Arrange
     User user = new User();
@@ -144,13 +160,16 @@ public class DamageListServiceImplDiffblueTest {
     user.setUserName("janedoe");
 
     DamageList damageList = new DamageList();
-    damageList.setDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.setDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     damageList.setDamageNumber("42");
     damageList.setId(1);
     damageList.setRemarks("Remarks");
     damageList.setUser(user);
-    damageList.setbDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    damageList.seteDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.setbDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.seteDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     GoodsType type = new GoodsType();
     type.setIcon("Icon");
@@ -172,7 +191,8 @@ public class DamageListServiceImplDiffblueTest {
     damageListGoods.setType(type);
     damageListGoods.setTypeId(1);
     damageListGoods.setUnit("Unit");
-    when(damageListGoodsRepository.save(Mockito.<DamageListGoods>any())).thenReturn(damageListGoods);
+    when(damageListGoodsRepository.save(Mockito.<DamageListGoods>any()))
+        .thenReturn(damageListGoods);
 
     User user2 = new User();
     user2.setId(1);
@@ -183,13 +203,16 @@ public class DamageListServiceImplDiffblueTest {
     user2.setUserName("janedoe");
 
     DamageList damageList2 = new DamageList();
-    damageList2.setDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList2.setDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     damageList2.setDamageNumber("42");
     damageList2.setId(1);
     damageList2.setRemarks("Remarks");
     damageList2.setUser(user2);
-    damageList2.setbDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    damageList2.seteDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList2.setbDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList2.seteDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(damageListRepository.save(Mockito.<DamageList>any())).thenReturn(damageList2);
 
     GoodsType type2 = new GoodsType();
@@ -261,13 +284,16 @@ public class DamageListServiceImplDiffblueTest {
     user3.setUserName("janedoe");
 
     DamageList damageList3 = new DamageList();
-    damageList3.setDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList3.setDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     damageList3.setDamageNumber("42");
     damageList3.setId(1);
     damageList3.setRemarks("Remarks");
     damageList3.setUser(user3);
-    damageList3.setbDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    damageList3.seteDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList3.setbDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList3.seteDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     User user4 = new User();
     user4.setId(1);
@@ -278,13 +304,16 @@ public class DamageListServiceImplDiffblueTest {
     user4.setUserName("janedoe");
 
     DamageList damageList4 = new DamageList();
-    damageList4.setDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList4.setDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     damageList4.setDamageNumber("42");
     damageList4.setId(1);
     damageList4.setRemarks("Remarks");
     damageList4.setUser(user4);
-    damageList4.setbDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    damageList4.seteDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList4.setbDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList4.seteDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     GoodsType type4 = new GoodsType();
     type4.setIcon("Icon");
@@ -323,18 +352,24 @@ public class DamageListServiceImplDiffblueTest {
 
   /**
    * Test {@link DamageListServiceImpl#list(DamageList, Direction, String[])}.
+   *
    * <ul>
-   *   <li>When {@code Properties}.</li>
-   *   <li>Then return Empty.</li>
+   *   <li>Given {@link DamageListRepository} {@link DamageListRepository#findAll(Specification,
+   *       Sort)} return {@link ArrayList#ArrayList()}.
+   *   <li>When {@code ASC}.
+   *   <li>Then return Empty.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link DamageListServiceImpl#list(DamageList, Sort.Direction, String[])}
+   *
+   * <p>Method under test: {@link DamageListServiceImpl#list(DamageList, Direction, String[])}
    */
   @Test
-  public void testList_whenProperties_thenReturnEmpty() {
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List DamageListServiceImpl.list(DamageList, Direction, String[])"})
+  public void testList_givenDamageListRepositoryFindAllReturnArrayList_whenAsc_thenReturnEmpty() {
     // Arrange
-    when(damageListRepository.findAll(Mockito.<Specification<DamageList>>any(), Mockito.<Sort>any()))
+    when(damageListRepository.findAll(
+            Mockito.<Specification<DamageList>>any(), Mockito.<Sort>any()))
         .thenReturn(new ArrayList<>());
 
     User user = new User();
@@ -346,16 +381,20 @@ public class DamageListServiceImplDiffblueTest {
     user.setUserName("janedoe");
 
     DamageList damageList = new DamageList();
-    damageList.setDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.setDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     damageList.setDamageNumber("42");
     damageList.setId(1);
     damageList.setRemarks("Remarks");
     damageList.setUser(user);
-    damageList.setbDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    damageList.seteDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.setbDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.seteDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Act
-    List<DamageList> actualListResult = damageListServiceImpl.list(damageList, Sort.Direction.ASC, "Properties");
+    List<DamageList> actualListResult =
+        damageListServiceImpl.list(damageList, Direction.ASC, "Properties");
 
     // Assert
     verify(damageListRepository).findAll(isA(Specification.class), isA(Sort.class));
@@ -364,10 +403,13 @@ public class DamageListServiceImplDiffblueTest {
 
   /**
    * Test {@link DamageListServiceImpl#delete(Integer)}.
-   * <p>
-   * Method under test: {@link DamageListServiceImpl#delete(Integer)}
+   *
+   * <p>Method under test: {@link DamageListServiceImpl#delete(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DamageListServiceImpl.delete(Integer)"})
   public void testDelete() {
     // Arrange
     doNothing().when(damageListGoodsRepository).deleteByDamageListId(Mockito.<Integer>any());
@@ -383,10 +425,13 @@ public class DamageListServiceImplDiffblueTest {
 
   /**
    * Test {@link DamageListServiceImpl#findById(Integer)}.
-   * <p>
-   * Method under test: {@link DamageListServiceImpl#findById(Integer)}
+   *
+   * <p>Method under test: {@link DamageListServiceImpl#findById(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"DamageList DamageListServiceImpl.findById(Integer)"})
   public void testFindById() {
     // Arrange
     User user = new User();
@@ -398,13 +443,16 @@ public class DamageListServiceImplDiffblueTest {
     user.setUserName("janedoe");
 
     DamageList damageList = new DamageList();
-    damageList.setDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.setDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     damageList.setDamageNumber("42");
     damageList.setId(1);
     damageList.setRemarks("Remarks");
     damageList.setUser(user);
-    damageList.setbDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    damageList.seteDamageDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.setbDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    damageList.seteDamageDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(damageListRepository.findOne(Mockito.<Integer>any())).thenReturn(damageList);
 
     // Act

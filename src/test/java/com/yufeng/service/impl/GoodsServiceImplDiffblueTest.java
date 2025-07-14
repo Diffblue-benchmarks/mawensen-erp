@@ -8,12 +8,16 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.Goods;
 import com.yufeng.entity.GoodsType;
 import com.yufeng.repository.GoodsRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -28,18 +33,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {GoodsServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class GoodsServiceImplDiffblueTest {
-  @MockBean
-  private GoodsRepository goodsRepository;
+  @MockBean private GoodsRepository goodsRepository;
 
-  @Autowired
-  private GoodsServiceImpl goodsServiceImpl;
+  @Autowired private GoodsServiceImpl goodsServiceImpl;
 
   /**
    * Test {@link GoodsServiceImpl#findById(Integer)}.
-   * <p>
-   * Method under test: {@link GoodsServiceImpl#findById(Integer)}
+   *
+   * <p>Method under test: {@link GoodsServiceImpl#findById(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Goods GoodsServiceImpl.findById(Integer)"})
   public void testFindById() {
     // Arrange
     GoodsType type = new GoodsType();
@@ -78,10 +84,13 @@ public class GoodsServiceImplDiffblueTest {
 
   /**
    * Test {@link GoodsServiceImpl#save(Goods)}.
-   * <p>
-   * Method under test: {@link GoodsServiceImpl#save(Goods)}
+   *
+   * <p>Method under test: {@link GoodsServiceImpl#save(Goods)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void GoodsServiceImpl.save(Goods)"})
   public void testSave() {
     // Arrange
     GoodsType type = new GoodsType();
@@ -143,16 +152,19 @@ public class GoodsServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link GoodsServiceImpl#list(Goods, Integer, Integer, Direction, String[])}.
+   * Test {@link GoodsServiceImpl#list(Goods, Integer, Integer, Direction, String[])}.
+   *
    * <ul>
-   *   <li>Then return Empty.</li>
+   *   <li>Then return Empty.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link GoodsServiceImpl#list(Goods, Integer, Integer, Sort.Direction, String[])}
+   *
+   * <p>Method under test: {@link GoodsServiceImpl#list(Goods, Integer, Integer, Direction,
+   * String[])}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List GoodsServiceImpl.list(Goods, Integer, Integer, Direction, String[])"})
   public void testList_thenReturnEmpty() {
     // Arrange
     when(goodsRepository.findAll(Mockito.<Specification<Goods>>any(), Mockito.<Pageable>any()))
@@ -184,7 +196,7 @@ public class GoodsServiceImplDiffblueTest {
     goods.setUnit("Unit");
 
     // Act
-    List<Goods> actualListResult = goodsServiceImpl.list(goods, 1, 3, Sort.Direction.ASC, "Properties");
+    List<Goods> actualListResult = goodsServiceImpl.list(goods, 1, 3, Direction.ASC, "Properties");
 
     // Assert
     verify(goodsRepository).findAll(isA(Specification.class), isA(Pageable.class));
@@ -193,10 +205,13 @@ public class GoodsServiceImplDiffblueTest {
 
   /**
    * Test {@link GoodsServiceImpl#getCount(Goods)}.
-   * <p>
-   * Method under test: {@link GoodsServiceImpl#getCount(Goods)}
+   *
+   * <p>Method under test: {@link GoodsServiceImpl#getCount(Goods)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Long GoodsServiceImpl.getCount(Goods)"})
   public void testGetCount() {
     // Arrange
     when(goodsRepository.count(Mockito.<Specification<Goods>>any())).thenReturn(3L);
@@ -236,10 +251,13 @@ public class GoodsServiceImplDiffblueTest {
 
   /**
    * Test {@link GoodsServiceImpl#delete(Integer)}.
-   * <p>
-   * Method under test: {@link GoodsServiceImpl#delete(Integer)}
+   *
+   * <p>Method under test: {@link GoodsServiceImpl#delete(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void GoodsServiceImpl.delete(Integer)"})
   public void testDelete() {
     // Arrange
     doNothing().when(goodsRepository).delete(Mockito.<Integer>any());
@@ -253,10 +271,13 @@ public class GoodsServiceImplDiffblueTest {
 
   /**
    * Test {@link GoodsServiceImpl#getMaxGoodsCode()}.
-   * <p>
-   * Method under test: {@link GoodsServiceImpl#getMaxGoodsCode()}
+   *
+   * <p>Method under test: {@link GoodsServiceImpl#getMaxGoodsCode()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String GoodsServiceImpl.getMaxGoodsCode()"})
   public void testGetMaxGoodsCode() {
     // Arrange
     when(goodsRepository.getMaxGoodsCode()).thenReturn("Max Goods Code");
@@ -270,24 +291,31 @@ public class GoodsServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link GoodsServiceImpl#listNoInventoryQuantityByCodeOrName(String, Integer, Integer, Direction, String[])}.
+   * Test {@link GoodsServiceImpl#listNoInventoryQuantityByCodeOrName(String, Integer, Integer,
+   * Direction, String[])}.
+   *
    * <ul>
-   *   <li>Then return Empty.</li>
+   *   <li>Then return Empty.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link GoodsServiceImpl#listNoInventoryQuantityByCodeOrName(String, Integer, Integer, Sort.Direction, String[])}
+   *
+   * <p>Method under test: {@link GoodsServiceImpl#listNoInventoryQuantityByCodeOrName(String,
+   * Integer, Integer, Direction, String[])}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "List GoodsServiceImpl.listNoInventoryQuantityByCodeOrName(String, Integer, Integer, Direction, String[])"
+  })
   public void testListNoInventoryQuantityByCodeOrName_thenReturnEmpty() {
     // Arrange
     when(goodsRepository.findAll(Mockito.<Specification<Goods>>any(), Mockito.<Pageable>any()))
         .thenReturn(new PageImpl<>(new ArrayList<>()));
 
     // Act
-    List<Goods> actualListNoInventoryQuantityByCodeOrNameResult = goodsServiceImpl
-        .listNoInventoryQuantityByCodeOrName("Code Or Name", 1, 3, Sort.Direction.ASC, "Properties");
+    List<Goods> actualListNoInventoryQuantityByCodeOrNameResult =
+        goodsServiceImpl.listNoInventoryQuantityByCodeOrName(
+            "Code Or Name", 1, 3, Direction.ASC, "Properties");
 
     // Assert
     verify(goodsRepository).findAll(isA(Specification.class), isA(Pageable.class));
@@ -295,20 +323,21 @@ public class GoodsServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link GoodsServiceImpl#getCountNoInventoryQuantityByCodeOrName(String)}.
-   * <p>
-   * Method under test:
-   * {@link GoodsServiceImpl#getCountNoInventoryQuantityByCodeOrName(String)}
+   * Test {@link GoodsServiceImpl#getCountNoInventoryQuantityByCodeOrName(String)}.
+   *
+   * <p>Method under test: {@link GoodsServiceImpl#getCountNoInventoryQuantityByCodeOrName(String)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Long GoodsServiceImpl.getCountNoInventoryQuantityByCodeOrName(String)"})
   public void testGetCountNoInventoryQuantityByCodeOrName() {
     // Arrange
     when(goodsRepository.count(Mockito.<Specification<Goods>>any())).thenReturn(3L);
 
     // Act
-    Long actualCountNoInventoryQuantityByCodeOrName = goodsServiceImpl
-        .getCountNoInventoryQuantityByCodeOrName("Code Or Name");
+    Long actualCountNoInventoryQuantityByCodeOrName =
+        goodsServiceImpl.getCountNoInventoryQuantityByCodeOrName("Code Or Name");
 
     // Assert
     verify(goodsRepository).count(isA(Specification.class));
@@ -316,24 +345,29 @@ public class GoodsServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link GoodsServiceImpl#listHasInventoryQuantity(Integer, Integer, Direction, String[])}.
+   * Test {@link GoodsServiceImpl#listHasInventoryQuantity(Integer, Integer, Direction, String[])}.
+   *
    * <ul>
-   *   <li>Then return Empty.</li>
+   *   <li>Then return Empty.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link GoodsServiceImpl#listHasInventoryQuantity(Integer, Integer, Sort.Direction, String[])}
+   *
+   * <p>Method under test: {@link GoodsServiceImpl#listHasInventoryQuantity(Integer, Integer,
+   * Direction, String[])}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "List GoodsServiceImpl.listHasInventoryQuantity(Integer, Integer, Direction, String[])"
+  })
   public void testListHasInventoryQuantity_thenReturnEmpty() {
     // Arrange
     when(goodsRepository.findAll(Mockito.<Specification<Goods>>any(), Mockito.<Pageable>any()))
         .thenReturn(new PageImpl<>(new ArrayList<>()));
 
     // Act
-    List<Goods> actualListHasInventoryQuantityResult = goodsServiceImpl.listHasInventoryQuantity(1, 3,
-        Sort.Direction.ASC, "Properties");
+    List<Goods> actualListHasInventoryQuantityResult =
+        goodsServiceImpl.listHasInventoryQuantity(1, 3, Direction.ASC, "Properties");
 
     // Assert
     verify(goodsRepository).findAll(isA(Specification.class), isA(Pageable.class));
@@ -342,10 +376,13 @@ public class GoodsServiceImplDiffblueTest {
 
   /**
    * Test {@link GoodsServiceImpl#getCountHasInventoryQuantity()}.
-   * <p>
-   * Method under test: {@link GoodsServiceImpl#getCountHasInventoryQuantity()}
+   *
+   * <p>Method under test: {@link GoodsServiceImpl#getCountHasInventoryQuantity()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Long GoodsServiceImpl.getCountHasInventoryQuantity()"})
   public void testGetCountHasInventoryQuantity() {
     // Arrange
     when(goodsRepository.count(Mockito.<Specification<Goods>>any())).thenReturn(3L);
@@ -360,10 +397,13 @@ public class GoodsServiceImplDiffblueTest {
 
   /**
    * Test {@link GoodsServiceImpl#listAlarm()}.
-   * <p>
-   * Method under test: {@link GoodsServiceImpl#listAlarm()}
+   *
+   * <p>Method under test: {@link GoodsServiceImpl#listAlarm()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List GoodsServiceImpl.listAlarm()"})
   public void testListAlarm() {
     // Arrange
     when(goodsRepository.listAlarm()).thenReturn(new ArrayList<>());

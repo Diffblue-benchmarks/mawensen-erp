@@ -2,13 +2,18 @@ package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class UserRoleDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link UserRole}
    *   <li>{@link UserRole#setId(Integer)}
@@ -21,6 +26,18 @@ public class UserRoleDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void UserRole.<init>()",
+    "Integer UserRole.getId()",
+    "Role UserRole.getRole()",
+    "User UserRole.getUser()",
+    "void UserRole.setId(Integer)",
+    "void UserRole.setRole(Role)",
+    "void UserRole.setUser(User)",
+    "String UserRole.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     UserRole actualUserRole = new UserRole();
@@ -43,7 +60,7 @@ public class UserRoleDiffblueTest {
     Role actualRole = actualUserRole.getRole();
     User actualUser = actualUserRole.getUser();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals(
         "[id=1, user=[id=1, userName=janedoe, password=iloveyou, trueName=True Name, remarks=Remarks, roles=Roles],"
             + " role=[id=1, name=Name, remarks=Remarks]]",

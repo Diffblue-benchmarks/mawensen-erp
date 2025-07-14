@@ -1,13 +1,18 @@
 package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class RoleDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link Role}
    *   <li>{@link Role#setId(Integer)}
@@ -20,6 +25,18 @@ public class RoleDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void Role.<init>()",
+    "Integer Role.getId()",
+    "String Role.getName()",
+    "String Role.getRemarks()",
+    "void Role.setId(Integer)",
+    "void Role.setName(String)",
+    "void Role.setRemarks(String)",
+    "String Role.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     Role actualRole = new Role();
@@ -30,7 +47,7 @@ public class RoleDiffblueTest {
     Integer actualId = actualRole.getId();
     String actualName = actualRole.getName();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Name", actualName);
     assertEquals("Remarks", actualRole.getRemarks());
     assertEquals("[id=1, name=Name, remarks=Remarks]", actualToStringResult);

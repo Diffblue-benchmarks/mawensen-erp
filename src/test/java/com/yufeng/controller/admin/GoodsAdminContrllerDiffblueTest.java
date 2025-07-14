@@ -1,8 +1,10 @@
 package com.yufeng.controller.admin;
 
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.Goods;
 import com.yufeng.entity.GoodsType;
 import com.yufeng.entity.Log;
@@ -12,11 +14,13 @@ import com.yufeng.service.LogService;
 import com.yufeng.service.SaleListGoodsService;
 import java.util.ArrayList;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -27,32 +31,35 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @ContextConfiguration(classes = {GoodsAdminContrller.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class GoodsAdminContrllerDiffblueTest {
-  @MockBean
-  private CustomerReturnListGoodsService customerReturnListGoodsService;
+  @MockBean private CustomerReturnListGoodsService customerReturnListGoodsService;
 
-  @Autowired
-  private GoodsAdminContrller goodsAdminContrller;
+  @Autowired private GoodsAdminContrller goodsAdminContrller;
 
-  @MockBean
-  private GoodsService goodsService;
+  @MockBean private GoodsService goodsService;
 
-  @MockBean
-  private LogService logService;
+  @MockBean private LogService logService;
 
-  @MockBean
-  private SaleListGoodsService saleListGoodsService;
+  @MockBean private SaleListGoodsService saleListGoodsService;
 
   /**
    * Test {@link GoodsAdminContrller#list(Goods, Integer, Integer)}.
-   * <p>
-   * Method under test: {@link GoodsAdminContrller#list(Goods, Integer, Integer)}
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#list(Goods, Integer, Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.list(Goods, Integer, Integer)"})
   public void testList() throws Exception {
     // Arrange
     when(goodsService.getCount(Mockito.<Goods>any())).thenReturn(3L);
-    when(goodsService.list(Mockito.<Goods>any(), Mockito.<Integer>any(), Mockito.<Integer>any(),
-        Mockito.<Sort.Direction>any(), (String[]) any())).thenReturn(new ArrayList<>());
+    when(goodsService.list(
+            Mockito.<Goods>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Direction>any(),
+            (String[]) Mockito.any()))
+        .thenReturn(new ArrayList<>());
     doNothing().when(logService).save(Mockito.<Log>any());
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/goods/list");
 
@@ -67,18 +74,26 @@ public class GoodsAdminContrllerDiffblueTest {
 
   /**
    * Test {@link GoodsAdminContrller#listInventory(Goods, Integer, Integer)}.
-   * <p>
-   * Method under test:
-   * {@link GoodsAdminContrller#listInventory(Goods, Integer, Integer)}
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#listInventory(Goods, Integer, Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.listInventory(Goods, Integer, Integer)"})
   public void testListInventory() throws Exception {
     // Arrange
     when(goodsService.getCount(Mockito.<Goods>any())).thenReturn(3L);
-    when(goodsService.list(Mockito.<Goods>any(), Mockito.<Integer>any(), Mockito.<Integer>any(),
-        Mockito.<Sort.Direction>any(), (String[]) any())).thenReturn(new ArrayList<>());
+    when(goodsService.list(
+            Mockito.<Goods>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Direction>any(),
+            (String[]) Mockito.any()))
+        .thenReturn(new ArrayList<>());
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/goods/listInventory");
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/listInventory");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
@@ -91,14 +106,18 @@ public class GoodsAdminContrllerDiffblueTest {
 
   /**
    * Test {@link GoodsAdminContrller#listAlart()}.
-   * <p>
-   * Method under test: {@link GoodsAdminContrller#listAlart()}
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#listAlart()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.listAlart()"})
   public void testListAlart() throws Exception {
     // Arrange
     when(goodsService.listAlarm()).thenReturn(new ArrayList<>());
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/goods/listAlarm");
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/listAlarm");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
@@ -110,20 +129,31 @@ public class GoodsAdminContrllerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link GoodsAdminContrller#listNoInventoryQuantity(String, Integer, Integer)}.
-   * <p>
-   * Method under test:
-   * {@link GoodsAdminContrller#listNoInventoryQuantity(String, Integer, Integer)}
+   * Test {@link GoodsAdminContrller#listNoInventoryQuantity(String, Integer, Integer)}.
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#listNoInventoryQuantity(String, Integer,
+   * Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "java.util.Map GoodsAdminContrller.listNoInventoryQuantity(String, Integer, Integer)"
+  })
   public void testListNoInventoryQuantity() throws Exception {
     // Arrange
-    when(goodsService.getCountNoInventoryQuantityByCodeOrName(Mockito.<String>any())).thenReturn(3L);
-    when(goodsService.listNoInventoryQuantityByCodeOrName(Mockito.<String>any(), Mockito.<Integer>any(),
-        Mockito.<Integer>any(), Mockito.<Sort.Direction>any(), (String[]) any())).thenReturn(new ArrayList<>());
+    when(goodsService.getCountNoInventoryQuantityByCodeOrName(Mockito.<String>any()))
+        .thenReturn(3L);
+    when(goodsService.listNoInventoryQuantityByCodeOrName(
+            Mockito.<String>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Direction>any(),
+            (String[]) Mockito.any()))
+        .thenReturn(new ArrayList<>());
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/goods/listNoInventoryQuantity");
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/listNoInventoryQuantity");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
@@ -136,18 +166,27 @@ public class GoodsAdminContrllerDiffblueTest {
 
   /**
    * Test {@link GoodsAdminContrller#listHasInventoryQuantity(Integer, Integer)}.
-   * <p>
-   * Method under test:
-   * {@link GoodsAdminContrller#listHasInventoryQuantity(Integer, Integer)}
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#listHasInventoryQuantity(Integer, Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "java.util.Map GoodsAdminContrller.listHasInventoryQuantity(Integer, Integer)"
+  })
   public void testListHasInventoryQuantity() throws Exception {
     // Arrange
     when(goodsService.getCountHasInventoryQuantity()).thenReturn(3L);
-    when(goodsService.listHasInventoryQuantity(Mockito.<Integer>any(), Mockito.<Integer>any(),
-        Mockito.<Sort.Direction>any(), (String[]) any())).thenReturn(new ArrayList<>());
+    when(goodsService.listHasInventoryQuantity(
+            Mockito.<Integer>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Direction>any(),
+            (String[]) Mockito.any()))
+        .thenReturn(new ArrayList<>());
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/goods/listHasInventoryQuantity");
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/listHasInventoryQuantity");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
@@ -160,14 +199,18 @@ public class GoodsAdminContrllerDiffblueTest {
 
   /**
    * Test {@link GoodsAdminContrller#deleteStock(Integer)}.
+   *
    * <ul>
-   *   <li>Given {@link Goods} (default constructor) State is one.</li>
-   *   <li>Then content string {@code {"success":true}}.</li>
+   *   <li>Given {@link Goods} (default constructor) State is one.
+   *   <li>Then content string {@code {"success":true}}.
    * </ul>
-   * <p>
-   * Method under test: {@link GoodsAdminContrller#deleteStock(Integer)}
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#deleteStock(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.deleteStock(Integer)"})
   public void testDeleteStock_givenGoodsStateIsOne_thenContentStringSuccessTrue() throws Exception {
     // Arrange
     GoodsType type = new GoodsType();
@@ -196,7 +239,8 @@ public class GoodsAdminContrllerDiffblueTest {
     goods.setUnit("Unit");
     doNothing().when(goodsService).save(Mockito.<Goods>any());
     when(goodsService.findById(Mockito.<Integer>any())).thenReturn(goods);
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/goods/deleteStock");
+    MockHttpServletRequestBuilder getResult =
+        MockMvcRequestBuilders.get("/admin/goods/deleteStock");
     MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
 
     // Act and Assert
@@ -210,16 +254,20 @@ public class GoodsAdminContrllerDiffblueTest {
 
   /**
    * Test {@link GoodsAdminContrller#deleteStock(Integer)}.
+   *
    * <ul>
-   *   <li>Given {@link Goods} (default constructor) State is two.</li>
-   *   <li>Then content string
-   * {@code {"success":false,"errorInfo":"该商品已经发生单据，不能删除！"}}.</li>
+   *   <li>Given {@link Goods} (default constructor) State is two.
+   *   <li>Then content string {@code {"success":false,"errorInfo":"该商品已经发生单据，不能删除！"}}.
    * </ul>
-   * <p>
-   * Method under test: {@link GoodsAdminContrller#deleteStock(Integer)}
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#deleteStock(Integer)}
    */
   @Test
-  public void testDeleteStock_givenGoodsStateIsTwo_thenContentStringSuccessFalseErrorInfo() throws Exception {
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.deleteStock(Integer)"})
+  public void testDeleteStock_givenGoodsStateIsTwo_thenContentStringSuccessFalseErrorInfo()
+      throws Exception {
     // Arrange
     GoodsType type = new GoodsType();
     type.setIcon("Icon");
@@ -247,7 +295,8 @@ public class GoodsAdminContrllerDiffblueTest {
     goods.setUnit("Unit");
     doNothing().when(goodsService).save(Mockito.<Goods>any());
     when(goodsService.findById(Mockito.<Integer>any())).thenReturn(goods);
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/goods/deleteStock");
+    MockHttpServletRequestBuilder getResult =
+        MockMvcRequestBuilders.get("/admin/goods/deleteStock");
     MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
 
     // Act and Assert
@@ -256,24 +305,31 @@ public class GoodsAdminContrllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":false,\"errorInfo\":\"该商品已经发生单据，不能删除！\"}"));
+        .andExpect(
+            MockMvcResultMatchers.content()
+                .string("{\"success\":false,\"errorInfo\":\"该商品已经发生单据，不能删除！\"}"));
   }
 
   /**
    * Test {@link GoodsAdminContrller#genGoodsCode()}.
+   *
    * <ul>
-   *   <li>Given {@link GoodsService} {@link GoodsService#getMaxGoodsCode()} return
-   * {@code 42}.</li>
-   *   <li>Then content string {@code 0043}.</li>
+   *   <li>Given {@link GoodsService} {@link GoodsService#getMaxGoodsCode()} return {@code 42}.
+   *   <li>Then content string {@code 0043}.
    * </ul>
-   * <p>
-   * Method under test: {@link GoodsAdminContrller#genGoodsCode()}
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#genGoodsCode()}
    */
   @Test
-  public void testGenGoodsCode_givenGoodsServiceGetMaxGoodsCodeReturn42_thenContentString0043() throws Exception {
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String GoodsAdminContrller.genGoodsCode()"})
+  public void testGenGoodsCode_givenGoodsServiceGetMaxGoodsCodeReturn42_thenContentString0043()
+      throws Exception {
     // Arrange
     when(goodsService.getMaxGoodsCode()).thenReturn("42");
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/goods/genGoodsCode");
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/genGoodsCode");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
@@ -286,17 +342,22 @@ public class GoodsAdminContrllerDiffblueTest {
 
   /**
    * Test {@link GoodsAdminContrller#genGoodsCode()}.
+   *
    * <ul>
-   *   <li>Then content string {@code 0001}.</li>
+   *   <li>Then content string {@code 0001}.
    * </ul>
-   * <p>
-   * Method under test: {@link GoodsAdminContrller#genGoodsCode()}
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#genGoodsCode()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String GoodsAdminContrller.genGoodsCode()"})
   public void testGenGoodsCode_thenContentString0001() throws Exception {
     // Arrange
     when(goodsService.getMaxGoodsCode()).thenReturn("");
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/goods/genGoodsCode");
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/genGoodsCode");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
@@ -309,10 +370,13 @@ public class GoodsAdminContrllerDiffblueTest {
 
   /**
    * Test {@link GoodsAdminContrller#save(Goods)}.
-   * <p>
-   * Method under test: {@link GoodsAdminContrller#save(Goods)}
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#save(Goods)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.save(Goods)"})
   public void testSave() throws Exception {
     // Arrange
     doNothing().when(goodsService).save(Mockito.<Goods>any());
@@ -330,11 +394,13 @@ public class GoodsAdminContrllerDiffblueTest {
 
   /**
    * Test {@link GoodsAdminContrller#saveStore(Integer, Integer, Float)}.
-   * <p>
-   * Method under test:
-   * {@link GoodsAdminContrller#saveStore(Integer, Integer, Float)}
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#saveStore(Integer, Integer, Float)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.saveStore(Integer, Integer, Float)"})
   public void testSaveStore() throws Exception {
     // Arrange
     GoodsType type = new GoodsType();
@@ -367,7 +433,8 @@ public class GoodsAdminContrllerDiffblueTest {
     MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/goods/saveStore");
     MockHttpServletRequestBuilder paramResult = getResult.param("id", String.valueOf(1));
     MockHttpServletRequestBuilder paramResult2 = paramResult.param("num", String.valueOf(1));
-    MockHttpServletRequestBuilder requestBuilder = paramResult2.param("price", String.valueOf(10.0f));
+    MockHttpServletRequestBuilder requestBuilder =
+        paramResult2.param("price", String.valueOf(10.0f));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
@@ -380,16 +447,20 @@ public class GoodsAdminContrllerDiffblueTest {
 
   /**
    * Test {@link GoodsAdminContrller#delete(Integer)}.
+   *
    * <ul>
-   *   <li>Given {@link Goods} (default constructor) State is one.</li>
-   *   <li>Then content string
-   * {@code {"success":false,"errorInfo":"该商品已经期初入库，不能删除！"}}.</li>
+   *   <li>Given {@link Goods} (default constructor) State is one.
+   *   <li>Then content string {@code {"success":false,"errorInfo":"该商品已经期初入库，不能删除！"}}.
    * </ul>
-   * <p>
-   * Method under test: {@link GoodsAdminContrller#delete(Integer)}
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#delete(Integer)}
    */
   @Test
-  public void testDelete_givenGoodsStateIsOne_thenContentStringSuccessFalseErrorInfo() throws Exception {
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.delete(Integer)"})
+  public void testDelete_givenGoodsStateIsOne_thenContentStringSuccessFalseErrorInfo()
+      throws Exception {
     // Arrange
     GoodsType type = new GoodsType();
     type.setIcon("Icon");
@@ -425,21 +496,27 @@ public class GoodsAdminContrllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":false,\"errorInfo\":\"该商品已经期初入库，不能删除！\"}"));
+        .andExpect(
+            MockMvcResultMatchers.content()
+                .string("{\"success\":false,\"errorInfo\":\"该商品已经期初入库，不能删除！\"}"));
   }
 
   /**
    * Test {@link GoodsAdminContrller#delete(Integer)}.
+   *
    * <ul>
-   *   <li>Given {@link Goods} (default constructor) State is two.</li>
-   *   <li>Then content string
-   * {@code {"success":false,"errorInfo":"该商品已经发生单据，不能删除！"}}.</li>
+   *   <li>Given {@link Goods} (default constructor) State is two.
+   *   <li>Then content string {@code {"success":false,"errorInfo":"该商品已经发生单据，不能删除！"}}.
    * </ul>
-   * <p>
-   * Method under test: {@link GoodsAdminContrller#delete(Integer)}
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#delete(Integer)}
    */
   @Test
-  public void testDelete_givenGoodsStateIsTwo_thenContentStringSuccessFalseErrorInfo() throws Exception {
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.delete(Integer)"})
+  public void testDelete_givenGoodsStateIsTwo_thenContentStringSuccessFalseErrorInfo()
+      throws Exception {
     // Arrange
     GoodsType type = new GoodsType();
     type.setIcon("Icon");
@@ -477,19 +554,25 @@ public class GoodsAdminContrllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":false,\"errorInfo\":\"该商品已经发生单据，不能删除！\"}"));
+        .andExpect(
+            MockMvcResultMatchers.content()
+                .string("{\"success\":false,\"errorInfo\":\"该商品已经发生单据，不能删除！\"}"));
   }
 
   /**
    * Test {@link GoodsAdminContrller#delete(Integer)}.
+   *
    * <ul>
-   *   <li>Given {@link Goods} (default constructor) State is zero.</li>
-   *   <li>Then content string {@code {"success":true}}.</li>
+   *   <li>Given {@link Goods} (default constructor) State is zero.
+   *   <li>Then content string {@code {"success":true}}.
    * </ul>
-   * <p>
-   * Method under test: {@link GoodsAdminContrller#delete(Integer)}
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#delete(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.delete(Integer)"})
   public void testDelete_givenGoodsStateIsZero_thenContentStringSuccessTrue() throws Exception {
     // Arrange
     GoodsType type = new GoodsType();

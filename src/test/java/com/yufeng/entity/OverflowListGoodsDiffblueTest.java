@@ -2,16 +2,21 @@ package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class OverflowListGoodsDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link OverflowListGoods}
    *   <li>{@link OverflowListGoods#setCode(String)}
@@ -42,6 +47,36 @@ public class OverflowListGoodsDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void OverflowListGoods.<init>()",
+    "String OverflowListGoods.getCode()",
+    "Integer OverflowListGoods.getGoodsId()",
+    "Integer OverflowListGoods.getId()",
+    "String OverflowListGoods.getModel()",
+    "String OverflowListGoods.getName()",
+    "int OverflowListGoods.getNum()",
+    "OverflowList OverflowListGoods.getOverflowList()",
+    "float OverflowListGoods.getPrice()",
+    "float OverflowListGoods.getTotal()",
+    "GoodsType OverflowListGoods.getType()",
+    "Integer OverflowListGoods.getTypeId()",
+    "String OverflowListGoods.getUnit()",
+    "void OverflowListGoods.setCode(String)",
+    "void OverflowListGoods.setGoodsId(Integer)",
+    "void OverflowListGoods.setId(Integer)",
+    "void OverflowListGoods.setModel(String)",
+    "void OverflowListGoods.setName(String)",
+    "void OverflowListGoods.setNum(int)",
+    "void OverflowListGoods.setOverflowList(OverflowList)",
+    "void OverflowListGoods.setPrice(float)",
+    "void OverflowListGoods.setTotal(float)",
+    "void OverflowListGoods.setType(GoodsType)",
+    "void OverflowListGoods.setTypeId(Integer)",
+    "void OverflowListGoods.setUnit(String)",
+    "String OverflowListGoods.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     OverflowListGoods actualOverflowListGoods = new OverflowListGoods();
@@ -60,14 +95,15 @@ public class OverflowListGoodsDiffblueTest {
     user.setUserName("janedoe");
     OverflowList overflowList = new OverflowList();
     overflowList.setId(1);
-    overflowList.setOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.setOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     overflowList.setOverflowNumber("42");
     overflowList.setRemarks("Remarks");
     overflowList.setUser(user);
-    overflowList
-        .setbOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    overflowList
-        .seteOverflowDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.setbOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    overflowList.seteOverflowDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     actualOverflowListGoods.setOverflowList(overflowList);
     actualOverflowListGoods.setPrice(10.0f);
     actualOverflowListGoods.setTotal(10.0f);
@@ -93,7 +129,7 @@ public class OverflowListGoodsDiffblueTest {
     GoodsType actualType = actualOverflowListGoods.getType();
     Integer actualTypeId = actualOverflowListGoods.getTypeId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Code", actualCode);
     assertEquals("Model", actualModel);
     assertEquals("Name", actualName);

@@ -1,13 +1,18 @@
 package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CustomerDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link Customer}
    *   <li>{@link Customer#setAddress(String)}
@@ -26,6 +31,24 @@ public class CustomerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void Customer.<init>()",
+    "String Customer.getAddress()",
+    "String Customer.getContact()",
+    "Integer Customer.getId()",
+    "String Customer.getName()",
+    "String Customer.getNumber()",
+    "String Customer.getRemarks()",
+    "void Customer.setAddress(String)",
+    "void Customer.setContact(String)",
+    "void Customer.setId(Integer)",
+    "void Customer.setName(String)",
+    "void Customer.setNumber(String)",
+    "void Customer.setRemarks(String)",
+    "String Customer.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     Customer actualCustomer = new Customer();
@@ -42,13 +65,14 @@ public class CustomerDiffblueTest {
     String actualName = actualCustomer.getName();
     String actualNumber = actualCustomer.getNumber();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42 Main St", actualAddress);
     assertEquals("42", actualNumber);
     assertEquals("Contact", actualContact);
     assertEquals("Name", actualName);
     assertEquals("Remarks", actualCustomer.getRemarks());
-    assertEquals("[id=1, name=Name, contact=Contact, number=42, address=42 Main St, remarks=Remarks]",
+    assertEquals(
+        "[id=1, name=Name, contact=Contact, number=42, address=42 Main St, remarks=Remarks]",
         actualToStringResult);
     assertEquals(1, actualId.intValue());
   }

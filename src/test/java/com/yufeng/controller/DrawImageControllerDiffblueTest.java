@@ -6,30 +6,36 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import javax.servlet.ServletRequestWrapper;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.filters.AddDefaultCharsetFilter;
+import org.apache.catalina.filters.AddDefaultCharsetFilter.ResponseWrapper;
 import org.apache.catalina.ssi.ByteArrayServletOutputStream;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 
 public class DrawImageControllerDiffblueTest {
   /**
-   * Test
-   * {@link DrawImageController#drawImage(HttpServletRequest, HttpServletResponse)}.
+   * Test {@link DrawImageController#drawImage(HttpServletRequest, HttpServletResponse)}.
+   *
    * <ul>
-   *   <li>Given {@link MockHttpSession#MockHttpSession()}.</li>
-   *   <li>Then calls
-   * {@link ServletRequestWrapper#setCharacterEncoding(String)}.</li>
+   *   <li>Given {@link MockHttpSession#MockHttpSession()}.
+   *   <li>Then calls {@link DefaultMultipartHttpServletRequest#setCharacterEncoding(String)}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link DrawImageController#drawImage(HttpServletRequest, HttpServletResponse)}
+   *
+   * <p>Method under test: {@link DrawImageController#drawImage(HttpServletRequest,
+   * HttpServletResponse)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DrawImageController.drawImage(HttpServletRequest, HttpServletResponse)"})
   public void testDrawImage_givenMockHttpSession_thenCallsSetCharacterEncoding() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
     //   Run dcover create --keep-partial-tests to gain insights into why
@@ -40,7 +46,7 @@ public class DrawImageControllerDiffblueTest {
     DefaultMultipartHttpServletRequest request = mock(DefaultMultipartHttpServletRequest.class);
     when(request.getSession()).thenReturn(new MockHttpSession());
     doNothing().when(request).setCharacterEncoding(Mockito.<String>any());
-    AddDefaultCharsetFilter.ResponseWrapper response = mock(AddDefaultCharsetFilter.ResponseWrapper.class);
+    ResponseWrapper response = mock(ResponseWrapper.class);
     when(response.getOutputStream()).thenReturn(new ByteArrayServletOutputStream());
     doNothing().when(response).setDateHeader(Mockito.<String>any(), anyLong());
     doNothing().when(response).setHeader(Mockito.<String>any(), Mockito.<String>any());

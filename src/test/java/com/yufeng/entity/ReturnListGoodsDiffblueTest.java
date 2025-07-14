@@ -2,17 +2,22 @@ package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ReturnListGoodsDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link ReturnListGoods}
    *   <li>{@link ReturnListGoods#setCode(String)}
@@ -45,6 +50,38 @@ public class ReturnListGoodsDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ReturnListGoods.<init>()",
+    "String ReturnListGoods.getCode()",
+    "String ReturnListGoods.getCodeOrName()",
+    "Integer ReturnListGoods.getGoodsId()",
+    "Integer ReturnListGoods.getId()",
+    "String ReturnListGoods.getModel()",
+    "String ReturnListGoods.getName()",
+    "int ReturnListGoods.getNum()",
+    "float ReturnListGoods.getPrice()",
+    "ReturnList ReturnListGoods.getReturnList()",
+    "float ReturnListGoods.getTotal()",
+    "GoodsType ReturnListGoods.getType()",
+    "Integer ReturnListGoods.getTypeId()",
+    "String ReturnListGoods.getUnit()",
+    "void ReturnListGoods.setCode(String)",
+    "void ReturnListGoods.setCodeOrName(String)",
+    "void ReturnListGoods.setGoodsId(Integer)",
+    "void ReturnListGoods.setId(Integer)",
+    "void ReturnListGoods.setModel(String)",
+    "void ReturnListGoods.setName(String)",
+    "void ReturnListGoods.setNum(int)",
+    "void ReturnListGoods.setPrice(float)",
+    "void ReturnListGoods.setReturnList(ReturnList)",
+    "void ReturnListGoods.setTotal(float)",
+    "void ReturnListGoods.setType(GoodsType)",
+    "void ReturnListGoods.setTypeId(Integer)",
+    "void ReturnListGoods.setUnit(String)",
+    "String ReturnListGoods.toString()"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     ReturnListGoods actualReturnListGoods = new ReturnListGoods();
@@ -75,14 +112,17 @@ public class ReturnListGoodsDiffblueTest {
     returnList.setAmountPayable(10.0f);
     returnList.setId(1);
     returnList.setRemarks("Remarks");
-    returnList.setReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    returnList.setReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     returnList.setReturnListGoodsList(new ArrayList<>());
     returnList.setReturnNumber("42");
     returnList.setState(1);
     returnList.setSupplier(supplier);
     returnList.setUser(user);
-    returnList.setbReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    returnList.seteReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    returnList.setbReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    returnList.seteReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     actualReturnListGoods.setReturnList(returnList);
     actualReturnListGoods.setTotal(10.0f);
     GoodsType type = new GoodsType();
@@ -108,13 +148,15 @@ public class ReturnListGoodsDiffblueTest {
     GoodsType actualType = actualReturnListGoods.getType();
     Integer actualTypeId = actualReturnListGoods.getTypeId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Code Or Name", actualCodeOrName);
     assertEquals("Code", actualCode);
     assertEquals("Model", actualModel);
     assertEquals("Name", actualName);
-    assertEquals("ReturnListGoods [id=1, code=Code, name=Name, model=Model, type=[id=1, name=Name, state=1, icon=Icon,"
-        + " pId=1], unit=Unit, price=10.0, num=10, total=10.0]", actualToStringResult);
+    assertEquals(
+        "ReturnListGoods [id=1, code=Code, name=Name, model=Model, type=[id=1, name=Name, state=1, icon=Icon,"
+            + " pId=1], unit=Unit, price=10.0, num=10, total=10.0]",
+        actualToStringResult);
     assertEquals("Unit", actualReturnListGoods.getUnit());
     assertEquals(1, actualGoodsId.intValue());
     assertEquals(1, actualId.intValue());

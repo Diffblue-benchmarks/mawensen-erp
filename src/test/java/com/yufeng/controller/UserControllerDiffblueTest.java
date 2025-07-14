@@ -5,6 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.Role;
 import com.yufeng.entity.User;
 import com.yufeng.service.LogService;
@@ -15,6 +18,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.apache.catalina.session.StandardSession;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,33 +37,31 @@ import org.springframework.validation.FieldError;
 @ContextConfiguration(classes = {UserController.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserControllerDiffblueTest {
-  @MockBean
-  private LogService logService;
+  @MockBean private LogService logService;
 
-  @MockBean
-  private MenuService menuService;
+  @MockBean private MenuService menuService;
 
-  @MockBean
-  private RoleService roleService;
+  @MockBean private RoleService roleService;
 
-  @Autowired
-  private UserController userController;
+  @Autowired private UserController userController;
 
-  @MockBean
-  private UserService userService;
+  @MockBean private UserService userService;
 
   /**
    * Test {@link UserController#login(String, User, BindingResult, HttpSession)}.
+   *
    * <ul>
-   *   <li>Given {@code Attribute}.</li>
-   *   <li>When {@code Image Code}.</li>
-   *   <li>Then return {@code errorInfo} is {@code 验证码输入错误！}.</li>
+   *   <li>Given {@code Attribute}.
+   *   <li>When {@code Image Code}.
+   *   <li>Then return {@code errorInfo} is {@code 验证码输入错误！}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link UserController#login(String, User, BindingResult, HttpSession)}
+   *
+   * <p>Method under test: {@link UserController#login(String, User, BindingResult, HttpSession)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map UserController.login(String, User, BindingResult, HttpSession)"})
   public void testLogin_givenAttribute_whenImageCode_thenReturnErrorInfoIs() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
     //   Run dcover create --keep-partial-tests to gain insights into why
@@ -81,7 +83,8 @@ public class UserControllerDiffblueTest {
     when(session.getAttribute(Mockito.<String>any())).thenReturn("Attribute");
 
     // Act
-    Map<String, Object> actualLoginResult = userController.login("Image Code", user, bindingResult, session);
+    Map<String, Object> actualLoginResult =
+        userController.login("Image Code", user, bindingResult, session);
 
     // Assert
     verify(session).getAttribute(Mockito.<String>any());
@@ -92,14 +95,17 @@ public class UserControllerDiffblueTest {
 
   /**
    * Test {@link UserController#login(String, User, BindingResult, HttpSession)}.
+   *
    * <ul>
-   *   <li>Then return {@code errorInfo} is {@code Default Message}.</li>
+   *   <li>Then return {@code errorInfo} is {@code Default Message}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link UserController#login(String, User, BindingResult, HttpSession)}
+   *
+   * <p>Method under test: {@link UserController#login(String, User, BindingResult, HttpSession)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map UserController.login(String, User, BindingResult, HttpSession)"})
   public void testLogin_thenReturnErrorInfoIsDefaultMessage() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
     //   Run dcover create --keep-partial-tests to gain insights into why
@@ -116,13 +122,15 @@ public class UserControllerDiffblueTest {
     user.setTrueName("True Name");
     user.setUserName("janedoe");
     BeanPropertyBindingResult bindingResult = mock(BeanPropertyBindingResult.class);
-    when(bindingResult.getFieldError()).thenReturn(new FieldError("Object Name", "Field", "Default Message"));
+    when(bindingResult.getFieldError())
+        .thenReturn(new FieldError("Object Name", "Field", "Default Message"));
     when(bindingResult.hasErrors()).thenReturn(true);
     StandardSession session = mock(StandardSession.class);
     when(session.getAttribute(Mockito.<String>any())).thenReturn("Attribute");
 
     // Act
-    Map<String, Object> actualLoginResult = userController.login("Attribute", user, bindingResult, session);
+    Map<String, Object> actualLoginResult =
+        userController.login("Attribute", user, bindingResult, session);
 
     // Assert
     verify(session).getAttribute(Mockito.<String>any());
@@ -135,15 +143,18 @@ public class UserControllerDiffblueTest {
 
   /**
    * Test {@link UserController#login(String, User, BindingResult, HttpSession)}.
+   *
    * <ul>
-   *   <li>When empty string.</li>
-   *   <li>Then return {@code errorInfo} is {@code 请输入验证码！}.</li>
+   *   <li>When empty string.
+   *   <li>Then return {@code errorInfo} is {@code 请输入验证码！}.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link UserController#login(String, User, BindingResult, HttpSession)}
+   *
+   * <p>Method under test: {@link UserController#login(String, User, BindingResult, HttpSession)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map UserController.login(String, User, BindingResult, HttpSession)"})
   public void testLogin_whenEmptyString_thenReturnErrorInfoIs() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
     //   Run dcover create --keep-partial-tests to gain insights into why
@@ -161,8 +172,9 @@ public class UserControllerDiffblueTest {
     user.setUserName("janedoe");
 
     // Act
-    Map<String, Object> actualLoginResult = userController.login("", user, new BindException("Target", "Object Name"),
-        mock(StandardSession.class));
+    Map<String, Object> actualLoginResult =
+        userController.login(
+            "", user, new BindException("Target", "Object Name"), mock(StandardSession.class));
 
     // Assert
     assertEquals(2, actualLoginResult.size());
@@ -172,10 +184,13 @@ public class UserControllerDiffblueTest {
 
   /**
    * Test {@link UserController#saveRole(Integer, HttpSession)}.
-   * <p>
-   * Method under test: {@link UserController#saveRole(Integer, HttpSession)}
+   *
+   * <p>Method under test: {@link UserController#saveRole(Integer, HttpSession)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map UserController.saveRole(Integer, HttpSession)"})
   public void testSaveRole() throws Exception {
     // Arrange
     Role role = new Role();

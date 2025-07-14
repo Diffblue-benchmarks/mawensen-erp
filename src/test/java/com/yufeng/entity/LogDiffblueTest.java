@@ -2,16 +2,21 @@ package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class LogDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link Log#Log()}
    *   <li>{@link Log#setBtime(Date)}
@@ -31,16 +36,39 @@ public class LogDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void Log.<init>()",
+    "void Log.<init>(String, String)",
+    "Date Log.getBtime()",
+    "String Log.getContent()",
+    "Date Log.getEtime()",
+    "Integer Log.getId()",
+    "Date Log.getTime()",
+    "String Log.getType()",
+    "User Log.getUser()",
+    "void Log.setBtime(Date)",
+    "void Log.setContent(String)",
+    "void Log.setEtime(Date)",
+    "void Log.setId(Integer)",
+    "void Log.setTime(Date)",
+    "void Log.setType(String)",
+    "void Log.setUser(User)"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     Log actualLog = new Log();
-    Date btime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date btime =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualLog.setBtime(btime);
     actualLog.setContent("Not all who wander are lost");
-    Date etime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date etime =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualLog.setEtime(etime);
     actualLog.setId(1);
-    Date time = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date time =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualLog.setTime(time);
     actualLog.setType("Type");
     User user = new User();
@@ -59,7 +87,7 @@ public class LogDiffblueTest {
     String actualType = actualLog.getType();
     User actualUser = actualLog.getUser();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Not all who wander are lost", actualContent);
     assertEquals("Type", actualType);
     assertEquals(1, actualId.intValue());
@@ -71,11 +99,13 @@ public class LogDiffblueTest {
 
   /**
    * Test getters and setters.
+   *
    * <ul>
-   *   <li>When {@code Type}.</li>
+   *   <li>When {@code Type}.
    * </ul>
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>{@link Log#Log(String, String)}
    *   <li>{@link Log#setBtime(Date)}
@@ -95,16 +125,39 @@ public class LogDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void Log.<init>()",
+    "void Log.<init>(String, String)",
+    "Date Log.getBtime()",
+    "String Log.getContent()",
+    "Date Log.getEtime()",
+    "Integer Log.getId()",
+    "Date Log.getTime()",
+    "String Log.getType()",
+    "User Log.getUser()",
+    "void Log.setBtime(Date)",
+    "void Log.setContent(String)",
+    "void Log.setEtime(Date)",
+    "void Log.setId(Integer)",
+    "void Log.setTime(Date)",
+    "void Log.setType(String)",
+    "void Log.setUser(User)"
+  })
   public void testGettersAndSetters_whenType() {
     // Arrange and Act
     Log actualLog = new Log("Type", "Not all who wander are lost");
-    Date btime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date btime =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualLog.setBtime(btime);
     actualLog.setContent("Not all who wander are lost");
-    Date etime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date etime =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualLog.setEtime(etime);
     actualLog.setId(1);
-    Date time = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date time =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualLog.setTime(time);
     actualLog.setType("Type");
     User user = new User();
@@ -123,7 +176,7 @@ public class LogDiffblueTest {
     String actualType = actualLog.getType();
     User actualUser = actualLog.getUser();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Not all who wander are lost", actualContent);
     assertEquals("Type", actualType);
     assertEquals(1, actualId.intValue());

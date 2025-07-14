@@ -1,13 +1,18 @@
 package com.yufeng.entity;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SaleCountDiffblueTest {
   /**
    * Test getters and setters.
-   * <p>
-   * Methods under test:
+   *
+   * <p>Methods under test:
+   *
    * <ul>
    *   <li>default or parameterless constructor of {@link SaleCount}
    *   <li>{@link SaleCount#setAmountCost(float)}
@@ -21,6 +26,19 @@ public class SaleCountDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void SaleCount.<init>()",
+    "float SaleCount.getAmountCost()",
+    "float SaleCount.getAmountProfit()",
+    "float SaleCount.getAmountSale()",
+    "String SaleCount.getDate()",
+    "void SaleCount.setAmountCost(float)",
+    "void SaleCount.setAmountProfit(float)",
+    "void SaleCount.setAmountSale(float)",
+    "void SaleCount.setDate(String)"
+  })
   public void testGettersAndSetters() {
     // Arrange and Act
     SaleCount actualSaleCount = new SaleCount();
@@ -32,7 +50,7 @@ public class SaleCountDiffblueTest {
     float actualAmountProfit = actualSaleCount.getAmountProfit();
     float actualAmountSale = actualSaleCount.getAmountSale();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("2020-03-01", actualSaleCount.getDate());
     assertEquals(10.0f, actualAmountCost, 0.0f);
     assertEquals(10.0f, actualAmountProfit, 0.0f);

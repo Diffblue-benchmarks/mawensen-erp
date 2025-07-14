@@ -5,6 +5,9 @@ import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.GoodsType;
 import com.yufeng.entity.ReturnList;
 import com.yufeng.entity.ReturnListGoods;
@@ -17,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,25 +32,27 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {ReturnListGoodsServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ReturnListGoodsServiceImplDiffblueTest {
-  @MockBean
-  private ReturnListGoodsRepository returnListGoodsRepository;
+  @MockBean private ReturnListGoodsRepository returnListGoodsRepository;
 
-  @Autowired
-  private ReturnListGoodsServiceImpl returnListGoodsServiceImpl;
+  @Autowired private ReturnListGoodsServiceImpl returnListGoodsServiceImpl;
 
   /**
    * Test {@link ReturnListGoodsServiceImpl#listByReturnListId(Integer)}.
-   * <p>
-   * Method under test:
-   * {@link ReturnListGoodsServiceImpl#listByReturnListId(Integer)}
+   *
+   * <p>Method under test: {@link ReturnListGoodsServiceImpl#listByReturnListId(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List ReturnListGoodsServiceImpl.listByReturnListId(Integer)"})
   public void testListByReturnListId() {
     // Arrange
-    when(returnListGoodsRepository.listByReturnListId(Mockito.<Integer>any())).thenReturn(new ArrayList<>());
+    when(returnListGoodsRepository.listByReturnListId(Mockito.<Integer>any()))
+        .thenReturn(new ArrayList<>());
 
     // Act
-    List<ReturnListGoods> actualListByReturnListIdResult = returnListGoodsServiceImpl.listByReturnListId(1);
+    List<ReturnListGoods> actualListByReturnListIdResult =
+        returnListGoodsServiceImpl.listByReturnListId(1);
 
     // Assert
     verify(returnListGoodsRepository).listByReturnListId(anyInt());
@@ -55,10 +61,13 @@ public class ReturnListGoodsServiceImplDiffblueTest {
 
   /**
    * Test {@link ReturnListGoodsServiceImpl#list(ReturnListGoods)}.
-   * <p>
-   * Method under test: {@link ReturnListGoodsServiceImpl#list(ReturnListGoods)}
+   *
+   * <p>Method under test: {@link ReturnListGoodsServiceImpl#list(ReturnListGoods)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List ReturnListGoodsServiceImpl.list(ReturnListGoods)"})
   public void testList() {
     // Arrange
     when(returnListGoodsRepository.findAll(Mockito.<Specification<ReturnListGoods>>any()))
@@ -85,14 +94,17 @@ public class ReturnListGoodsServiceImplDiffblueTest {
     returnList.setAmountPayable(10.0f);
     returnList.setId(1);
     returnList.setRemarks("Remarks");
-    returnList.setReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    returnList.setReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     returnList.setReturnListGoodsList(new ArrayList<>());
     returnList.setReturnNumber("42");
     returnList.setState(1);
     returnList.setSupplier(supplier);
     returnList.setUser(user);
-    returnList.setbReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    returnList.seteReturnDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    returnList.setbReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    returnList.seteReturnDate(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     GoodsType type = new GoodsType();
     type.setIcon("Icon");

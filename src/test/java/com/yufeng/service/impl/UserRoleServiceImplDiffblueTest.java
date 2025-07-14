@@ -6,11 +6,15 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.Role;
 import com.yufeng.entity.User;
 import com.yufeng.entity.UserRole;
 import com.yufeng.repository.UserRoleRepository;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +25,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {UserRoleServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserRoleServiceImplDiffblueTest {
-  @MockBean
-  private UserRoleRepository userRoleRepository;
+  @MockBean private UserRoleRepository userRoleRepository;
 
-  @Autowired
-  private UserRoleServiceImpl userRoleServiceImpl;
+  @Autowired private UserRoleServiceImpl userRoleServiceImpl;
 
   /**
    * Test {@link UserRoleServiceImpl#save(UserRole)}.
-   * <p>
-   * Method under test: {@link UserRoleServiceImpl#save(UserRole)}
+   *
+   * <p>Method under test: {@link UserRoleServiceImpl#save(UserRole)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void UserRoleServiceImpl.save(UserRole)"})
   public void testSave() {
     // Arrange
     Role role = new Role();
@@ -81,10 +86,13 @@ public class UserRoleServiceImplDiffblueTest {
 
   /**
    * Test {@link UserRoleServiceImpl#delete(UserRole)}.
-   * <p>
-   * Method under test: {@link UserRoleServiceImpl#delete(UserRole)}
+   *
+   * <p>Method under test: {@link UserRoleServiceImpl#delete(UserRole)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void UserRoleServiceImpl.delete(UserRole)"})
   public void testDelete() {
     // Arrange
     doNothing().when(userRoleRepository).delete(Mockito.<UserRole>any());
@@ -116,10 +124,13 @@ public class UserRoleServiceImplDiffblueTest {
 
   /**
    * Test {@link UserRoleServiceImpl#findById(Integer)}.
-   * <p>
-   * Method under test: {@link UserRoleServiceImpl#findById(Integer)}
+   *
+   * <p>Method under test: {@link UserRoleServiceImpl#findById(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"UserRole UserRoleServiceImpl.findById(Integer)"})
   public void testFindById() {
     // Arrange
     Role role = new Role();
@@ -151,10 +162,13 @@ public class UserRoleServiceImplDiffblueTest {
 
   /**
    * Test {@link UserRoleServiceImpl#deleteByUserId(Integer)}.
-   * <p>
-   * Method under test: {@link UserRoleServiceImpl#deleteByUserId(Integer)}
+   *
+   * <p>Method under test: {@link UserRoleServiceImpl#deleteByUserId(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void UserRoleServiceImpl.deleteByUserId(Integer)"})
   public void testDeleteByUserId() {
     // Arrange
     doNothing().when(userRoleRepository).deleteByUserId(Mockito.<Integer>any());
@@ -168,10 +182,13 @@ public class UserRoleServiceImplDiffblueTest {
 
   /**
    * Test {@link UserRoleServiceImpl#deleteByRoleId(Integer)}.
-   * <p>
-   * Method under test: {@link UserRoleServiceImpl#deleteByRoleId(Integer)}
+   *
+   * <p>Method under test: {@link UserRoleServiceImpl#deleteByRoleId(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void UserRoleServiceImpl.deleteByRoleId(Integer)"})
   public void testDeleteByRoleId() {
     // Arrange
     doNothing().when(userRoleRepository).deleteByRoleId(Mockito.<Integer>any());

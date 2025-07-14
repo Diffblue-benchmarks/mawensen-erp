@@ -5,11 +5,15 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.Menu;
 import com.yufeng.entity.Role;
 import com.yufeng.entity.RoleMenu;
 import com.yufeng.repository.RoleMenuRepository;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +24,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {RoleMenuServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RoleMenuServiceImplDiffblueTest {
-  @MockBean
-  private RoleMenuRepository roleMenuRepository;
+  @MockBean private RoleMenuRepository roleMenuRepository;
 
-  @Autowired
-  private RoleMenuServiceImpl roleMenuServiceImpl;
+  @Autowired private RoleMenuServiceImpl roleMenuServiceImpl;
 
   /**
    * Test {@link RoleMenuServiceImpl#deleteByRoleId(Integer)}.
-   * <p>
-   * Method under test: {@link RoleMenuServiceImpl#deleteByRoleId(Integer)}
+   *
+   * <p>Method under test: {@link RoleMenuServiceImpl#deleteByRoleId(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void RoleMenuServiceImpl.deleteByRoleId(Integer)"})
   public void testDeleteByRoleId() {
     // Arrange
     doNothing().when(roleMenuRepository).deleteByRoleId(Mockito.<Integer>any());
@@ -45,10 +50,13 @@ public class RoleMenuServiceImplDiffblueTest {
 
   /**
    * Test {@link RoleMenuServiceImpl#save(RoleMenu)}.
-   * <p>
-   * Method under test: {@link RoleMenuServiceImpl#save(RoleMenu)}
+   *
+   * <p>Method under test: {@link RoleMenuServiceImpl#save(RoleMenu)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void RoleMenuServiceImpl.save(RoleMenu)"})
   public void testSave() {
     // Arrange
     Menu menu = new Menu();

@@ -8,11 +8,15 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.Role;
 import com.yufeng.repository.RoleRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -27,18 +32,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {RoleServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RoleServiceImplDiffblueTest {
-  @MockBean
-  private RoleRepository roleRepository;
+  @MockBean private RoleRepository roleRepository;
 
-  @Autowired
-  private RoleServiceImpl roleServiceImpl;
+  @Autowired private RoleServiceImpl roleServiceImpl;
 
   /**
    * Test {@link RoleServiceImpl#findByUserId(Integer)}.
-   * <p>
-   * Method under test: {@link RoleServiceImpl#findByUserId(Integer)}
+   *
+   * <p>Method under test: {@link RoleServiceImpl#findByUserId(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List RoleServiceImpl.findByUserId(Integer)"})
   public void testFindByUserId() {
     // Arrange
     when(roleRepository.findByUserId(Mockito.<Integer>any())).thenReturn(new ArrayList<>());
@@ -53,10 +59,13 @@ public class RoleServiceImplDiffblueTest {
 
   /**
    * Test {@link RoleServiceImpl#findById(Integer)}.
-   * <p>
-   * Method under test: {@link RoleServiceImpl#findById(Integer)}
+   *
+   * <p>Method under test: {@link RoleServiceImpl#findById(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Role RoleServiceImpl.findById(Integer)"})
   public void testFindById() {
     // Arrange
     Role role = new Role();
@@ -75,10 +84,13 @@ public class RoleServiceImplDiffblueTest {
 
   /**
    * Test {@link RoleServiceImpl#listAll()}.
-   * <p>
-   * Method under test: {@link RoleServiceImpl#listAll()}
+   *
+   * <p>Method under test: {@link RoleServiceImpl#listAll()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List RoleServiceImpl.listAll()"})
   public void testListAll() {
     // Arrange
     when(roleRepository.findAll()).thenReturn(new ArrayList<>());
@@ -92,16 +104,18 @@ public class RoleServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link RoleServiceImpl#list(Role, Integer, Integer, Direction, String[])}.
+   * Test {@link RoleServiceImpl#list(Role, Integer, Integer, Direction, String[])}.
+   *
    * <ul>
-   *   <li>Then return Empty.</li>
+   *   <li>Then return Empty.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link RoleServiceImpl#list(Role, Integer, Integer, Sort.Direction, String[])}
+   *
+   * <p>Method under test: {@link RoleServiceImpl#list(Role, Integer, Integer, Direction, String[])}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List RoleServiceImpl.list(Role, Integer, Integer, Direction, String[])"})
   public void testList_thenReturnEmpty() {
     // Arrange
     when(roleRepository.findAll(Mockito.<Specification<Role>>any(), Mockito.<Pageable>any()))
@@ -113,7 +127,7 @@ public class RoleServiceImplDiffblueTest {
     role.setRemarks("Remarks");
 
     // Act
-    List<Role> actualListResult = roleServiceImpl.list(role, 1, 3, Sort.Direction.ASC, "Properties");
+    List<Role> actualListResult = roleServiceImpl.list(role, 1, 3, Direction.ASC, "Properties");
 
     // Assert
     verify(roleRepository).findAll(isA(Specification.class), isA(Pageable.class));
@@ -122,10 +136,13 @@ public class RoleServiceImplDiffblueTest {
 
   /**
    * Test {@link RoleServiceImpl#getCount(Role)}.
-   * <p>
-   * Method under test: {@link RoleServiceImpl#getCount(Role)}
+   *
+   * <p>Method under test: {@link RoleServiceImpl#getCount(Role)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Long RoleServiceImpl.getCount(Role)"})
   public void testGetCount() {
     // Arrange
     when(roleRepository.count(Mockito.<Specification<Role>>any())).thenReturn(3L);
@@ -145,10 +162,13 @@ public class RoleServiceImplDiffblueTest {
 
   /**
    * Test {@link RoleServiceImpl#save(Role)}.
-   * <p>
-   * Method under test: {@link RoleServiceImpl#save(Role)}
+   *
+   * <p>Method under test: {@link RoleServiceImpl#save(Role)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void RoleServiceImpl.save(Role)"})
   public void testSave() {
     // Arrange
     Role role = new Role();
@@ -171,10 +191,13 @@ public class RoleServiceImplDiffblueTest {
 
   /**
    * Test {@link RoleServiceImpl#delete(Integer)}.
-   * <p>
-   * Method under test: {@link RoleServiceImpl#delete(Integer)}
+   *
+   * <p>Method under test: {@link RoleServiceImpl#delete(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void RoleServiceImpl.delete(Integer)"})
   public void testDelete() {
     // Arrange
     doNothing().when(roleRepository).delete(Mockito.<Integer>any());

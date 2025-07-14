@@ -8,11 +8,15 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.User;
 import com.yufeng.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -27,18 +32,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {UserServiceImpl.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserServiceImplDiffblueTest {
-  @MockBean
-  private UserRepository userRepository;
+  @MockBean private UserRepository userRepository;
 
-  @Autowired
-  private UserServiceImpl userServiceImpl;
+  @Autowired private UserServiceImpl userServiceImpl;
 
   /**
    * Test {@link UserServiceImpl#findByUserName(String)}.
-   * <p>
-   * Method under test: {@link UserServiceImpl#findByUserName(String)}
+   *
+   * <p>Method under test: {@link UserServiceImpl#findByUserName(String)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"User UserServiceImpl.findByUserName(String)"})
   public void testFindByUserName() {
     // Arrange
     User user = new User();
@@ -60,10 +66,13 @@ public class UserServiceImplDiffblueTest {
 
   /**
    * Test {@link UserServiceImpl#findById(Integer)}.
-   * <p>
-   * Method under test: {@link UserServiceImpl#findById(Integer)}
+   *
+   * <p>Method under test: {@link UserServiceImpl#findById(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"User UserServiceImpl.findById(Integer)"})
   public void testFindById() {
     // Arrange
     User user = new User();
@@ -85,10 +94,13 @@ public class UserServiceImplDiffblueTest {
 
   /**
    * Test {@link UserServiceImpl#save(User)}.
-   * <p>
-   * Method under test: {@link UserServiceImpl#save(User)}
+   *
+   * <p>Method under test: {@link UserServiceImpl#save(User)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void UserServiceImpl.save(User)"})
   public void testSave() {
     // Arrange
     User user = new User();
@@ -116,16 +128,18 @@ public class UserServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link UserServiceImpl#list(User, Integer, Integer, Direction, String[])}.
+   * Test {@link UserServiceImpl#list(User, Integer, Integer, Direction, String[])}.
+   *
    * <ul>
-   *   <li>Then return Empty.</li>
+   *   <li>Then return Empty.
    * </ul>
-   * <p>
-   * Method under test:
-   * {@link UserServiceImpl#list(User, Integer, Integer, Sort.Direction, String[])}
+   *
+   * <p>Method under test: {@link UserServiceImpl#list(User, Integer, Integer, Direction, String[])}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List UserServiceImpl.list(User, Integer, Integer, Direction, String[])"})
   public void testList_thenReturnEmpty() {
     // Arrange
     when(userRepository.findAll(Mockito.<Specification<User>>any(), Mockito.<Pageable>any()))
@@ -140,7 +154,7 @@ public class UserServiceImplDiffblueTest {
     user.setUserName("janedoe");
 
     // Act
-    List<User> actualListResult = userServiceImpl.list(user, 1, 3, Sort.Direction.ASC, "Properties");
+    List<User> actualListResult = userServiceImpl.list(user, 1, 3, Direction.ASC, "Properties");
 
     // Assert
     verify(userRepository).findAll(isA(Specification.class), isA(Pageable.class));
@@ -149,10 +163,13 @@ public class UserServiceImplDiffblueTest {
 
   /**
    * Test {@link UserServiceImpl#getCount(User)}.
-   * <p>
-   * Method under test: {@link UserServiceImpl#getCount(User)}
+   *
+   * <p>Method under test: {@link UserServiceImpl#getCount(User)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Long UserServiceImpl.getCount(User)"})
   public void testGetCount() {
     // Arrange
     when(userRepository.count(Mockito.<Specification<User>>any())).thenReturn(3L);
@@ -175,10 +192,13 @@ public class UserServiceImplDiffblueTest {
 
   /**
    * Test {@link UserServiceImpl#delete(Integer)}.
-   * <p>
-   * Method under test: {@link UserServiceImpl#delete(Integer)}
+   *
+   * <p>Method under test: {@link UserServiceImpl#delete(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void UserServiceImpl.delete(Integer)"})
   public void testDelete() {
     // Arrange
     doNothing().when(userRepository).delete(Mockito.<Integer>any());

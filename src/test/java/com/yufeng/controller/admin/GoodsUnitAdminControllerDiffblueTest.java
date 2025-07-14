@@ -2,12 +2,16 @@ package com.yufeng.controller.admin;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.entity.GoodsUnit;
 import com.yufeng.entity.Log;
 import com.yufeng.service.GoodsUnitService;
 import com.yufeng.service.LogService;
 import java.util.ArrayList;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,25 +26,26 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @ContextConfiguration(classes = {GoodsUnitAdminController.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class GoodsUnitAdminControllerDiffblueTest {
-  @Autowired
-  private GoodsUnitAdminController goodsUnitAdminController;
+  @Autowired private GoodsUnitAdminController goodsUnitAdminController;
 
-  @MockBean
-  private GoodsUnitService goodsUnitService;
+  @MockBean private GoodsUnitService goodsUnitService;
 
-  @MockBean
-  private LogService logService;
+  @MockBean private LogService logService;
 
   /**
    * Test {@link GoodsUnitAdminController#comboList()}.
-   * <p>
-   * Method under test: {@link GoodsUnitAdminController#comboList()}
+   *
+   * <p>Method under test: {@link GoodsUnitAdminController#comboList()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.List GoodsUnitAdminController.comboList()"})
   public void testComboList() throws Exception {
     // Arrange
     when(goodsUnitService.listAll()).thenReturn(new ArrayList<>());
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/goodsUnit/comboList");
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goodsUnit/comboList");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsUnitAdminController)
@@ -53,15 +58,19 @@ public class GoodsUnitAdminControllerDiffblueTest {
 
   /**
    * Test {@link GoodsUnitAdminController#listAll()}.
-   * <p>
-   * Method under test: {@link GoodsUnitAdminController#listAll()}
+   *
+   * <p>Method under test: {@link GoodsUnitAdminController#listAll()}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsUnitAdminController.listAll()"})
   public void testListAll() throws Exception {
     // Arrange
     when(goodsUnitService.listAll()).thenReturn(new ArrayList<>());
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/goodsUnit/listAll");
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goodsUnit/listAll");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsUnitAdminController)
@@ -74,15 +83,19 @@ public class GoodsUnitAdminControllerDiffblueTest {
 
   /**
    * Test {@link GoodsUnitAdminController#save(GoodsUnit)}.
-   * <p>
-   * Method under test: {@link GoodsUnitAdminController#save(GoodsUnit)}
+   *
+   * <p>Method under test: {@link GoodsUnitAdminController#save(GoodsUnit)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsUnitAdminController.save(GoodsUnit)"})
   public void testSave() throws Exception {
     // Arrange
     doNothing().when(goodsUnitService).save(Mockito.<GoodsUnit>any());
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/goodsUnit/save");
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goodsUnit/save");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsUnitAdminController)
@@ -95,10 +108,13 @@ public class GoodsUnitAdminControllerDiffblueTest {
 
   /**
    * Test {@link GoodsUnitAdminController#delete(Integer)}.
-   * <p>
-   * Method under test: {@link GoodsUnitAdminController#delete(Integer)}
+   *
+   * <p>Method under test: {@link GoodsUnitAdminController#delete(Integer)}
    */
   @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsUnitAdminController.delete(Integer)"})
   public void testDelete() throws Exception {
     // Arrange
     GoodsUnit goodsUnit = new GoodsUnit();
