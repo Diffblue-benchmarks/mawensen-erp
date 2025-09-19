@@ -1,7 +1,11 @@
 package com.yufeng.controller.admin;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -10,6 +14,7 @@ import com.yufeng.entity.Log;
 import com.yufeng.service.CustomerService;
 import com.yufeng.service.LogService;
 import java.util.ArrayList;
+import java.util.Map;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -22,7 +27,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @ContextConfiguration(classes = {CustomerAdminController.class})
@@ -42,7 +46,7 @@ public class CustomerAdminControllerDiffblueTest {
   @Test
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.Map CustomerAdminController.list(Customer, Integer, Integer)"})
+  @MethodsUnderTest({"Map CustomerAdminController.list(Customer, Integer, Integer)"})
   public void testList() throws Exception {
     // Arrange
     when(customerService.getCount(Mockito.<Customer>any())).thenReturn(3L);
@@ -54,6 +58,7 @@ public class CustomerAdminControllerDiffblueTest {
             (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
     doNothing().when(logService).save(Mockito.<Log>any());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/customer/list");
 
@@ -61,9 +66,9 @@ public class CustomerAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(customerAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"total\":3,\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"total\":3,\"rows\":[]}"));
   }
 
   /**
@@ -82,6 +87,7 @@ public class CustomerAdminControllerDiffblueTest {
   public void testComboList_whenFoo() throws Exception {
     // Arrange
     when(customerService.findByName(Mockito.<String>any())).thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/customer/comboList").param("q", "foo");
 
@@ -89,9 +95,9 @@ public class CustomerAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(customerAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("[]"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("[]"));
   }
 
   /**
@@ -102,11 +108,12 @@ public class CustomerAdminControllerDiffblueTest {
   @Test
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.Map CustomerAdminController.save(Customer)"})
+  @MethodsUnderTest({"Map CustomerAdminController.save(Customer)"})
   public void testSave() throws Exception {
     // Arrange
     doNothing().when(customerService).save(Mockito.<Customer>any());
     doNothing().when(logService).save(Mockito.<Log>any());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/customer/save");
 
@@ -114,41 +121,35 @@ public class CustomerAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(customerAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
    * Test {@link CustomerAdminController#delete(String)}.
+   *
+   * <ul>
+   *   <li>When {@code ,}.
+   *   <li>Then return size is one.
+   * </ul>
    *
    * <p>Method under test: {@link CustomerAdminController#delete(String)}
    */
   @Test
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.Map CustomerAdminController.delete(String)"})
-  public void testDelete() throws Exception {
-    // Arrange
-    Customer customer = new Customer();
-    customer.setAddress("42 Main St");
-    customer.setContact("Contact");
-    customer.setId(1);
-    customer.setName("Name");
-    customer.setNumber("42");
-    customer.setRemarks("Remarks");
-    when(customerService.findById(Mockito.<Integer>any())).thenReturn(customer);
-    doNothing().when(customerService).delete(Mockito.<Integer>any());
-    doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder requestBuilder =
-        MockMvcRequestBuilders.get("/admin/customer/delete").param("ids", "42");
+  @MethodsUnderTest({"Map CustomerAdminController.delete(String)"})
+  public void testDelete_whenComma_thenReturnSizeIsOne() throws Exception {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
-    // Act and Assert
-    MockMvcBuilders.standaloneSetup(customerAdminController)
-        .build()
-        .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+    // Arrange and Act
+    Map<String, Object> actualDeleteResult = new CustomerAdminController().delete(",");
+
+    // Assert
+    assertEquals(1, actualDeleteResult.size());
+    assertTrue((Boolean) actualDeleteResult.get("success"));
   }
 }

@@ -2,6 +2,8 @@ package com.yufeng.controller.admin;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -25,7 +27,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @ContextConfiguration(classes = {GoodsAdminContrller.class})
@@ -61,15 +62,16 @@ public class GoodsAdminContrllerDiffblueTest {
             (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
     doNothing().when(logService).save(Mockito.<Log>any());
+
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/goods/list");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"total\":3,\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"total\":3,\"rows\":[]}"));
   }
 
   /**
@@ -92,6 +94,7 @@ public class GoodsAdminContrllerDiffblueTest {
             (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
     doNothing().when(logService).save(Mockito.<Log>any());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/goods/listInventory");
 
@@ -99,9 +102,9 @@ public class GoodsAdminContrllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"total\":3,\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"total\":3,\"rows\":[]}"));
   }
 
   /**
@@ -116,6 +119,7 @@ public class GoodsAdminContrllerDiffblueTest {
   public void testListAlart() throws Exception {
     // Arrange
     when(goodsService.listAlarm()).thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/goods/listAlarm");
 
@@ -123,9 +127,9 @@ public class GoodsAdminContrllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
   }
 
   /**
@@ -152,6 +156,7 @@ public class GoodsAdminContrllerDiffblueTest {
             (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
     doNothing().when(logService).save(Mockito.<Log>any());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/goods/listNoInventoryQuantity");
 
@@ -159,9 +164,9 @@ public class GoodsAdminContrllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"total\":3,\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"total\":3,\"rows\":[]}"));
   }
 
   /**
@@ -185,6 +190,7 @@ public class GoodsAdminContrllerDiffblueTest {
             (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
     doNothing().when(logService).save(Mockito.<Log>any());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/goods/listHasInventoryQuantity");
 
@@ -192,9 +198,9 @@ public class GoodsAdminContrllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"total\":3,\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"total\":3,\"rows\":[]}"));
   }
 
   /**
@@ -239,17 +245,17 @@ public class GoodsAdminContrllerDiffblueTest {
     goods.setUnit("Unit");
     doNothing().when(goodsService).save(Mockito.<Goods>any());
     when(goodsService.findById(Mockito.<Integer>any())).thenReturn(goods);
-    MockHttpServletRequestBuilder getResult =
-        MockMvcRequestBuilders.get("/admin/goods/deleteStock");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/deleteStock").param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -295,19 +301,17 @@ public class GoodsAdminContrllerDiffblueTest {
     goods.setUnit("Unit");
     doNothing().when(goodsService).save(Mockito.<Goods>any());
     when(goodsService.findById(Mockito.<Integer>any())).thenReturn(goods);
-    MockHttpServletRequestBuilder getResult =
-        MockMvcRequestBuilders.get("/admin/goods/deleteStock");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/deleteStock").param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(
-            MockMvcResultMatchers.content()
-                .string("{\"success\":false,\"errorInfo\":\"该商品已经发生单据，不能删除！\"}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":false,\"errorInfo\":\"该商品已经发生单据，不能删除！\"}"));
   }
 
   /**
@@ -328,6 +332,7 @@ public class GoodsAdminContrllerDiffblueTest {
       throws Exception {
     // Arrange
     when(goodsService.getMaxGoodsCode()).thenReturn("42");
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/goods/genGoodsCode");
 
@@ -335,9 +340,9 @@ public class GoodsAdminContrllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("0043"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("0043"));
   }
 
   /**
@@ -356,6 +361,7 @@ public class GoodsAdminContrllerDiffblueTest {
   public void testGenGoodsCode_thenContentString0001() throws Exception {
     // Arrange
     when(goodsService.getMaxGoodsCode()).thenReturn("");
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/goods/genGoodsCode");
 
@@ -363,9 +369,9 @@ public class GoodsAdminContrllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("0001"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("0001"));
   }
 
   /**
@@ -381,15 +387,16 @@ public class GoodsAdminContrllerDiffblueTest {
     // Arrange
     doNothing().when(goodsService).save(Mockito.<Goods>any());
     doNothing().when(logService).save(Mockito.<Log>any());
+
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/goods/save");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -430,19 +437,20 @@ public class GoodsAdminContrllerDiffblueTest {
     doNothing().when(goodsService).save(Mockito.<Goods>any());
     when(goodsService.findById(Mockito.<Integer>any())).thenReturn(goods);
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/goods/saveStore");
-    MockHttpServletRequestBuilder paramResult = getResult.param("id", String.valueOf(1));
-    MockHttpServletRequestBuilder paramResult2 = paramResult.param("num", String.valueOf(1));
+
     MockHttpServletRequestBuilder requestBuilder =
-        paramResult2.param("price", String.valueOf(10.0f));
+        MockMvcRequestBuilders.get("/admin/goods/saveStore")
+            .param("id", String.valueOf(1))
+            .param("num", String.valueOf(1))
+            .param("price", String.valueOf(10.0f));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -487,18 +495,17 @@ public class GoodsAdminContrllerDiffblueTest {
     goods.setType(type);
     goods.setUnit("Unit");
     when(goodsService.findById(Mockito.<Integer>any())).thenReturn(goods);
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/goods/delete");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/delete").param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(
-            MockMvcResultMatchers.content()
-                .string("{\"success\":false,\"errorInfo\":\"该商品已经期初入库，不能删除！\"}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":false,\"errorInfo\":\"该商品已经期初入库，不能删除！\"}"));
   }
 
   /**
@@ -545,18 +552,17 @@ public class GoodsAdminContrllerDiffblueTest {
     doNothing().when(goodsService).delete(Mockito.<Integer>any());
     when(goodsService.findById(Mockito.<Integer>any())).thenReturn(goods);
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/goods/delete");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/delete").param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(
-            MockMvcResultMatchers.content()
-                .string("{\"success\":false,\"errorInfo\":\"该商品已经发生单据，不能删除！\"}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":false,\"errorInfo\":\"该商品已经发生单据，不能删除！\"}"));
   }
 
   /**
@@ -602,15 +608,16 @@ public class GoodsAdminContrllerDiffblueTest {
     doNothing().when(goodsService).delete(Mockito.<Integer>any());
     when(goodsService.findById(Mockito.<Integer>any())).thenReturn(goods);
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/goods/delete");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/delete").param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsAdminContrller)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 }

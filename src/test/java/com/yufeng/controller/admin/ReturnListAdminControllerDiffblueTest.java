@@ -2,6 +2,8 @@ package com.yufeng.controller.admin;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -30,7 +32,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @ContextConfiguration(classes = {ReturnListAdminController.class})
@@ -60,6 +61,7 @@ public class ReturnListAdminControllerDiffblueTest {
     when(returnListService.list(
             Mockito.<ReturnList>any(), Mockito.<Direction>any(), (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/returnList/list");
 
@@ -67,9 +69,9 @@ public class ReturnListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(returnListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
   }
 
   /**
@@ -91,18 +93,18 @@ public class ReturnListAdminControllerDiffblueTest {
     // Arrange
     when(returnListGoodsService.listByReturnListId(Mockito.<Integer>any()))
         .thenReturn(new ArrayList<>());
-    MockHttpServletRequestBuilder getResult =
-        MockMvcRequestBuilders.get("/admin/returnList/listGoods");
+
     MockHttpServletRequestBuilder requestBuilder =
-        getResult.param("returnListId", String.valueOf(1));
+        MockMvcRequestBuilders.get("/admin/returnList/listGoods")
+            .param("returnListId", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(returnListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
   }
 
   /**
@@ -121,6 +123,7 @@ public class ReturnListAdminControllerDiffblueTest {
     when(returnListService.list(
             Mockito.<ReturnList>any(), Mockito.<Direction>any(), (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/returnList/listCount");
 
@@ -128,16 +131,16 @@ public class ReturnListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(returnListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
   }
 
   /**
    * Test {@link ReturnListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code TH202507140001}.
+   *   <li>Then content string {@code TH202509190001}.
    * </ul>
    *
    * <p>Method under test: {@link ReturnListAdminController#genBillCode(String)}
@@ -146,9 +149,10 @@ public class ReturnListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String ReturnListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringTh202507140001() throws Exception {
+  public void testGenBillCode_thenContentStringTh202509190001() throws Exception {
     // Arrange
     when(returnListService.getTodayMaxReturnNumber()).thenReturn(null);
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/returnList/getReturnNumber").param("type", "foo");
 
@@ -156,16 +160,16 @@ public class ReturnListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(returnListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("TH202507140001"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("TH202509190001"));
   }
 
   /**
    * Test {@link ReturnListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code TH202507140100}.
+   *   <li>Then content string {@code TH202509190100}.
    * </ul>
    *
    * <p>Method under test: {@link ReturnListAdminController#genBillCode(String)}
@@ -174,9 +178,10 @@ public class ReturnListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String ReturnListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringTh202507140100() throws Exception {
+  public void testGenBillCode_thenContentStringTh202509190100() throws Exception {
     // Arrange
     when(returnListService.getTodayMaxReturnNumber()).thenReturn("admin");
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/returnList/getReturnNumber").param("type", "foo");
 
@@ -184,9 +189,9 @@ public class ReturnListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(returnListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("TH202507140100"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("TH202509190100"));
   }
 
   /**
@@ -234,17 +239,17 @@ public class ReturnListAdminControllerDiffblueTest {
         Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     doNothing().when(returnListService).update(Mockito.<ReturnList>any());
     when(returnListService.findById(Mockito.<Integer>any())).thenReturn(returnList);
-    MockHttpServletRequestBuilder getResult =
-        MockMvcRequestBuilders.get("/admin/returnList/update");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/returnList/update").param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(returnListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -294,16 +299,16 @@ public class ReturnListAdminControllerDiffblueTest {
         Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(returnListService.findById(Mockito.<Integer>any())).thenReturn(returnList);
     doNothing().when(returnListService).delete(Mockito.<Integer>any());
-    MockHttpServletRequestBuilder getResult =
-        MockMvcRequestBuilders.get("/admin/returnList/delete");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/returnList/delete").param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(returnListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 }

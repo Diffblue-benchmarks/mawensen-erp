@@ -2,6 +2,8 @@ package com.yufeng.controller.admin;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -30,7 +32,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @ContextConfiguration(classes = {SaleListAdminController.class})
@@ -60,6 +61,7 @@ public class SaleListAdminControllerDiffblueTest {
     when(saleListService.list(
             Mockito.<SaleList>any(), Mockito.<Direction>any(), (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/saleList/list");
 
@@ -67,9 +69,9 @@ public class SaleListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(saleListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
   }
 
   /**
@@ -91,17 +93,18 @@ public class SaleListAdminControllerDiffblueTest {
     // Arrange
     when(saleListGoodsService.listBySaleListId(Mockito.<Integer>any()))
         .thenReturn(new ArrayList<>());
-    MockHttpServletRequestBuilder getResult =
-        MockMvcRequestBuilders.get("/admin/saleList/listGoods");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("saleListId", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/saleList/listGoods")
+            .param("saleListId", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(saleListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
   }
 
   /**
@@ -118,6 +121,7 @@ public class SaleListAdminControllerDiffblueTest {
     when(saleListService.list(
             Mockito.<SaleList>any(), Mockito.<Direction>any(), (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/saleList/listCount");
 
@@ -125,16 +129,16 @@ public class SaleListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(saleListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
   }
 
   /**
    * Test {@link SaleListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code XS202507140001}.
+   *   <li>Then content string {@code XS202509190001}.
    * </ul>
    *
    * <p>Method under test: {@link SaleListAdminController#genBillCode(String)}
@@ -143,9 +147,10 @@ public class SaleListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String SaleListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringXs202507140001() throws Exception {
+  public void testGenBillCode_thenContentStringXs202509190001() throws Exception {
     // Arrange
     when(saleListService.getTodayMaxSaleNumber()).thenReturn(null);
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/saleList/getSaleNumber").param("type", "foo");
 
@@ -153,16 +158,16 @@ public class SaleListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(saleListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("XS202507140001"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("XS202509190001"));
   }
 
   /**
    * Test {@link SaleListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code XS202507140100}.
+   *   <li>Then content string {@code XS202509190100}.
    * </ul>
    *
    * <p>Method under test: {@link SaleListAdminController#genBillCode(String)}
@@ -171,9 +176,10 @@ public class SaleListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String SaleListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringXs202507140100() throws Exception {
+  public void testGenBillCode_thenContentStringXs202509190100() throws Exception {
     // Arrange
     when(saleListService.getTodayMaxSaleNumber()).thenReturn("admin");
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/saleList/getSaleNumber").param("type", "foo");
 
@@ -181,9 +187,9 @@ public class SaleListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(saleListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("XS202507140100"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("XS202509190100"));
   }
 
   /**
@@ -231,16 +237,17 @@ public class SaleListAdminControllerDiffblueTest {
         Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     doNothing().when(saleListService).update(Mockito.<SaleList>any());
     when(saleListService.findById(Mockito.<Integer>any())).thenReturn(saleList);
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/saleList/update");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/saleList/update").param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(saleListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -290,15 +297,16 @@ public class SaleListAdminControllerDiffblueTest {
         Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(saleListService.findById(Mockito.<Integer>any())).thenReturn(saleList);
     doNothing().when(saleListService).delete(Mockito.<Integer>any());
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/saleList/delete");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/saleList/delete").param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(saleListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 }

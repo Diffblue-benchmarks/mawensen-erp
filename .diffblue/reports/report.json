@@ -3,19 +3,19 @@
     "reportVersion" : "2.7"
   },
   "run" : {
-    "version" : "2025.06.04-0b71eb4-licensed",
-    "creationTimestamp" : "2025-07-14T10:59:47.288+01:00",
-    "command" : "dcover create --coverage-reports",
-    "totalTime" : 2360.281,
-    "environmentDetectionTime" : 1.765,
-    "indexingTime" : 0.394,
-    "entryPointsTime" : 1.746,
-    "generationTime" : 2249.818,
-    "timeToFirstTest" : 46.906,
-    "timeToLastTest" : 2305.872,
-    "indexQueryTime" : 9.911,
-    "verificationTime" : 40.846,
-    "validationTime" : 21.524
+    "version" : "2025.09.01-44e352d-licensed",
+    "creationTimestamp" : "2025-09-19T08:47:28.438Z",
+    "command" : "dcover create --coverage-reports --upload http://localhost:8080 --project-name mawensen-erp --name with-diffblue-tests",
+    "totalTime" : 1533.849,
+    "environmentDetectionTime" : 1.131,
+    "indexingTime" : 0.318,
+    "entryPointsTime" : 1.103,
+    "generationTime" : 1466.478,
+    "timeToFirstTest" : 42.321,
+    "timeToLastTest" : 1501.307,
+    "indexQueryTime" : 8.643,
+    "verificationTime" : 23.715,
+    "validationTime" : 11.995
   },
   "codes" : {
     "E092" : "Missing embedded database engine",
@@ -42,9 +42,9 @@
   "summary" : {
     "classesCount" : 151,
     "methodsCount" : 1591,
-    "cumulativeDiffblueTestCount" : 269,
+    "cumulativeDiffblueTestCount" : 272,
     "cumulativeManualTestCount" : 1,
-    "completeTestCount" : 269,
+    "completeTestCount" : 272,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 5794,
@@ -77,10 +77,10 @@
       "W001" : 1
     },
     "perTestOutcome" : {
-      "R000" : 269
+      "R000" : 272
     },
     "perTestValidation" : {
-      "V000" : 269
+      "V000" : 272
     },
     "warnings" : {
       "F009" : 1,
@@ -447,7 +447,7 @@
     },
     "com.yufeng.controller.admin.RoleAdminController" : {
       "methodsCount" : 9,
-      "completeTestCount" : 7,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 6,
@@ -460,7 +460,7 @@
         "T005" : 1
       },
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 8
       }
     },
     "com.yufeng.controller.admin.SaleListAdminController" : {
@@ -1611,7 +1611,7 @@
     },
     "com.yufeng.service.impl.DamageListServiceImpl" : {
       "methodsCount" : 6,
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 5,
@@ -1622,7 +1622,7 @@
         "T005" : 1
       },
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       }
     },
     "com.yufeng.service.impl.DamageListServiceImpl$1" : {
@@ -1823,7 +1823,7 @@
     },
     "com.yufeng.service.impl.OverflowListServiceImpl" : {
       "methodsCount" : 6,
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 5,
@@ -1834,7 +1834,7 @@
         "T005" : 1
       },
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       }
     },
     "com.yufeng.service.impl.OverflowListServiceImpl$1" : {
@@ -3876,12 +3876,12 @@
       ]
     },
     "com.yufeng.controller.admin.RoleAdminController.loadCheckMenuInfo:(Ljava/lang/Integer;Ljava/lang/Integer;)Ljava/lang/String;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         136,
@@ -15404,12 +15404,12 @@
       ]
     },
     "com.yufeng.service.impl.DamageListServiceImpl.save:(Lcom/yufeng/entity/DamageList;Ljava/util/List;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         53,
@@ -16097,12 +16097,12 @@
       ]
     },
     "com.yufeng.service.impl.OverflowListServiceImpl.save:(Lcom/yufeng/entity/OverflowList;Ljava/util/List;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         53,

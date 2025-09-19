@@ -3,6 +3,8 @@ package com.yufeng.controller.admin;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -28,7 +30,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @ContextConfiguration(classes = {RoleAdminController.class})
@@ -59,6 +60,7 @@ public class RoleAdminControllerDiffblueTest {
     // Arrange
     doNothing().when(logService).save(Mockito.<Log>any());
     when(roleService.listAll()).thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/role/listAll");
 
@@ -66,9 +68,9 @@ public class RoleAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(roleAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
   }
 
   /**
@@ -91,15 +93,16 @@ public class RoleAdminControllerDiffblueTest {
             Mockito.<Direction>any(),
             (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/role/list");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(roleAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"total\":3,\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"total\":3,\"rows\":[]}"));
   }
 
   /**
@@ -115,15 +118,16 @@ public class RoleAdminControllerDiffblueTest {
     // Arrange
     doNothing().when(logService).save(Mockito.<Log>any());
     doNothing().when(roleService).save(Mockito.<Role>any());
+
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/role/save");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(roleAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -146,16 +150,17 @@ public class RoleAdminControllerDiffblueTest {
     when(roleService.findById(Mockito.<Integer>any())).thenReturn(role);
     doNothing().when(roleService).delete(Mockito.<Integer>any());
     doNothing().when(userRoleService).deleteByRoleId(Mockito.<Integer>any());
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/role/delete");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/role/delete").param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(roleAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -171,18 +176,61 @@ public class RoleAdminControllerDiffblueTest {
     // Arrange
     when(menuService.findByParentId(anyInt())).thenReturn(new ArrayList<>());
     when(menuService.findByRoleId(anyInt())).thenReturn(new ArrayList<>());
-    MockHttpServletRequestBuilder postResult =
-        MockMvcRequestBuilders.post("/admin/role/loadCheckMenuInfo");
-    MockHttpServletRequestBuilder paramResult = postResult.param("parentId", String.valueOf(1));
-    MockHttpServletRequestBuilder requestBuilder = paramResult.param("roleId", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.post("/admin/role/loadCheckMenuInfo")
+            .param("parentId", String.valueOf(1))
+            .param("roleId", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(roleAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("[]"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("[]"));
+  }
+
+  /**
+   * Test {@link RoleAdminController#loadCheckMenuInfo(Integer, Integer)}.
+   *
+   * <ul>
+   *   <li>Given {@link Menu} (default constructor) Icon is {@code admin}.
+   * </ul>
+   *
+   * <p>Method under test: {@link RoleAdminController#loadCheckMenuInfo(Integer, Integer)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String RoleAdminController.loadCheckMenuInfo(Integer, Integer)"})
+  public void testLoadCheckMenuInfo_givenMenuIconIsAdmin() throws Exception {
+    // Arrange
+    Menu menu = new Menu();
+    menu.setIcon("admin");
+    menu.setId(1);
+    menu.setName("admin");
+    menu.setState(1);
+    menu.setUrl("https://example.org/example");
+    menu.setpId(1);
+
+    ArrayList<Menu> menuList = new ArrayList<>();
+    menuList.add(menu);
+    when(menuService.findByParentId(anyInt())).thenReturn(new ArrayList<>());
+    when(menuService.findByRoleId(anyInt())).thenReturn(menuList);
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.post("/admin/role/loadCheckMenuInfo")
+            .param("parentId", String.valueOf(1))
+            .param("roleId", String.valueOf(1));
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(roleAdminController)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("[]"));
   }
 
   /**
@@ -218,17 +266,19 @@ public class RoleAdminControllerDiffblueTest {
     role.setName("Name");
     role.setRemarks("Remarks");
     when(roleService.findById(Mockito.<Integer>any())).thenReturn(role);
-    MockHttpServletRequestBuilder paramResult =
-        MockMvcRequestBuilders.get("/admin/role/saveMenuSet").param("menuIds", "42");
-    MockHttpServletRequestBuilder requestBuilder = paramResult.param("roleId", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/role/saveMenuSet")
+            .param("menuIds", "42")
+            .param("roleId", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(roleAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -264,16 +314,18 @@ public class RoleAdminControllerDiffblueTest {
     role.setName("Name");
     role.setRemarks("Remarks");
     when(roleService.findById(Mockito.<Integer>any())).thenReturn(role);
-    MockHttpServletRequestBuilder paramResult =
-        MockMvcRequestBuilders.get("/admin/role/saveMenuSet").param("menuIds", "");
-    MockHttpServletRequestBuilder requestBuilder = paramResult.param("roleId", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/role/saveMenuSet")
+            .param("menuIds", "")
+            .param("roleId", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(roleAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 }

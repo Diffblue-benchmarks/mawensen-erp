@@ -8,6 +8,8 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -27,7 +29,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.result.StatusResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -57,6 +58,7 @@ public class GoodsTypeAdminControllerDiffblueTest {
     // Arrange
     when(goodsTypeService.findByParentId(anyInt())).thenReturn(new ArrayList<>());
     doNothing().when(logService).save(Mockito.<Log>any());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.post("/admin/goodsType/loadTreeInfo");
 
@@ -64,9 +66,9 @@ public class GoodsTypeAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(goodsTypeAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("[]"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("[]"));
   }
 
   /**
@@ -89,17 +91,19 @@ public class GoodsTypeAdminControllerDiffblueTest {
     when(goodsTypeService.findById(Mockito.<Integer>any())).thenReturn(goodsType);
     doNothing().when(goodsTypeService).save(Mockito.<GoodsType>any());
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder paramResult =
-        MockMvcRequestBuilders.get("/admin/goodsType/save").param("name", "foo");
-    MockHttpServletRequestBuilder requestBuilder = paramResult.param("parentId", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goodsType/save")
+            .param("name", "foo")
+            .param("parentId", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsTypeAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -123,16 +127,17 @@ public class GoodsTypeAdminControllerDiffblueTest {
     doNothing().when(goodsTypeService).delete(Mockito.<Integer>any());
     when(goodsTypeService.findById(Mockito.<Integer>any())).thenReturn(goodsType);
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/goodsType/delete");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goodsType/delete").param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsTypeAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -171,16 +176,17 @@ public class GoodsTypeAdminControllerDiffblueTest {
     doNothing().when(goodsTypeService).delete(Mockito.<Integer>any());
     when(goodsTypeService.findById(Mockito.<Integer>any())).thenReturn(goodsType);
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/goodsType/delete");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goodsType/delete").param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsTypeAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -211,6 +217,7 @@ public class GoodsTypeAdminControllerDiffblueTest {
     assertFalse(actualAllByParentId.isJsonPrimitive());
     assertFalse(actualAllByParentId.iterator().hasNext());
     assertTrue(actualAllByParentId.isJsonArray());
-    assertSame(actualAllByParentId, actualAllByParentId.getAsJsonArray());
+    JsonArray actualAsJsonArray = actualAllByParentId.getAsJsonArray();
+    assertSame(actualAllByParentId, actualAsJsonArray);
   }
 }

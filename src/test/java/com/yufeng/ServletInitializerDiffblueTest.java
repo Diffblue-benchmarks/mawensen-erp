@@ -30,7 +30,10 @@ public class ServletInitializerDiffblueTest {
     ServletInitializer servletInitializer = new ServletInitializer();
     SpringApplicationBuilder application = new SpringApplicationBuilder("Sources");
 
-    // Act and Assert
-    assertSame(application, servletInitializer.configure(application));
+    // Act
+    SpringApplicationBuilder actualConfigureResult = servletInitializer.configure(application);
+
+    // Assert
+    assertSame(application, actualConfigureResult);
   }
 }

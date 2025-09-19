@@ -2,6 +2,8 @@ package com.yufeng.controller.admin;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -20,7 +22,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @ContextConfiguration(classes = {GoodsUnitAdminController.class})
@@ -44,6 +45,7 @@ public class GoodsUnitAdminControllerDiffblueTest {
   public void testComboList() throws Exception {
     // Arrange
     when(goodsUnitService.listAll()).thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/goodsUnit/comboList");
 
@@ -51,9 +53,9 @@ public class GoodsUnitAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(goodsUnitAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("[]"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("[]"));
   }
 
   /**
@@ -69,6 +71,7 @@ public class GoodsUnitAdminControllerDiffblueTest {
     // Arrange
     when(goodsUnitService.listAll()).thenReturn(new ArrayList<>());
     doNothing().when(logService).save(Mockito.<Log>any());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/goodsUnit/listAll");
 
@@ -76,9 +79,9 @@ public class GoodsUnitAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(goodsUnitAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
   }
 
   /**
@@ -94,6 +97,7 @@ public class GoodsUnitAdminControllerDiffblueTest {
     // Arrange
     doNothing().when(goodsUnitService).save(Mockito.<GoodsUnit>any());
     doNothing().when(logService).save(Mockito.<Log>any());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/goodsUnit/save");
 
@@ -101,9 +105,9 @@ public class GoodsUnitAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(goodsUnitAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -123,15 +127,16 @@ public class GoodsUnitAdminControllerDiffblueTest {
     when(goodsUnitService.findById(Mockito.<Integer>any())).thenReturn(goodsUnit);
     doNothing().when(goodsUnitService).delete(Mockito.<Integer>any());
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/goodsUnit/delete");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goodsUnit/delete").param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(goodsUnitAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 }

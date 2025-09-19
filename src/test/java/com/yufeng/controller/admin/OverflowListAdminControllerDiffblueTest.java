@@ -1,6 +1,8 @@
 package com.yufeng.controller.admin;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -22,7 +24,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @ContextConfiguration(classes = {OverflowListAdminController.class})
@@ -52,6 +53,7 @@ public class OverflowListAdminControllerDiffblueTest {
     when(overflowListService.list(
             Mockito.<OverflowList>any(), Mockito.<Direction>any(), (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/overflowList/list");
 
@@ -59,9 +61,9 @@ public class OverflowListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(overflowListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
   }
 
   /**
@@ -83,25 +85,25 @@ public class OverflowListAdminControllerDiffblueTest {
     // Arrange
     when(overflowListGoodsService.listByOverflowListId(Mockito.<Integer>any()))
         .thenReturn(new ArrayList<>());
-    MockHttpServletRequestBuilder getResult =
-        MockMvcRequestBuilders.get("/admin/overflowList/listGoods");
+
     MockHttpServletRequestBuilder requestBuilder =
-        getResult.param("overflowListId", String.valueOf(1));
+        MockMvcRequestBuilders.get("/admin/overflowList/listGoods")
+            .param("overflowListId", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(overflowListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
   }
 
   /**
    * Test {@link OverflowListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code BY202507140001}.
+   *   <li>Then content string {@code BY202509190001}.
    * </ul>
    *
    * <p>Method under test: {@link OverflowListAdminController#genBillCode(String)}
@@ -110,9 +112,10 @@ public class OverflowListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String OverflowListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringBy202507140001() throws Exception {
+  public void testGenBillCode_thenContentStringBy202509190001() throws Exception {
     // Arrange
     when(overflowListService.getTodayMaxOverflowNumber()).thenReturn(null);
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/overflowList/getOverflowNumber").param("type", "foo");
 
@@ -120,16 +123,16 @@ public class OverflowListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(overflowListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("BY202507140001"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("BY202509190001"));
   }
 
   /**
    * Test {@link OverflowListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code BY202507140100}.
+   *   <li>Then content string {@code BY202509190100}.
    * </ul>
    *
    * <p>Method under test: {@link OverflowListAdminController#genBillCode(String)}
@@ -138,9 +141,10 @@ public class OverflowListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String OverflowListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringBy202507140100() throws Exception {
+  public void testGenBillCode_thenContentStringBy202509190100() throws Exception {
     // Arrange
     when(overflowListService.getTodayMaxOverflowNumber()).thenReturn("admin");
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/overflowList/getOverflowNumber").param("type", "foo");
 
@@ -148,8 +152,8 @@ public class OverflowListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(overflowListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("BY202507140100"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("BY202509190100"));
   }
 }

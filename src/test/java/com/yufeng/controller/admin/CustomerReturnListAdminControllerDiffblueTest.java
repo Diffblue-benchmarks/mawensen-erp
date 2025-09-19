@@ -2,6 +2,8 @@ package com.yufeng.controller.admin;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -30,7 +32,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @ContextConfiguration(classes = {CustomerReturnListAdminController.class})
@@ -60,6 +61,7 @@ public class CustomerReturnListAdminControllerDiffblueTest {
     when(customerReturnListService.list(
             Mockito.<CustomerReturnList>any(), Mockito.<Direction>any(), (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/customerReturnList/list");
 
@@ -67,9 +69,9 @@ public class CustomerReturnListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(customerReturnListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
   }
 
   /**
@@ -91,18 +93,18 @@ public class CustomerReturnListAdminControllerDiffblueTest {
     // Arrange
     when(customerReturnListGoodsService.listByCustomerReturnListId(Mockito.<Integer>any()))
         .thenReturn(new ArrayList<>());
-    MockHttpServletRequestBuilder getResult =
-        MockMvcRequestBuilders.get("/admin/customerReturnList/listGoods");
+
     MockHttpServletRequestBuilder requestBuilder =
-        getResult.param("customerReturnListId", String.valueOf(1));
+        MockMvcRequestBuilders.get("/admin/customerReturnList/listGoods")
+            .param("customerReturnListId", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(customerReturnListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
   }
 
   /**
@@ -123,6 +125,7 @@ public class CustomerReturnListAdminControllerDiffblueTest {
     when(customerReturnListService.list(
             Mockito.<CustomerReturnList>any(), Mockito.<Direction>any(), (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/customerReturnList/listCount");
 
@@ -130,16 +133,16 @@ public class CustomerReturnListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(customerReturnListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
   }
 
   /**
    * Test {@link CustomerReturnListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code XT202507140001}.
+   *   <li>Then content string {@code XT202509190001}.
    * </ul>
    *
    * <p>Method under test: {@link CustomerReturnListAdminController#genBillCode(String)}
@@ -148,9 +151,10 @@ public class CustomerReturnListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String CustomerReturnListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringXt202507140001() throws Exception {
+  public void testGenBillCode_thenContentStringXt202509190001() throws Exception {
     // Arrange
     when(customerReturnListService.getTodayMaxCustomerReturnNumber()).thenReturn(null);
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/customerReturnList/getCustomerReturnNumber")
             .param("type", "foo");
@@ -159,16 +163,16 @@ public class CustomerReturnListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(customerReturnListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("XT202507140001"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("XT202509190001"));
   }
 
   /**
    * Test {@link CustomerReturnListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code XT202507140100}.
+   *   <li>Then content string {@code XT202509190100}.
    * </ul>
    *
    * <p>Method under test: {@link CustomerReturnListAdminController#genBillCode(String)}
@@ -177,9 +181,10 @@ public class CustomerReturnListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String CustomerReturnListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringXt202507140100() throws Exception {
+  public void testGenBillCode_thenContentStringXt202509190100() throws Exception {
     // Arrange
     when(customerReturnListService.getTodayMaxCustomerReturnNumber()).thenReturn("admin");
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/customerReturnList/getCustomerReturnNumber")
             .param("type", "foo");
@@ -188,9 +193,9 @@ public class CustomerReturnListAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(customerReturnListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(MockMvcResultMatchers.content().string("XT202507140100"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("XT202509190100"));
   }
 
   /**
@@ -238,17 +243,18 @@ public class CustomerReturnListAdminControllerDiffblueTest {
         Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     doNothing().when(customerReturnListService).update(Mockito.<CustomerReturnList>any());
     when(customerReturnListService.findById(Mockito.<Integer>any())).thenReturn(customerReturnList);
-    MockHttpServletRequestBuilder getResult =
-        MockMvcRequestBuilders.get("/admin/customerReturnList/update");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/customerReturnList/update")
+            .param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(customerReturnListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -297,16 +303,17 @@ public class CustomerReturnListAdminControllerDiffblueTest {
     when(customerReturnListService.findById(Mockito.<Integer>any())).thenReturn(customerReturnList);
     doNothing().when(customerReturnListService).delete(Mockito.<Integer>any());
     doNothing().when(logService).save(Mockito.<Log>any());
-    MockHttpServletRequestBuilder getResult =
-        MockMvcRequestBuilders.get("/admin/customerReturnList/delete");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/customerReturnList/delete")
+            .param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(customerReturnListAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 }

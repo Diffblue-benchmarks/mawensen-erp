@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -27,7 +29,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindException;
@@ -121,10 +122,12 @@ public class UserControllerDiffblueTest {
     user.setRoles("Roles");
     user.setTrueName("True Name");
     user.setUserName("janedoe");
+
     BeanPropertyBindingResult bindingResult = mock(BeanPropertyBindingResult.class);
-    when(bindingResult.getFieldError())
-        .thenReturn(new FieldError("Object Name", "Field", "Default Message"));
+    FieldError fieldError = new FieldError("Object Name", "Field", "Default Message");
+    when(bindingResult.getFieldError()).thenReturn(fieldError);
     when(bindingResult.hasErrors()).thenReturn(true);
+
     StandardSession session = mock(StandardSession.class);
     when(session.getAttribute(Mockito.<String>any())).thenReturn("Attribute");
 
@@ -198,15 +201,16 @@ public class UserControllerDiffblueTest {
     role.setName("Name");
     role.setRemarks("Remarks");
     when(roleService.findById(Mockito.<Integer>any())).thenReturn(role);
-    MockHttpServletRequestBuilder postResult = MockMvcRequestBuilders.post("/user/saveRole");
-    MockHttpServletRequestBuilder requestBuilder = postResult.param("roleId", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.post("/user/saveRole").param("roleId", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(userController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 }

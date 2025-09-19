@@ -2,6 +2,8 @@ package com.yufeng.controller.admin;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -26,7 +28,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @ContextConfiguration(classes = {UserAdminController.class})
@@ -62,15 +63,16 @@ public class UserAdminControllerDiffblueTest {
             Mockito.<Direction>any(),
             (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/user/list");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(userAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"total\":3,\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"total\":3,\"rows\":[]}"));
   }
 
   /**
@@ -106,17 +108,19 @@ public class UserAdminControllerDiffblueTest {
     user.setTrueName("True Name");
     user.setUserName("janedoe");
     when(userService.findById(Mockito.<Integer>any())).thenReturn(user);
-    MockHttpServletRequestBuilder paramResult =
-        MockMvcRequestBuilders.get("/admin/user/saveRoleSet").param("roleIds", "42");
-    MockHttpServletRequestBuilder requestBuilder = paramResult.param("userId", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/user/saveRoleSet")
+            .param("roleIds", "42")
+            .param("userId", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(userAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -152,17 +156,19 @@ public class UserAdminControllerDiffblueTest {
     user.setTrueName("True Name");
     user.setUserName("janedoe");
     when(userService.findById(Mockito.<Integer>any())).thenReturn(user);
-    MockHttpServletRequestBuilder paramResult =
-        MockMvcRequestBuilders.get("/admin/user/saveRoleSet").param("roleIds", "");
-    MockHttpServletRequestBuilder requestBuilder = paramResult.param("userId", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/user/saveRoleSet")
+            .param("roleIds", "")
+            .param("userId", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(userAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
@@ -187,17 +193,16 @@ public class UserAdminControllerDiffblueTest {
     user.setUserName("janedoe");
     when(userService.findByUserName(Mockito.<String>any())).thenReturn(user);
     doNothing().when(userService).save(Mockito.<User>any());
+
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/user/save");
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(userAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(
-            MockMvcResultMatchers.content()
-                .string("{\"success\":false,\"errorInfo\":\"用户名已经存在!\"}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":false,\"errorInfo\":\"用户名已经存在!\"}"));
   }
 
   /**
@@ -223,15 +228,16 @@ public class UserAdminControllerDiffblueTest {
     user.setUserName("janedoe");
     when(userService.findById(Mockito.<Integer>any())).thenReturn(user);
     doNothing().when(userService).delete(Mockito.<Integer>any());
-    MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/admin/user/delete");
-    MockHttpServletRequestBuilder requestBuilder = getResult.param("id", String.valueOf(1));
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/user/delete").param("id", String.valueOf(1));
 
     // Act and Assert
     MockMvcBuilders.standaloneSetup(userAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 }

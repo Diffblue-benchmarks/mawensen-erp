@@ -1,7 +1,11 @@
 package com.yufeng.controller.admin;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
@@ -10,6 +14,7 @@ import com.yufeng.entity.Supplier;
 import com.yufeng.service.LogService;
 import com.yufeng.service.SupplierService;
 import java.util.ArrayList;
+import java.util.Map;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -22,7 +27,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @ContextConfiguration(classes = {SupplierAdminController.class})
@@ -42,7 +46,7 @@ public class SupplierAdminControllerDiffblueTest {
   @Test
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.Map SupplierAdminController.list(Supplier, Integer, Integer)"})
+  @MethodsUnderTest({"Map SupplierAdminController.list(Supplier, Integer, Integer)"})
   public void testList() throws Exception {
     // Arrange
     doNothing().when(logService).save(Mockito.<Log>any());
@@ -54,6 +58,7 @@ public class SupplierAdminControllerDiffblueTest {
             Mockito.<Direction>any(),
             (String[]) Mockito.any()))
         .thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/supplier/list");
 
@@ -61,9 +66,9 @@ public class SupplierAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(supplierAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"total\":3,\"rows\":[]}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"total\":3,\"rows\":[]}"));
   }
 
   /**
@@ -82,6 +87,7 @@ public class SupplierAdminControllerDiffblueTest {
   public void testComboList_whenFoo() throws Exception {
     // Arrange
     when(supplierService.findByName(Mockito.<String>any())).thenReturn(new ArrayList<>());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/supplier/comboList").param("q", "foo");
 
@@ -89,9 +95,9 @@ public class SupplierAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(supplierAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("[]"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("[]"));
   }
 
   /**
@@ -102,11 +108,12 @@ public class SupplierAdminControllerDiffblueTest {
   @Test
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.Map SupplierAdminController.save(Supplier)"})
+  @MethodsUnderTest({"Map SupplierAdminController.save(Supplier)"})
   public void testSave() throws Exception {
     // Arrange
     doNothing().when(logService).save(Mockito.<Log>any());
     doNothing().when(supplierService).save(Mockito.<Supplier>any());
+
     MockHttpServletRequestBuilder requestBuilder =
         MockMvcRequestBuilders.get("/admin/supplier/save");
 
@@ -114,42 +121,35 @@ public class SupplierAdminControllerDiffblueTest {
     MockMvcBuilders.standaloneSetup(supplierAdminController)
         .build()
         .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
   }
 
   /**
    * Test {@link SupplierAdminController#delete(String)}.
+   *
+   * <ul>
+   *   <li>When {@code ,}.
+   *   <li>Then return size is one.
+   * </ul>
    *
    * <p>Method under test: {@link SupplierAdminController#delete(String)}
    */
   @Test
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.Map SupplierAdminController.delete(String)"})
-  public void testDelete() throws Exception {
-    // Arrange
-    doNothing().when(logService).save(Mockito.<Log>any());
+  @MethodsUnderTest({"Map SupplierAdminController.delete(String)"})
+  public void testDelete_whenComma_thenReturnSizeIsOne() throws Exception {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
-    Supplier supplier = new Supplier();
-    supplier.setAddress("42 Main St");
-    supplier.setContact("Contact");
-    supplier.setId(1);
-    supplier.setName("Name");
-    supplier.setNumber("42");
-    supplier.setRemarks("Remarks");
-    when(supplierService.findById(Mockito.<Integer>any())).thenReturn(supplier);
-    doNothing().when(supplierService).delete(Mockito.<Integer>any());
-    MockHttpServletRequestBuilder requestBuilder =
-        MockMvcRequestBuilders.get("/admin/supplier/delete").param("ids", "42");
+    // Arrange and Act
+    Map<String, Object> actualDeleteResult = new SupplierAdminController().delete(",");
 
-    // Act and Assert
-    MockMvcBuilders.standaloneSetup(supplierAdminController)
-        .build()
-        .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("{\"success\":true}"));
+    // Assert
+    assertEquals(1, actualDeleteResult.size());
+    assertTrue((Boolean) actualDeleteResult.get("success"));
   }
 }

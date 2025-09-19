@@ -1,32 +1,28 @@
 package com.yufeng.controller;
 
-import static org.mockito.Mockito.anyLong;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.Collection;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.filters.AddDefaultCharsetFilter;
-import org.apache.catalina.filters.AddDefaultCharsetFilter.ResponseWrapper;
-import org.apache.catalina.ssi.ByteArrayServletOutputStream;
+import javax.servlet.http.HttpSession;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mockito.Mockito;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
-import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 
 public class DrawImageControllerDiffblueTest {
   /**
    * Test {@link DrawImageController#drawImage(HttpServletRequest, HttpServletResponse)}.
    *
    * <ul>
-   *   <li>Given {@link MockHttpSession#MockHttpSession()}.
-   *   <li>Then calls {@link DefaultMultipartHttpServletRequest#setCharacterEncoding(String)}.
+   *   <li>Then {@link MockHttpServletResponse} (default constructor) HeaderNames size is four.
    * </ul>
    *
    * <p>Method under test: {@link DrawImageController#drawImage(HttpServletRequest,
@@ -36,31 +32,33 @@ public class DrawImageControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"void DrawImageController.drawImage(HttpServletRequest, HttpServletResponse)"})
-  public void testDrawImage_givenMockHttpSession_thenCallsSetCharacterEncoding() throws Exception {
+  public void testDrawImage_thenMockHttpServletResponseHeaderNamesSizeIsFour() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
     //   Run dcover create --keep-partial-tests to gain insights into why
     //   a non-Spring test was created.
 
     // Arrange
     DrawImageController drawImageController = new DrawImageController();
-    DefaultMultipartHttpServletRequest request = mock(DefaultMultipartHttpServletRequest.class);
-    when(request.getSession()).thenReturn(new MockHttpSession());
-    doNothing().when(request).setCharacterEncoding(Mockito.<String>any());
-    ResponseWrapper response = mock(ResponseWrapper.class);
-    when(response.getOutputStream()).thenReturn(new ByteArrayServletOutputStream());
-    doNothing().when(response).setDateHeader(Mockito.<String>any(), anyLong());
-    doNothing().when(response).setHeader(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(response).setContentType(Mockito.<String>any());
+    MockHttpServletRequest request = new MockHttpServletRequest();
+    MockHttpServletResponse response = new MockHttpServletResponse();
 
     // Act
     drawImageController.drawImage(request, response);
 
     // Assert
-    verify(request).setCharacterEncoding(Mockito.<String>any());
-    verify(response).getOutputStream();
-    verify(request).getSession();
-    verify(response).setDateHeader(Mockito.<String>any(), anyLong());
-    verify(response, atLeast(1)).setHeader(Mockito.<String>any(), Mockito.<String>any());
-    verify(response, atLeast(1)).setContentType(Mockito.<String>any());
+    Collection<String> headerNames = response.getHeaderNames();
+    assertEquals(4, headerNames.size());
+    assertTrue(headerNames instanceof Set);
+    HttpSession session = request.getSession();
+    assertTrue(session instanceof MockHttpSession);
+    assertEquals("UTF-8", response.getCharacterEncoding());
+    assertEquals("image/jpeg", response.getContentType());
+    assertEquals("utf-8", request.getCharacterEncoding());
+    assertTrue(headerNames.contains("Cache-Control"));
+    assertTrue(headerNames.contains("Content-Type"));
+    assertTrue(headerNames.contains("Pragma"));
+    assertTrue(headerNames.contains("expries"));
+    assertTrue(response.isCharset());
+    assertArrayEquals(new String[] {"checkcode"}, session.getValueNames());
   }
 }

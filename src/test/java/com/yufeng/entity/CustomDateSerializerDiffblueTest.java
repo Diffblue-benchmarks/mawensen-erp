@@ -45,9 +45,11 @@ public class CustomDateSerializerDiffblueTest {
     CustomDateSerializer customDateSerializer = new CustomDateSerializer();
     Date value =
         Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
     JsonGenerator d = mock(JsonGenerator.class);
     doNothing().when(d).writeString(Mockito.<String>any());
-    JsonGeneratorDelegate gen = new JsonGeneratorDelegate(new JsonGeneratorDelegate(d), true);
+    JsonGeneratorDelegate d2 = new JsonGeneratorDelegate(d);
+    JsonGeneratorDelegate gen = new JsonGeneratorDelegate(d2, true);
 
     // Act
     customDateSerializer.serialize(value, gen, new Impl());
