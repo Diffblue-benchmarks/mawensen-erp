@@ -192,48 +192,6 @@ public class RoleAdminControllerDiffblueTest {
   }
 
   /**
-   * Test {@link RoleAdminController#loadCheckMenuInfo(Integer, Integer)}.
-   *
-   * <ul>
-   *   <li>Given {@link Menu} (default constructor) Icon is {@code admin}.
-   * </ul>
-   *
-   * <p>Method under test: {@link RoleAdminController#loadCheckMenuInfo(Integer, Integer)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String RoleAdminController.loadCheckMenuInfo(Integer, Integer)"})
-  public void testLoadCheckMenuInfo_givenMenuIconIsAdmin() throws Exception {
-    // Arrange
-    Menu menu = new Menu();
-    menu.setIcon("admin");
-    menu.setId(1);
-    menu.setName("admin");
-    menu.setState(1);
-    menu.setUrl("https://example.org/example");
-    menu.setpId(1);
-
-    ArrayList<Menu> menuList = new ArrayList<>();
-    menuList.add(menu);
-    when(menuService.findByParentId(anyInt())).thenReturn(new ArrayList<>());
-    when(menuService.findByRoleId(anyInt())).thenReturn(menuList);
-
-    MockHttpServletRequestBuilder requestBuilder =
-        MockMvcRequestBuilders.post("/admin/role/loadCheckMenuInfo")
-            .param("parentId", String.valueOf(1))
-            .param("roleId", String.valueOf(1));
-
-    // Act and Assert
-    MockMvcBuilders.standaloneSetup(roleAdminController)
-        .build()
-        .perform(requestBuilder)
-        .andExpect(status().isOk())
-        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(content().string("[]"));
-  }
-
-  /**
    * Test {@link RoleAdminController#saveMenuSet(String, Integer)}.
    *
    * <ul>

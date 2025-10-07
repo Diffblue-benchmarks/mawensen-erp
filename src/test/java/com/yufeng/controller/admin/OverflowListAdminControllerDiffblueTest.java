@@ -103,7 +103,7 @@ public class OverflowListAdminControllerDiffblueTest {
    * Test {@link OverflowListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code BY202509190001}.
+   *   <li>Then content string {@code BY202510070001}.
    * </ul>
    *
    * <p>Method under test: {@link OverflowListAdminController#genBillCode(String)}
@@ -112,7 +112,7 @@ public class OverflowListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String OverflowListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringBy202509190001() throws Exception {
+  public void testGenBillCode_thenContentStringBy202510070001() throws Exception {
     // Arrange
     when(overflowListService.getTodayMaxOverflowNumber()).thenReturn(null);
 
@@ -125,14 +125,14 @@ public class OverflowListAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(status().isOk())
         .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(content().string("BY202509190001"));
+        .andExpect(content().string("BY202510070001"));
   }
 
   /**
    * Test {@link OverflowListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code BY202509190100}.
+   *   <li>Then content string {@code BY202510070100}.
    * </ul>
    *
    * <p>Method under test: {@link OverflowListAdminController#genBillCode(String)}
@@ -141,7 +141,7 @@ public class OverflowListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String OverflowListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringBy202509190100() throws Exception {
+  public void testGenBillCode_thenContentStringBy202510070100() throws Exception {
     // Arrange
     when(overflowListService.getTodayMaxOverflowNumber()).thenReturn("admin");
 
@@ -154,6 +154,6 @@ public class OverflowListAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(status().isOk())
         .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(content().string("BY202509190100"));
+        .andExpect(content().string("BY202510070100"));
   }
 }

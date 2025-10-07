@@ -103,7 +103,7 @@ public class DamageListAdminControllerDiffblueTest {
    * Test {@link DamageListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code BS202509190001}.
+   *   <li>Then content string {@code BS202510070001}.
    * </ul>
    *
    * <p>Method under test: {@link DamageListAdminController#genBillCode(String)}
@@ -112,7 +112,7 @@ public class DamageListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String DamageListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringBs202509190001() throws Exception {
+  public void testGenBillCode_thenContentStringBs202510070001() throws Exception {
     // Arrange
     when(damageListService.getTodayMaxDamageNumber()).thenReturn(null);
 
@@ -125,14 +125,14 @@ public class DamageListAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(status().isOk())
         .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(content().string("BS202509190001"));
+        .andExpect(content().string("BS202510070001"));
   }
 
   /**
    * Test {@link DamageListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code BS202509190100}.
+   *   <li>Then content string {@code BS202510070100}.
    * </ul>
    *
    * <p>Method under test: {@link DamageListAdminController#genBillCode(String)}
@@ -141,7 +141,7 @@ public class DamageListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String DamageListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringBs202509190100() throws Exception {
+  public void testGenBillCode_thenContentStringBs202510070100() throws Exception {
     // Arrange
     when(damageListService.getTodayMaxDamageNumber()).thenReturn("admin");
 
@@ -154,6 +154,6 @@ public class DamageListAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(status().isOk())
         .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(content().string("BS202509190100"));
+        .andExpect(content().string("BS202510070100"));
   }
 }
