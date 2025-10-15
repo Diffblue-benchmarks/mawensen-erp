@@ -141,7 +141,7 @@ public class PurchaseListAdminControllerDiffblueTest {
    * Test {@link PurchaseListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code JH202510070001}.
+   *   <li>Then content string {@code JH202510150001}.
    * </ul>
    *
    * <p>Method under test: {@link PurchaseListAdminController#genBillCode(String)}
@@ -150,7 +150,7 @@ public class PurchaseListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String PurchaseListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringJh202510070001() throws Exception {
+  public void testGenBillCode_thenContentStringJh202510150001() throws Exception {
     // Arrange
     when(purchaseListService.getTodayMaxPurchaseNumber()).thenReturn(null);
 
@@ -163,14 +163,14 @@ public class PurchaseListAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(status().isOk())
         .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(content().string("JH202510070001"));
+        .andExpect(content().string("JH202510150001"));
   }
 
   /**
    * Test {@link PurchaseListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code JH202510070100}.
+   *   <li>Then content string {@code JH202510150100}.
    * </ul>
    *
    * <p>Method under test: {@link PurchaseListAdminController#genBillCode(String)}
@@ -179,7 +179,7 @@ public class PurchaseListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String PurchaseListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringJh202510070100() throws Exception {
+  public void testGenBillCode_thenContentStringJh202510150100() throws Exception {
     // Arrange
     when(purchaseListService.getTodayMaxPurchaseNumber()).thenReturn("admin");
 
@@ -192,7 +192,7 @@ public class PurchaseListAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(status().isOk())
         .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(content().string("JH202510070100"));
+        .andExpect(content().string("JH202510150100"));
   }
 
   /**

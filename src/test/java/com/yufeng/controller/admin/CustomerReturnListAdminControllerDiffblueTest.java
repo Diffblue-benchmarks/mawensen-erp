@@ -142,7 +142,7 @@ public class CustomerReturnListAdminControllerDiffblueTest {
    * Test {@link CustomerReturnListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code XT202510070001}.
+   *   <li>Then content string {@code XT202510150001}.
    * </ul>
    *
    * <p>Method under test: {@link CustomerReturnListAdminController#genBillCode(String)}
@@ -151,7 +151,7 @@ public class CustomerReturnListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String CustomerReturnListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringXt202510070001() throws Exception {
+  public void testGenBillCode_thenContentStringXt202510150001() throws Exception {
     // Arrange
     when(customerReturnListService.getTodayMaxCustomerReturnNumber()).thenReturn(null);
 
@@ -165,14 +165,14 @@ public class CustomerReturnListAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(status().isOk())
         .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(content().string("XT202510070001"));
+        .andExpect(content().string("XT202510150001"));
   }
 
   /**
    * Test {@link CustomerReturnListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code XT202510070100}.
+   *   <li>Then content string {@code XT202510150100}.
    * </ul>
    *
    * <p>Method under test: {@link CustomerReturnListAdminController#genBillCode(String)}
@@ -181,7 +181,7 @@ public class CustomerReturnListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String CustomerReturnListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringXt202510070100() throws Exception {
+  public void testGenBillCode_thenContentStringXt202510150100() throws Exception {
     // Arrange
     when(customerReturnListService.getTodayMaxCustomerReturnNumber()).thenReturn("admin");
 
@@ -195,7 +195,7 @@ public class CustomerReturnListAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(status().isOk())
         .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(content().string("XT202510070100"));
+        .andExpect(content().string("XT202510150100"));
   }
 
   /**
