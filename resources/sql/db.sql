@@ -161,10 +161,6 @@ CREATE TABLE `t_damage_list_goods` (
 
 insert  into `t_damage_list_goods`(`id`,`code`,`model`,`name`,`num`,`price`,`total`,`unit`,`damage_list_id`,`type_id`,`goods_id`) values (4,'0003','500g装','野生东北黑木耳',2,23,46,'袋',3,11,11),(5,'0006','300g装','冰糖金桔干',2,5,10,'盒',3,11,14),(6,'0003','500g装','野生东北黑木耳',2,23,46,'袋',4,11,11),(7,'0005','散装500克','麦片燕麦巧克力',32,8,256,'袋',4,11,13),(8,'0007','500g装','吉利人家牛肉味蛋糕',2,4.5,9,'袋',4,11,15),(9,'0002','Note8','华为荣耀Note8',1,2220,2220,'台',5,16,2);
 
-/*Data for the table `t_damage_list_goods` */
-
-insert  into `t_damage_list_goods`(`id`,`code`,`model`,`name`,`num`,`price`,`total`,`unit`,`damage_list_id`,`type_id`,`goods_id`) values (4,'0003','500g装','野生东北黑木耳',2,23,46,'袋',3,11,11),(5,'0006','300g装','冰糖金桔干',2,5,10,'盒',3,11,14),(6,'0003','500g装','野生东北黑木耳',2,23,46,'袋',4,11,11),(7,'0005','散装500克','麦片燕麦巧克力',32,8,256,'袋',4,11,13),(8,'0007','500g装','吉利人家牛肉味蛋糕',2,4.5,9,'袋',4,11,15),(9,'0002','Note8','华为荣耀Note8',1,2220,2220,'台',5,16,2);
-
 /*Table structure for table `t_goods` */
 
 DROP TABLE IF EXISTS `t_goods`;
