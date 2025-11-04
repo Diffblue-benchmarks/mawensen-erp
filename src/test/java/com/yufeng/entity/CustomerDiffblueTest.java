@@ -1,0 +1,64 @@
+package com.yufeng.entity;
+
+import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+public class CustomerDiffblueTest {
+  /**
+   * Test getters and setters.
+   * <p>
+   * Methods under test:
+   * <ul>
+   *   <li>default or parameterless constructor of {@link Customer}
+   *   <li>{@link Customer#setAddress(String)}
+   *   <li>{@link Customer#setContact(String)}
+   *   <li>{@link Customer#setId(Integer)}
+   *   <li>{@link Customer#setName(String)}
+   *   <li>{@link Customer#setNumber(String)}
+   *   <li>{@link Customer#setRemarks(String)}
+   *   <li>{@link Customer#toString()}
+   *   <li>{@link Customer#getAddress()}
+   *   <li>{@link Customer#getContact()}
+   *   <li>{@link Customer#getId()}
+   *   <li>{@link Customer#getName()}
+   *   <li>{@link Customer#getNumber()}
+   *   <li>{@link Customer#getRemarks()}
+   * </ul>
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Customer.<init>()", "String Customer.getAddress()", "String Customer.getContact()",
+      "Integer Customer.getId()", "String Customer.getName()", "String Customer.getNumber()",
+      "String Customer.getRemarks()", "void Customer.setAddress(String)", "void Customer.setContact(String)",
+      "void Customer.setId(Integer)", "void Customer.setName(String)", "void Customer.setNumber(String)",
+      "void Customer.setRemarks(String)", "String Customer.toString()"})
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    Customer actualCustomer = new Customer();
+    actualCustomer.setAddress("42 Main St");
+    actualCustomer.setContact("Contact");
+    actualCustomer.setId(1);
+    actualCustomer.setName("Name");
+    actualCustomer.setNumber("42");
+    actualCustomer.setRemarks("Remarks");
+    String actualToStringResult = actualCustomer.toString();
+    String actualAddress = actualCustomer.getAddress();
+    String actualContact = actualCustomer.getContact();
+    Integer actualId = actualCustomer.getId();
+    String actualName = actualCustomer.getName();
+    String actualNumber = actualCustomer.getNumber();
+
+    // Assert
+    assertEquals("42 Main St", actualAddress);
+    assertEquals("42", actualNumber);
+    assertEquals("Contact", actualContact);
+    assertEquals("Name", actualName);
+    assertEquals("Remarks", actualCustomer.getRemarks());
+    assertEquals("[id=1, name=Name, contact=Contact, number=42, address=42 Main St, remarks=Remarks]",
+        actualToStringResult);
+    assertEquals(1, actualId.intValue());
+  }
+}
