@@ -1,0 +1,623 @@
+package com.yufeng.controller.admin;
+
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import com.yufeng.entity.Goods;
+import com.yufeng.entity.GoodsType;
+import com.yufeng.entity.Log;
+import com.yufeng.service.CustomerReturnListGoodsService;
+import com.yufeng.service.GoodsService;
+import com.yufeng.service.LogService;
+import com.yufeng.service.SaleListGoodsService;
+import java.util.ArrayList;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+@ContextConfiguration(classes = {GoodsAdminContrller.class})
+@RunWith(SpringJUnit4ClassRunner.class)
+public class GoodsAdminContrllerDiffblueTest {
+  @MockBean private CustomerReturnListGoodsService customerReturnListGoodsService;
+
+  @Autowired private GoodsAdminContrller goodsAdminContrller;
+
+  @MockBean private GoodsService goodsService;
+
+  @MockBean private LogService logService;
+
+  @MockBean private SaleListGoodsService saleListGoodsService;
+
+  /**
+   * Test {@link GoodsAdminContrller#list(Goods, Integer, Integer)}.
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#list(Goods, Integer, Integer)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.list(Goods, Integer, Integer)"})
+  public void testList() throws Exception {
+    // Arrange
+    when(goodsService.getCount(Mockito.<Goods>any())).thenReturn(3L);
+    when(goodsService.list(
+            Mockito.<Goods>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Direction>any(),
+            (String[]) Mockito.any()))
+        .thenReturn(new ArrayList<>());
+    doNothing().when(logService).save(Mockito.<Log>any());
+
+    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/goods/list");
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(goodsAdminContrller)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"total\":3,\"rows\":[]}"));
+  }
+
+  /**
+   * Test {@link GoodsAdminContrller#listInventory(Goods, Integer, Integer)}.
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#listInventory(Goods, Integer, Integer)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.listInventory(Goods, Integer, Integer)"})
+  public void testListInventory() throws Exception {
+    // Arrange
+    when(goodsService.getCount(Mockito.<Goods>any())).thenReturn(3L);
+    when(goodsService.list(
+            Mockito.<Goods>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Direction>any(),
+            (String[]) Mockito.any()))
+        .thenReturn(new ArrayList<>());
+    doNothing().when(logService).save(Mockito.<Log>any());
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/listInventory");
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(goodsAdminContrller)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"total\":3,\"rows\":[]}"));
+  }
+
+  /**
+   * Test {@link GoodsAdminContrller#listAlart()}.
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#listAlart()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.listAlart()"})
+  public void testListAlart() throws Exception {
+    // Arrange
+    when(goodsService.listAlarm()).thenReturn(new ArrayList<>());
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/listAlarm");
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(goodsAdminContrller)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"rows\":[]}"));
+  }
+
+  /**
+   * Test {@link GoodsAdminContrller#listNoInventoryQuantity(String, Integer, Integer)}.
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#listNoInventoryQuantity(String, Integer,
+   * Integer)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "java.util.Map GoodsAdminContrller.listNoInventoryQuantity(String, Integer, Integer)"
+  })
+  public void testListNoInventoryQuantity() throws Exception {
+    // Arrange
+    when(goodsService.getCountNoInventoryQuantityByCodeOrName(Mockito.<String>any()))
+        .thenReturn(3L);
+    when(goodsService.listNoInventoryQuantityByCodeOrName(
+            Mockito.<String>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Direction>any(),
+            (String[]) Mockito.any()))
+        .thenReturn(new ArrayList<>());
+    doNothing().when(logService).save(Mockito.<Log>any());
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/listNoInventoryQuantity");
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(goodsAdminContrller)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"total\":3,\"rows\":[]}"));
+  }
+
+  /**
+   * Test {@link GoodsAdminContrller#listHasInventoryQuantity(Integer, Integer)}.
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#listHasInventoryQuantity(Integer, Integer)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "java.util.Map GoodsAdminContrller.listHasInventoryQuantity(Integer, Integer)"
+  })
+  public void testListHasInventoryQuantity() throws Exception {
+    // Arrange
+    when(goodsService.getCountHasInventoryQuantity()).thenReturn(3L);
+    when(goodsService.listHasInventoryQuantity(
+            Mockito.<Integer>any(),
+            Mockito.<Integer>any(),
+            Mockito.<Direction>any(),
+            (String[]) Mockito.any()))
+        .thenReturn(new ArrayList<>());
+    doNothing().when(logService).save(Mockito.<Log>any());
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/listHasInventoryQuantity");
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(goodsAdminContrller)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"total\":3,\"rows\":[]}"));
+  }
+
+  /**
+   * Test {@link GoodsAdminContrller#deleteStock(Integer)}.
+   *
+   * <ul>
+   *   <li>Given {@link Goods} (default constructor) State is one.
+   *   <li>Then content string {@code {"success":true}}.
+   * </ul>
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#deleteStock(Integer)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.deleteStock(Integer)"})
+  public void testDeleteStock_givenGoodsStateIsOne_thenContentStringSuccessTrue() throws Exception {
+    // Arrange
+    GoodsType type = new GoodsType();
+    type.setIcon("Icon");
+    type.setId(1);
+    type.setName("Name");
+    type.setState(1);
+    type.setpId(1);
+
+    Goods goods = new Goods();
+    goods.setCode("Code");
+    goods.setCodeOrName("Code Or Name");
+    goods.setId(1);
+    goods.setInventoryQuantity(1);
+    goods.setLastPurchasingPrice(10.0f);
+    goods.setMinNum(1);
+    goods.setModel("Model");
+    goods.setName("Name");
+    goods.setProducer("Producer");
+    goods.setPurchasingPrice(10.0f);
+    goods.setRemarks("Remarks");
+    goods.setSaleTotal(1);
+    goods.setSellingPrice(10.0f);
+    goods.setState(1);
+    goods.setType(type);
+    goods.setUnit("Unit");
+    doNothing().when(goodsService).save(Mockito.<Goods>any());
+    when(goodsService.findById(Mockito.<Integer>any())).thenReturn(goods);
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/deleteStock").param("id", String.valueOf(1));
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(goodsAdminContrller)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
+  }
+
+  /**
+   * Test {@link GoodsAdminContrller#deleteStock(Integer)}.
+   *
+   * <ul>
+   *   <li>Given {@link Goods} (default constructor) State is two.
+   *   <li>Then content string {@code {"success":false,"errorInfo":"该商品已经发生单据，不能删除！"}}.
+   * </ul>
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#deleteStock(Integer)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.deleteStock(Integer)"})
+  public void testDeleteStock_givenGoodsStateIsTwo_thenContentStringSuccessFalseErrorInfo()
+      throws Exception {
+    // Arrange
+    GoodsType type = new GoodsType();
+    type.setIcon("Icon");
+    type.setId(1);
+    type.setName("Name");
+    type.setState(1);
+    type.setpId(1);
+
+    Goods goods = new Goods();
+    goods.setCode("Code");
+    goods.setCodeOrName("Code Or Name");
+    goods.setId(1);
+    goods.setInventoryQuantity(1);
+    goods.setLastPurchasingPrice(10.0f);
+    goods.setMinNum(1);
+    goods.setModel("Model");
+    goods.setName("Name");
+    goods.setProducer("Producer");
+    goods.setPurchasingPrice(10.0f);
+    goods.setRemarks("Remarks");
+    goods.setSaleTotal(1);
+    goods.setSellingPrice(10.0f);
+    goods.setState(2);
+    goods.setType(type);
+    goods.setUnit("Unit");
+    doNothing().when(goodsService).save(Mockito.<Goods>any());
+    when(goodsService.findById(Mockito.<Integer>any())).thenReturn(goods);
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/deleteStock").param("id", String.valueOf(1));
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(goodsAdminContrller)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":false,\"errorInfo\":\"该商品已经发生单据，不能删除！\"}"));
+  }
+
+  /**
+   * Test {@link GoodsAdminContrller#genGoodsCode()}.
+   *
+   * <ul>
+   *   <li>Given {@link GoodsService} {@link GoodsService#getMaxGoodsCode()} return {@code 42}.
+   *   <li>Then content string {@code 0043}.
+   * </ul>
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#genGoodsCode()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String GoodsAdminContrller.genGoodsCode()"})
+  public void testGenGoodsCode_givenGoodsServiceGetMaxGoodsCodeReturn42_thenContentString0043()
+      throws Exception {
+    // Arrange
+    when(goodsService.getMaxGoodsCode()).thenReturn("42");
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/genGoodsCode");
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(goodsAdminContrller)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("0043"));
+  }
+
+  /**
+   * Test {@link GoodsAdminContrller#genGoodsCode()}.
+   *
+   * <ul>
+   *   <li>Then content string {@code 0001}.
+   * </ul>
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#genGoodsCode()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String GoodsAdminContrller.genGoodsCode()"})
+  public void testGenGoodsCode_thenContentString0001() throws Exception {
+    // Arrange
+    when(goodsService.getMaxGoodsCode()).thenReturn("");
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/genGoodsCode");
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(goodsAdminContrller)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+        .andExpect(content().string("0001"));
+  }
+
+  /**
+   * Test {@link GoodsAdminContrller#save(Goods)}.
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#save(Goods)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.save(Goods)"})
+  public void testSave() throws Exception {
+    // Arrange
+    doNothing().when(goodsService).save(Mockito.<Goods>any());
+    doNothing().when(logService).save(Mockito.<Log>any());
+
+    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/admin/goods/save");
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(goodsAdminContrller)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
+  }
+
+  /**
+   * Test {@link GoodsAdminContrller#saveStore(Integer, Integer, Float)}.
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#saveStore(Integer, Integer, Float)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.saveStore(Integer, Integer, Float)"})
+  public void testSaveStore() throws Exception {
+    // Arrange
+    GoodsType type = new GoodsType();
+    type.setIcon("Icon");
+    type.setId(1);
+    type.setName("Name");
+    type.setState(1);
+    type.setpId(1);
+
+    Goods goods = new Goods();
+    goods.setCode("Code");
+    goods.setCodeOrName("Code Or Name");
+    goods.setId(1);
+    goods.setInventoryQuantity(1);
+    goods.setLastPurchasingPrice(10.0f);
+    goods.setMinNum(1);
+    goods.setModel("Model");
+    goods.setName("Name");
+    goods.setProducer("Producer");
+    goods.setPurchasingPrice(10.0f);
+    goods.setRemarks("Remarks");
+    goods.setSaleTotal(1);
+    goods.setSellingPrice(10.0f);
+    goods.setState(1);
+    goods.setType(type);
+    goods.setUnit("Unit");
+    doNothing().when(goodsService).save(Mockito.<Goods>any());
+    when(goodsService.findById(Mockito.<Integer>any())).thenReturn(goods);
+    doNothing().when(logService).save(Mockito.<Log>any());
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/saveStore")
+            .param("id", String.valueOf(1))
+            .param("num", String.valueOf(1))
+            .param("price", String.valueOf(10.0f));
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(goodsAdminContrller)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
+  }
+
+  /**
+   * Test {@link GoodsAdminContrller#delete(Integer)}.
+   *
+   * <ul>
+   *   <li>Given {@link Goods} (default constructor) State is one.
+   *   <li>Then content string {@code {"success":false,"errorInfo":"该商品已经期初入库，不能删除！"}}.
+   * </ul>
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#delete(Integer)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.delete(Integer)"})
+  public void testDelete_givenGoodsStateIsOne_thenContentStringSuccessFalseErrorInfo()
+      throws Exception {
+    // Arrange
+    GoodsType type = new GoodsType();
+    type.setIcon("Icon");
+    type.setId(1);
+    type.setName("Name");
+    type.setState(1);
+    type.setpId(1);
+
+    Goods goods = new Goods();
+    goods.setCode("Code");
+    goods.setCodeOrName("Code Or Name");
+    goods.setId(1);
+    goods.setInventoryQuantity(1);
+    goods.setLastPurchasingPrice(10.0f);
+    goods.setMinNum(1);
+    goods.setModel("Model");
+    goods.setName("Name");
+    goods.setProducer("Producer");
+    goods.setPurchasingPrice(10.0f);
+    goods.setRemarks("Remarks");
+    goods.setSaleTotal(1);
+    goods.setSellingPrice(10.0f);
+    goods.setState(1);
+    goods.setType(type);
+    goods.setUnit("Unit");
+    when(goodsService.findById(Mockito.<Integer>any())).thenReturn(goods);
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/delete").param("id", String.valueOf(1));
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(goodsAdminContrller)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":false,\"errorInfo\":\"该商品已经期初入库，不能删除！\"}"));
+  }
+
+  /**
+   * Test {@link GoodsAdminContrller#delete(Integer)}.
+   *
+   * <ul>
+   *   <li>Given {@link Goods} (default constructor) State is two.
+   *   <li>Then content string {@code {"success":false,"errorInfo":"该商品已经发生单据，不能删除！"}}.
+   * </ul>
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#delete(Integer)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.delete(Integer)"})
+  public void testDelete_givenGoodsStateIsTwo_thenContentStringSuccessFalseErrorInfo()
+      throws Exception {
+    // Arrange
+    GoodsType type = new GoodsType();
+    type.setIcon("Icon");
+    type.setId(1);
+    type.setName("Name");
+    type.setState(1);
+    type.setpId(1);
+
+    Goods goods = new Goods();
+    goods.setCode("Code");
+    goods.setCodeOrName("Code Or Name");
+    goods.setId(1);
+    goods.setInventoryQuantity(1);
+    goods.setLastPurchasingPrice(10.0f);
+    goods.setMinNum(1);
+    goods.setModel("Model");
+    goods.setName("Name");
+    goods.setProducer("Producer");
+    goods.setPurchasingPrice(10.0f);
+    goods.setRemarks("Remarks");
+    goods.setSaleTotal(1);
+    goods.setSellingPrice(10.0f);
+    goods.setState(2);
+    goods.setType(type);
+    goods.setUnit("Unit");
+    doNothing().when(goodsService).delete(Mockito.<Integer>any());
+    when(goodsService.findById(Mockito.<Integer>any())).thenReturn(goods);
+    doNothing().when(logService).save(Mockito.<Log>any());
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/delete").param("id", String.valueOf(1));
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(goodsAdminContrller)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":false,\"errorInfo\":\"该商品已经发生单据，不能删除！\"}"));
+  }
+
+  /**
+   * Test {@link GoodsAdminContrller#delete(Integer)}.
+   *
+   * <ul>
+   *   <li>Given {@link Goods} (default constructor) State is zero.
+   *   <li>Then content string {@code {"success":true}}.
+   * </ul>
+   *
+   * <p>Method under test: {@link GoodsAdminContrller#delete(Integer)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"java.util.Map GoodsAdminContrller.delete(Integer)"})
+  public void testDelete_givenGoodsStateIsZero_thenContentStringSuccessTrue() throws Exception {
+    // Arrange
+    GoodsType type = new GoodsType();
+    type.setIcon("Icon");
+    type.setId(1);
+    type.setName("Name");
+    type.setState(1);
+    type.setpId(1);
+
+    Goods goods = new Goods();
+    goods.setCode("Code");
+    goods.setCodeOrName("Code Or Name");
+    goods.setId(1);
+    goods.setInventoryQuantity(1);
+    goods.setLastPurchasingPrice(10.0f);
+    goods.setMinNum(1);
+    goods.setModel("Model");
+    goods.setName("Name");
+    goods.setProducer("Producer");
+    goods.setPurchasingPrice(10.0f);
+    goods.setRemarks("Remarks");
+    goods.setSaleTotal(1);
+    goods.setSellingPrice(10.0f);
+    goods.setState(0);
+    goods.setType(type);
+    goods.setUnit("Unit");
+    doNothing().when(goodsService).delete(Mockito.<Integer>any());
+    when(goodsService.findById(Mockito.<Integer>any())).thenReturn(goods);
+    doNothing().when(logService).save(Mockito.<Log>any());
+
+    MockHttpServletRequestBuilder requestBuilder =
+        MockMvcRequestBuilders.get("/admin/goods/delete").param("id", String.valueOf(1));
+
+    // Act and Assert
+    MockMvcBuilders.standaloneSetup(goodsAdminContrller)
+        .build()
+        .perform(requestBuilder)
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(content().string("{\"success\":true}"));
+  }
+}
