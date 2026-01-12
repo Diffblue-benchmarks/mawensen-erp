@@ -14,11 +14,14 @@ import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.yufeng.entity.GoodsType;
 import com.yufeng.entity.Log;
 import com.yufeng.service.GoodsTypeService;
 import com.yufeng.service.LogService;
 import java.util.ArrayList;
+import java.util.Iterator;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -187,6 +190,51 @@ public class GoodsTypeAdminControllerDiffblueTest {
         .andExpect(status().isOk())
         .andExpect(content().contentType("application/json;charset=UTF-8"))
         .andExpect(content().string("{\"success\":true}"));
+  }
+
+  /**
+   * Test {@link GoodsTypeAdminController#getAllByParentId(Integer)}.
+   *
+   * <ul>
+   *   <li>Given {@link GoodsType} (default constructor) Id is {@code null}.
+   *   <li>Then return size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link GoodsTypeAdminController#getAllByParentId(Integer)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"JsonArray GoodsTypeAdminController.getAllByParentId(Integer)"})
+  public void testGetAllByParentId_givenGoodsTypeIdIsNull_thenReturnSizeIsOne() {
+    // Arrange
+    GoodsType goodsType = new GoodsType();
+    goodsType.setIcon("Icon");
+    goodsType.setId(null);
+    goodsType.setName("Name");
+    goodsType.setState(0);
+    goodsType.setpId(1);
+
+    ArrayList<GoodsType> goodsTypeList = new ArrayList<>();
+    goodsTypeList.add(goodsType);
+    when(goodsTypeService.findByParentId(anyInt())).thenReturn(goodsTypeList);
+
+    // Act
+    JsonArray actualAllByParentId = goodsTypeAdminController.getAllByParentId(1);
+
+    // Assert
+    verify(goodsTypeService).findByParentId(anyInt());
+    Iterator<JsonElement> iteratorResult = actualAllByParentId.iterator();
+    JsonElement nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof JsonObject);
+    assertEquals(1, actualAllByParentId.size());
+    assertEquals(5, ((JsonObject) nextResult).size());
+    assertFalse(nextResult.isJsonArray());
+    assertFalse(nextResult.isJsonNull());
+    assertFalse(nextResult.isJsonPrimitive());
+    assertFalse(iteratorResult.hasNext());
+    assertTrue(nextResult.isJsonObject());
+    assertSame(nextResult, nextResult.getAsJsonObject());
   }
 
   /**

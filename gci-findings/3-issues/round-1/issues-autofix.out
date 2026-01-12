@@ -1,0 +1,121 @@
+INFO  Diffblue Cover 2025.12.02-74144f0-licensed
+INFO  
+INFO  Command: issues
+INFO  Output a prioritized list of issues.
+INFO  
+INFO  Discovered modules:
+INFO  - com.yufeng:yufeng-erp
+INFO  
+INFO  
+INFO  [1/1] Diagnosing issues for module: com.yufeng:yufeng-erp
+INFO  =========================================================
+INFO  
+INFO  Detected Java version 1.8.0_472
+INFO  Selected build system: Maven
+INFO  Reading report file '/home/jbergqvist/diffblue/mawensen-erp/.diffblue/reports/report.json'
+INFO  Copied report file to '/home/jbergqvist/diffblue/mawensen-erp/.diffblue/reports/report-20260112T141511.json'
+INFO  
+INFO  E092: Missing embedded database engine
+      No embedded Java database engines were detected.
+      This will prevent Diffblue Cover from writing tests for repository classes.
+      Spring supports HSQL, H2, and Derby.
+      Please add one of these as a dependency to your project.
+      Here are most recent versions of these libraries that are known to be
+      compatible with Diffblue Cover:
+      org.hsqldb:hsqldb:2.6.1
+      com.h2database:h2:2.1.210
+      org.apache.derby:derby:10.14.2.0
+      Alternatively, if you are not interested in testing repository classes,
+      they can be excluded using the '--exclude' option.
+      
+INFO  Affected methods:
+      com.yufeng.repository.GoodsUnitRepository.count:()J
+      com.yufeng.repository.GoodsUnitRepository.count:(Lorg/springframework/data/domain/Example;)J
+      com.yufeng.repository.GoodsUnitRepository.delete:(Ljava/io/Serializable;)V
+      com.yufeng.repository.GoodsUnitRepository.delete:(Ljava/lang/Iterable;)V
+      com.yufeng.repository.GoodsUnitRepository.delete:(Ljava/lang/Object;)V
+      com.yufeng.repository.GoodsUnitRepository.deleteAll:()V
+      com.yufeng.repository.GoodsUnitRepository.deleteAllInBatch:()V
+      com.yufeng.repository.GoodsUnitRepository.deleteInBatch:(Ljava/lang/Iterable;)V
+      com.yufeng.repository.GoodsUnitRepository.exists:(Ljava/io/Serializable;)Z
+      com.yufeng.repository.GoodsUnitRepository.exists:(Lorg/springframework/data/domain/Example;)Z
+      com.yufeng.repository.GoodsUnitRepository.findAll:(Ljava/lang/Iterable;)Ljava/lang/Iterable;
+      com.yufeng.repository.GoodsUnitRepository.findAll:(Lorg/springframework/data/domain/Example;)Ljava/lang/Iterable;
+      com.yufeng.repository.GoodsUnitRepository.findAll:(Lorg/springframework/data/domain/Example;Lorg/springframework/data/domain/Pageable;)Lorg/springframework/data/domain/Page;
+      com.yufeng.repository.GoodsUnitRepository.findAll:(Lorg/springframework/data/domain/Example;Lorg/springframework/data/domain/Sort;)Ljava/lang/Iterable;
+      com.yufeng.repository.GoodsUnitRepository.findAll:(Lorg/springframework/data/domain/Pageable;)Lorg/springframework/data/domain/Page;
+      com.yufeng.repository.GoodsUnitRepository.findAll:(Lorg/springframework/data/domain/Sort;)Ljava/lang/Iterable;
+      com.yufeng.repository.GoodsUnitRepository.findOne:(Ljava/io/Serializable;)Ljava/lang/Object;
+      com.yufeng.repository.GoodsUnitRepository.findOne:(Lorg/springframework/data/domain/Example;)Ljava/lang/Object;
+      com.yufeng.repository.GoodsUnitRepository.flush:()V
+      com.yufeng.repository.GoodsUnitRepository.getOne:(Ljava/io/Serializable;)Ljava/lang/Object;
+      com.yufeng.repository.GoodsUnitRepository.save:(Ljava/lang/Iterable;)Ljava/lang/Iterable;
+      com.yufeng.repository.GoodsUnitRepository.save:(Ljava/lang/Object;)Ljava/lang/Object;
+      com.yufeng.repository.GoodsUnitRepository.saveAndFlush:(Ljava/lang/Object;)Ljava/lang/Object;
+      
+INFO  To resolve the issue, use the following prompt with your AI assistant:
+      
+      Fix the following issue preventing test creation for:
+      com.yufeng.repository.GoodsUnitRepository.count:()J
+      com.yufeng.repository.GoodsUnitRepository.count:(Lorg/springframework/data/domain/Example;)J
+      com.yufeng.repository.GoodsUnitRepository.delete:(Ljava/io/Serializable;)V
+      com.yufeng.repository.GoodsUnitRepository.delete:(Ljava/lang/Iterable;)V
+      com.yufeng.repository.GoodsUnitRepository.delete:(Ljava/lang/Object;)V
+      com.yufeng.repository.GoodsUnitRepository.deleteAll:()V
+      com.yufeng.repository.GoodsUnitRepository.deleteAllInBatch:()V
+      com.yufeng.repository.GoodsUnitRepository.deleteInBatch:(Ljava/lang/Iterable;)V
+      com.yufeng.repository.GoodsUnitRepository.exists:(Ljava/io/Serializable;)Z
+      com.yufeng.repository.GoodsUnitRepository.exists:(Lorg/springframework/data/domain/Example;)Z
+      com.yufeng.repository.GoodsUnitRepository.findAll:(Ljava/lang/Iterable;)Ljava/lang/Iterable;
+      com.yufeng.repository.GoodsUnitRepository.findAll:(Lorg/springframework/data/domain/Example;)Ljava/lang/Iterable;
+      com.yufeng.repository.GoodsUnitRepository.findAll:(Lorg/springframework/data/domain/Example;Lorg/springframework/data/domain/Pageable;)Lorg/springframework/data/domain/Page;
+      com.yufeng.repository.GoodsUnitRepository.findAll:(Lorg/springframework/data/domain/Example;Lorg/springframework/data/domain/Sort;)Ljava/lang/Iterable;
+      com.yufeng.repository.GoodsUnitRepository.findAll:(Lorg/springframework/data/domain/Pageable;)Lorg/springframework/data/domain/Page;
+      com.yufeng.repository.GoodsUnitRepository.findAll:(Lorg/springframework/data/domain/Sort;)Ljava/lang/Iterable;
+      com.yufeng.repository.GoodsUnitRepository.findOne:(Ljava/io/Serializable;)Ljava/lang/Object;
+      com.yufeng.repository.GoodsUnitRepository.findOne:(Lorg/springframework/data/domain/Example;)Ljava/lang/Object;
+      com.yufeng.repository.GoodsUnitRepository.flush:()V
+      com.yufeng.repository.GoodsUnitRepository.getOne:(Ljava/io/Serializable;)Ljava/lang/Object;
+      com.yufeng.repository.GoodsUnitRepository.save:(Ljava/lang/Iterable;)Ljava/lang/Iterable;
+      com.yufeng.repository.GoodsUnitRepository.save:(Ljava/lang/Object;)Ljava/lang/Object;
+      com.yufeng.repository.GoodsUnitRepository.saveAndFlush:(Ljava/lang/Object;)Ljava/lang/Object;
+      
+      No embedded Java database engines were detected.
+      This will prevent Diffblue Cover from writing tests for repository classes.
+      Spring supports HSQL, H2, and Derby.
+      Please add one of these as a dependency to your project.
+      Here are most recent versions of these libraries that are known to be
+      compatible with Diffblue Cover:
+      org.hsqldb:hsqldb:2.6.1
+      com.h2database:h2:2.1.210
+      org.apache.derby:derby:10.14.2.0
+      Alternatively, if you are not interested in testing repository classes,
+      they can be excluded using the '--exclude' option.
+      
+INFO  
+INFO  37 issues were found, numbers 1-1 were displayed
+INFO  Rerun with --prompts --skip 1 to see the next set of issues
+INFO  Rerun without --prompts to summarise all the issues
+INFO  Actioning all 1 listed issues via agent
+INFO  Executing prompt with Claude Code agent...
+INFO  [Claude Code] Excellent! I have successfully resolved the issue reported by the Diffblue Cover tool. Here's a summary of what was done:
+INFO  [Claude Code] 
+INFO  [Claude Code] ## Issue Resolution Summary
+INFO  [Claude Code] 
+INFO  [Claude Code] **Problem**: The Diffblue Cover test generation tool could not create tests for the `GoodsUnitRepository` class because no embedded Java database engine was detected in the project.
+INFO  [Claude Code] 
+INFO  [Claude Code] **Solution**: Added the H2 database as a test dependency to the pom.xml file.
+INFO  [Claude Code] 
+INFO  [Claude Code] **Changes Made**:
+INFO  [Claude Code] - Added H2 database dependency (version 2.1.210) with test scope in pom.xml:65-70
+INFO  [Claude Code] - Ran `mvn install -DskipTests` to update the classpath and download the dependency
+INFO  [Claude Code] 
+INFO  [Claude Code] **Result**: The H2 database is now available in the test classpath, which will allow Diffblue Cover to:
+INFO  [Claude Code] 1. Create an in-memory database for testing repository methods
+INFO  [Claude Code] 2. Generate tests for all the `GoodsUnitRepository` methods listed in the issue (count, delete, exists, findAll, findOne, save, etc.)
+INFO  [Claude Code] 
+INFO  [Claude Code] The H2 database will automatically be used by Spring Boot for testing since it's configured with test scope, while the production environment will continue to use the existing MySQL database. This is a standard approach for Spring Boot applications that need to test JPA repositories without requiring a full database installation.
+INFO  Claude Code agent completed successfully.
+INFO  
+INFO  Log file: /home/jbergqvist/diffblue/mawensen-erp/.diffblue/log/user-20260112T143751.log
+INFO  Finished in 49s
