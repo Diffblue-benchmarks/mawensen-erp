@@ -138,7 +138,7 @@ public class SaleListAdminControllerDiffblueTest {
    * Test {@link SaleListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code XS202601120001}.
+   *   <li>Then content string {@code XS202601130001}.
    * </ul>
    *
    * <p>Method under test: {@link SaleListAdminController#genBillCode(String)}
@@ -147,7 +147,7 @@ public class SaleListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String SaleListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringXs202601120001() throws Exception {
+  public void testGenBillCode_thenContentStringXs202601130001() throws Exception {
     // Arrange
     when(saleListService.getTodayMaxSaleNumber()).thenReturn(null);
 
@@ -160,14 +160,14 @@ public class SaleListAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(status().isOk())
         .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(content().string("XS202601120001"));
+        .andExpect(content().string("XS202601130001"));
   }
 
   /**
    * Test {@link SaleListAdminController#genBillCode(String)}.
    *
    * <ul>
-   *   <li>Then content string {@code XS202601120100}.
+   *   <li>Then content string {@code XS202601130100}.
    * </ul>
    *
    * <p>Method under test: {@link SaleListAdminController#genBillCode(String)}
@@ -176,7 +176,7 @@ public class SaleListAdminControllerDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"String SaleListAdminController.genBillCode(String)"})
-  public void testGenBillCode_thenContentStringXs202601120100() throws Exception {
+  public void testGenBillCode_thenContentStringXs202601130100() throws Exception {
     // Arrange
     when(saleListService.getTodayMaxSaleNumber()).thenReturn("admin");
 
@@ -189,7 +189,7 @@ public class SaleListAdminControllerDiffblueTest {
         .perform(requestBuilder)
         .andExpect(status().isOk())
         .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
-        .andExpect(content().string("XS202601120100"));
+        .andExpect(content().string("XS202601130100"));
   }
 
   /**
