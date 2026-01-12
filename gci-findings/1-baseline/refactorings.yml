@@ -1,0 +1,7 @@
+name: com.diffblue.cover.refactoring.Recipe
+recipeList:
+- com.diffblue.cover.refactoring.recipes.AddGetter: {className: org.springframework.boot.web.support.SpringBootServletInitializer,
+    fieldName: logger}
+- com.diffblue.cover.refactoring.recipes.AddGetter: {className: org.springframework.boot.web.support.SpringBootServletInitializer,
+    fieldName: registerErrorPageFilter}
+type: specs.openrewrite.org/v1beta/recipe
