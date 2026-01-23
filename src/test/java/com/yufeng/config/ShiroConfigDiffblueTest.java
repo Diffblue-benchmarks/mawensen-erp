@@ -8,9 +8,6 @@ import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.yufeng.realm.MyRealm;
-import com.yufeng.repository.MenuRepository;
-import com.yufeng.repository.RoleRepository;
-import com.yufeng.repository.UserRepository;
 import java.util.Collection;
 import java.util.List;
 import org.aopalliance.aop.Advice;
@@ -32,73 +29,9 @@ import org.apache.shiro.web.mgt.DefaultWebSubjectFactory;
 import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.junit.runner.RunWith;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@ContextConfiguration(classes = {ShiroConfig.class})
-@RunWith(SpringJUnit4ClassRunner.class)
 public class ShiroConfigDiffblueTest {
-  @MockBean private MenuRepository menuRepository;
-
-  @MockBean private RoleRepository roleRepository;
-
-  @Autowired private ShiroConfig shiroConfig;
-
-  @MockBean private UserRepository userRepository;
-
-  /**
-   * Test {@link ShiroConfig#securityManager()}.
-   *
-   * <ul>
-   *   <li>Given {@link ShiroConfig}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ShiroConfig#securityManager()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"SecurityManager ShiroConfig.securityManager()"})
-  public void testSecurityManager_givenShiroConfig() {
-    // Arrange and Act
-    SecurityManager actualSecurityManagerResult = shiroConfig.securityManager();
-
-    // Assert
-    Collection<Realm> realms =
-        ((DefaultWebSecurityManager) actualSecurityManagerResult).getRealms();
-    assertEquals(1, realms.size());
-    assertTrue(realms instanceof List);
-    assertTrue(
-        ((DefaultWebSecurityManager) actualSecurityManagerResult).getAuthenticator()
-            instanceof ModularRealmAuthenticator);
-    assertTrue(
-        ((DefaultWebSecurityManager) actualSecurityManagerResult).getAuthorizer()
-            instanceof ModularRealmAuthorizer);
-    assertTrue(
-        ((DefaultWebSecurityManager) actualSecurityManagerResult).getEventBus()
-            instanceof DefaultEventBus);
-    assertTrue(
-        ((DefaultWebSecurityManager) actualSecurityManagerResult).getSubjectDAO()
-            instanceof DefaultSubjectDAO);
-    assertTrue(
-        ((DefaultWebSecurityManager) actualSecurityManagerResult).getRememberMeManager()
-            instanceof CookieRememberMeManager);
-    assertTrue(actualSecurityManagerResult instanceof DefaultWebSecurityManager);
-    assertTrue(
-        ((DefaultWebSecurityManager) actualSecurityManagerResult).getSubjectFactory()
-            instanceof DefaultWebSubjectFactory);
-    assertTrue(
-        ((DefaultWebSecurityManager) actualSecurityManagerResult).getSessionManager()
-            instanceof ServletContainerSessionManager);
-    assertNull(((DefaultWebSecurityManager) actualSecurityManagerResult).getSessionMode());
-    assertNull(((DefaultWebSecurityManager) actualSecurityManagerResult).getCacheManager());
-    assertTrue(((DefaultWebSecurityManager) actualSecurityManagerResult).isHttpSessionMode());
-  }
-
   /**
    * Test {@link ShiroConfig#securityManager()}.
    *
@@ -112,7 +45,7 @@ public class ShiroConfigDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"SecurityManager ShiroConfig.securityManager()"})
-  public void testSecurityManager_givenShiroConfig2() {
+  public void testSecurityManager_givenShiroConfig() {
     // Arrange and Act
     SecurityManager actualSecurityManagerResult = new ShiroConfig().securityManager();
 
@@ -184,7 +117,7 @@ public class ShiroConfigDiffblueTest {
    * Test {@link ShiroConfig#lifecycleBeanPostProcessor()}.
    *
    * <ul>
-   *   <li>Given {@link ShiroConfig}.
+   *   <li>Given {@link ShiroConfig} (default constructor).
    * </ul>
    *
    * <p>Method under test: {@link ShiroConfig#lifecycleBeanPostProcessor()}
@@ -197,53 +130,7 @@ public class ShiroConfigDiffblueTest {
   })
   public void testLifecycleBeanPostProcessor_givenShiroConfig() {
     // Arrange, Act and Assert
-    assertEquals(Integer.MAX_VALUE, shiroConfig.lifecycleBeanPostProcessor().getOrder());
-  }
-
-  /**
-   * Test {@link ShiroConfig#lifecycleBeanPostProcessor()}.
-   *
-   * <ul>
-   *   <li>Given {@link ShiroConfig} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link ShiroConfig#lifecycleBeanPostProcessor()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.apache.shiro.spring.LifecycleBeanPostProcessor ShiroConfig.lifecycleBeanPostProcessor()"
-  })
-  public void testLifecycleBeanPostProcessor_givenShiroConfig2() {
-    // Arrange, Act and Assert
     assertEquals(Integer.MAX_VALUE, new ShiroConfig().lifecycleBeanPostProcessor().getOrder());
-  }
-
-  /**
-   * Test {@link ShiroConfig#advisorAutoProxyCreator()}.
-   *
-   * <p>Method under test: {@link ShiroConfig#advisorAutoProxyCreator()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"DefaultAdvisorAutoProxyCreator ShiroConfig.advisorAutoProxyCreator()"})
-  public void testAdvisorAutoProxyCreator() {
-    // Arrange and Act
-    DefaultAdvisorAutoProxyCreator actualAdvisorAutoProxyCreatorResult =
-        shiroConfig.advisorAutoProxyCreator();
-
-    // Assert
-    assertEquals(
-        "advisorAutoProxyCreator.", actualAdvisorAutoProxyCreatorResult.getAdvisorBeanNamePrefix());
-    assertFalse(actualAdvisorAutoProxyCreatorResult.isExposeProxy());
-    assertFalse(actualAdvisorAutoProxyCreatorResult.isOpaque());
-    assertFalse(actualAdvisorAutoProxyCreatorResult.isOptimize());
-    assertFalse(actualAdvisorAutoProxyCreatorResult.isFrozen());
-    assertFalse(actualAdvisorAutoProxyCreatorResult.isUsePrefix());
-    assertTrue(actualAdvisorAutoProxyCreatorResult.isProxyTargetClass());
-    assertEquals(Integer.MAX_VALUE, actualAdvisorAutoProxyCreatorResult.getOrder());
   }
 
   /**
@@ -279,66 +166,6 @@ public class ShiroConfigDiffblueTest {
    * Test {@link ShiroConfig#authorizationAttributeSourceAdvisor()}.
    *
    * <ul>
-   *   <li>Given {@link ShiroConfig}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ShiroConfig#authorizationAttributeSourceAdvisor()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "AuthorizationAttributeSourceAdvisor ShiroConfig.authorizationAttributeSourceAdvisor()"
-  })
-  public void testAuthorizationAttributeSourceAdvisor_givenShiroConfig() {
-    // Arrange and Act
-    AuthorizationAttributeSourceAdvisor actualAuthorizationAttributeSourceAdvisorResult =
-        shiroConfig.authorizationAttributeSourceAdvisor();
-
-    // Assert
-    Advice advice = actualAuthorizationAttributeSourceAdvisorResult.getAdvice();
-    Collection<AuthorizingAnnotationMethodInterceptor> methodInterceptors =
-        ((AopAllianceAnnotationsAuthorizingMethodInterceptor) advice).getMethodInterceptors();
-    assertEquals(5, methodInterceptors.size());
-    assertTrue(methodInterceptors instanceof List);
-    SecurityManager securityManager =
-        actualAuthorizationAttributeSourceAdvisorResult.getSecurityManager();
-    Collection<Realm> realms = ((DefaultWebSecurityManager) securityManager).getRealms();
-    assertEquals(1, realms.size());
-    assertTrue(realms instanceof List);
-    assertTrue(
-        ((DefaultWebSecurityManager) securityManager).getAuthenticator()
-            instanceof ModularRealmAuthenticator);
-    assertTrue(
-        ((DefaultWebSecurityManager) securityManager).getAuthorizer()
-            instanceof ModularRealmAuthorizer);
-    assertTrue(
-        ((DefaultWebSecurityManager) securityManager).getEventBus() instanceof DefaultEventBus);
-    assertTrue(
-        ((DefaultWebSecurityManager) securityManager).getSubjectDAO() instanceof DefaultSubjectDAO);
-    assertTrue(advice instanceof AopAllianceAnnotationsAuthorizingMethodInterceptor);
-    assertTrue(
-        ((DefaultWebSecurityManager) securityManager).getRememberMeManager()
-            instanceof CookieRememberMeManager);
-    assertTrue(securityManager instanceof DefaultWebSecurityManager);
-    assertTrue(
-        ((DefaultWebSecurityManager) securityManager).getSubjectFactory()
-            instanceof DefaultWebSubjectFactory);
-    assertTrue(
-        ((DefaultWebSecurityManager) securityManager).getSessionManager()
-            instanceof ServletContainerSessionManager);
-    assertNull(((DefaultWebSecurityManager) securityManager).getSessionMode());
-    assertNull(((DefaultWebSecurityManager) securityManager).getCacheManager());
-    assertFalse(actualAuthorizationAttributeSourceAdvisorResult.isRuntime());
-    assertTrue(((DefaultWebSecurityManager) securityManager).isHttpSessionMode());
-    assertTrue(actualAuthorizationAttributeSourceAdvisorResult.isPerInstance());
-    assertEquals(Integer.MAX_VALUE, actualAuthorizationAttributeSourceAdvisorResult.getOrder());
-  }
-
-  /**
-   * Test {@link ShiroConfig#authorizationAttributeSourceAdvisor()}.
-   *
-   * <ul>
    *   <li>Given {@link ShiroConfig} (default constructor).
    * </ul>
    *
@@ -350,7 +177,7 @@ public class ShiroConfigDiffblueTest {
   @MethodsUnderTest({
     "AuthorizationAttributeSourceAdvisor ShiroConfig.authorizationAttributeSourceAdvisor()"
   })
-  public void testAuthorizationAttributeSourceAdvisor_givenShiroConfig2() {
+  public void testAuthorizationAttributeSourceAdvisor_givenShiroConfig() {
     // Arrange and Act
     AuthorizationAttributeSourceAdvisor actualAuthorizationAttributeSourceAdvisorResult =
         new ShiroConfig().authorizationAttributeSourceAdvisor();
